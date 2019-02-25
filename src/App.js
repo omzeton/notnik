@@ -1,32 +1,18 @@
 import React, { Component } from 'react';
+import Menu from './components/Menu/Menu';
+import MainWritingArea from './containers/MainWritingArea/MainWritingArea';
 import './App.css';
 
 class App extends Component {
   state = {
-    noteBody: "",
-    noteTitle: ""
-  }
-
-  updateNoteText(noteText) {
-    this.setState({noteBody: noteText.target.value});
-  }
-
-  updateNoteTitle(noteTitle) {
-    this.setState({noteTitle: noteTitle.target.value});
   }
 
   render() {
+
     return (
       <div className="App">
-
-        <h1>Notnik</h1>
-
-        <input type="text" className="textTitle" value={this.state.noteTitle} onChange={noteTextTtitle => this.updateNoteTitle(noteTextTtitle)} />
-        {this.state.noteTitle}
-        <p className="textDate">date</p>
-        <input type="text" className="textBody" value={this.state.noteBody} onChange={noteTextTarget => this.updateNoteText(noteTextTarget)} />
-        <button >save</button>
-        {this.state.noteBody}
+          <Menu/>
+          <MainWritingArea />
       </div>
     );
   }
