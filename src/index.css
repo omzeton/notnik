@@ -6,6 +6,15 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  --bla1 : #222220;
+  --bla2 : #353531;
+  --bla3 : #2C2C2A;
+  --rd : #ec4e20;
+  --blu : #00A6ED;
+  --or : #ff9505;
+  --or2 : #FFB627;
+  --w : #f9f9f9;
+  --w2 : #B2B2B2;
 }
 
 code {

@@ -2,7 +2,56 @@
 	position: relative;
 	width:100%;
 	height: 100%;
+	background-color: var(--bla1);
 	display: grid;
-	grid-template-columns: 1fr;
-	grid-template-rows: 1fr repeat(3, 3em) 1fr;
+	grid-template-columns:1fr;
+	grid-template-rows:1fr repeat(3, 3em) 1fr;
+	grid-row-gap: 2em;
+}
+.Menu .button {
+	position: relative;
+	width: 100%;
+	height: 100%;
+	transition:.2s;
+	background-color:var(--bla2);
+	background-repeat: no-repeat;
+	background-size:40%;
+	background-position: 40% 50%;
+}
+
+.Menu .button:hover {
+	background-color:var(--bla3);
+}
+
+.Menu .button:after {
+	content:'';
+	position: absolute;
+	width:0.2em;
+	top:0;
+	height:100%;
+	left:calc(100% - 0.2em);
+}
+
+.Menu .button-list {
+	background-image: url('http://localhost:3000/assets/list.svg');
+}
+
+.Menu .button-list:after {
+	background-color: var(--rd);
+}
+
+.Menu .button-entry {
+	background-image: url('http://localhost:3000/assets/entry.svg');
+}
+
+.Menu .button-entry:after {
+	background-color: var(--or2);
+}
+
+.Menu .button-save {
+	background-image: url('http://localhost:3000/assets/save.svg');
+}
+
+.Menu .button-save:after {
+	background-color: var(--blu);
 }

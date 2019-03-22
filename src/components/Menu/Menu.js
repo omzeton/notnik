@@ -1,16 +1,16 @@
 import React from 'react';
-import HomeButton from '../HomeButton/HomeButton';
-import SaveButton from '../SaveButton/SaveButton';
-import SettingsButton from '../SettingsButton/SettingsButton';
+import { NavLink } from 'react-router-dom';
 import './Menu.css';
 
-const Menu = (props) => {
+const Menu = () => {
 	return (
 		<div className="Menu">
 			<div></div>
-			<HomeButton />
-			<SaveButton />
-			<SettingsButton />
+
+			<NavLink to="/" exact><div className={['button', 'button-list'].join(' ')}></div></NavLink>
+			<NavLink to="/entry" exact><div className={['button', 'button-entry'].join(' ')}></div></NavLink>
+			<div className={['button', 'button-save'].join(' ')}></div>
+			
 			<div></div>
 		</div>
 	);
