@@ -5,3 +5,29 @@
 	background-color:var(--bla3);
 	box-sizing: border-box;
 }
+.List__Start {
+	height: 5em;
+	width: 5em;
+	margin-top: 10em;
+	margin-left: 2em;
+	margin-bottom: 3em;
+}
+.Start--Buton {
+	width: 100%;
+	height: 100%;
+	background-color: var(--bla1);
+	border:none;
+	border-radius: 0.5em;
+	background-image:url('http://localhost:3000/assets/plus.svg');
+	background-size: 60%;
+	background-position: center;
+	background-repeat: no-repeat;
+	cursor: pointer;
+	outline: none;
+}
+.Start--Buton:hover {
+	background-color:var(--bla2);
+}
+.Start--Buton:focus {
+	background-color:var(--bla3);
+}

@@ -8,7 +8,7 @@ const Menu = () => {
 			<div></div>
 
 			<NavLink to="/" exact><div className={['button', 'button-list'].join(' ')}></div></NavLink>
-			<NavLink to="/entry" exact><div className={['button', 'button-entry'].join(' ')}></div></NavLink>
+			<NavLink to="/newEntry" exact><div className={['button', 'button-entry'].join(' ')}></div></NavLink>
 			<div className={['button', 'button-save'].join(' ')}></div>
 			
 			<div></div>

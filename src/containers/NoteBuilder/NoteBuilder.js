@@ -25,8 +25,6 @@ class NoteBuilder extends Component {
         });
 
         test = data[0].header;
-
-        console.log(data[0]);
     }
 
     return (

@@ -1,0 +1,41 @@
+.Entry {
+	position: relative;
+	width: 30em;
+	height: 10em;
+	background-color: orange;
+	margin:1em 2em;
+	border-radius: 0.5em;
+	overflow: hidden;
+	display: grid;
+	grid-template-columns: 10em 1fr;
+	grid-template-rows: 1fr;
+}
+
+.Entry__Img {
+	position: relative;
+	background-size: cover;
+	background-position: center;
+	background-repeat: no-repeat;
+}
+
+.Entry__Img:before {
+	content: '';
+	position: absolute;
+	width: 100%;
+	height: 100%;
+	top:0;
+	left:0;
+	background-color: #000;
+	mix-blend-mode: color;
+}
+
+.Entry__Img:after {
+	content: '';
+	position: absolute;
+	width: 100%;
+	height: 100%;
+	top:0;
+	left:0;
+	opacity: 0.3;
+	background-color: #000;
+}
