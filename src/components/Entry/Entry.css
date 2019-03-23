@@ -11,6 +11,14 @@
 	grid-template-rows: 1fr;
 }
 
+.Entry:hover {
+	background-color: blue;
+}
+
+.Entry:hover .Entry__Img:after {
+	opacity: 0.1;
+} 
+
 .Entry__Img {
 	position: relative;
 	background-size: cover;

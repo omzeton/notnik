@@ -4,3 +4,33 @@
 	height: 100%;
 	background-color:var(--bla2);
 }
+.NoteBody__Text {
+	width: 100%;
+	height: calc(100vh - 11em);
+	background-color:var(--bla2);
+	border:none;
+	box-sizing: border-box;
+	display: block;
+	color:#fff;
+	padding: 3em 2em;
+	text-align: justify;
+	line-height: 2em;
+	outline: none;
+	overflow-y: scroll;
+}
+
+.NoteBody__Text::-webkit-scrollbar {
+	height: 0.7em;
+	width: 0.7em;
+}
+
+
+.NoteBody__Text::-webkit-scrollbar-track {
+	background:var(--bla1);
+}
+.NoteBody__Text::-webkit-scrollbar-thumb {
+	background:var(--or2);
+}
+.NoteBody__Text::-webkit-scrollbar-thumb:hover {
+	background:var(--or);
+}

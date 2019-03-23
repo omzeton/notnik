@@ -1,4 +1,6 @@
 import React, { Component } from 'react';
+import Noresult from '../../components/Noresult/Noresult';
+import Loader from '../../components/Loader/Loader';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import * as actionCreators from '../../store/actions';
@@ -14,7 +16,7 @@ class List extends Component {
 
   render() {
 
-  	let entries = null;
+  	let entries = this.props.error ? <Noresult /> : <Loader />;
 
   	if ( this.props.import ) {
   		const object = this.props.import;
@@ -47,7 +49,8 @@ class List extends Component {
 
 const mapStateToProps = state => {
   return {
-      import: state.import
+      import: state.import,
+      error: state.error
   };
 };
 
