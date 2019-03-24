@@ -6,4 +6,5 @@
 	display: grid;
 	grid-template-columns: 1fr;
 	grid-template-rows: 11em 1fr;
+	overflow: hidden;
 }

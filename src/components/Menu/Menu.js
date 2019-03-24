@@ -1,14 +1,18 @@
 import React, { Component } from 'react';
 import { NavLink } from 'react-router-dom';
 import { connect } from 'react-redux';
+import * as actionCreators from '../../store/actions';
 import { withRouter } from 'react-router-dom';
 import './Menu.css';
 
 class Menu extends Component {
-
 	saveHandler = () => {
-		console.log(this.props.toExport);
 
+		let currentIndex = this.props.index;
+		this.props.onGetId(currentIndex);
+		let toExport = this.props.toExport;
+		toExport.id = currentIndex;
+		console.log(toExport);
 		// axios.post('https://notnik-app.firebaseio.com/notes.json', newProperty, axiosConfig)
 		// 	.then(response => {
 		// 		console.log('Stage 2 : Posting the form');
@@ -53,8 +57,14 @@ class Menu extends Component {
 const mapStateToProps = state => {
   return {
       index: state.currentIndex,
-      toExport: state.toExport
+      toExport: state.export
   };
 };
 
-export default withRouter(connect(mapStateToProps, null)(Menu));
+const mapDispatchToProps = dispatch => {
+	return {
+		onGetId: (cargo) => dispatch(actionCreators.getId(cargo))
+	};
+};
+
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(Menu));

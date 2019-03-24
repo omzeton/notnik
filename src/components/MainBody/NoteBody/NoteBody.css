@@ -11,15 +11,14 @@
 	border:none;
 	box-sizing: border-box;
 	display: block;
-	color:#fff;
+	color: var(--w);
 	padding: 3em 2em;
 	text-align: justify;
 	line-height: 2em;
 	outline: none;
 	overflow-y: scroll;
 	font-family: 'Montserrat', sans-serif;
-	font-size: 0.9em;
-	color: var(--w);
+	font-size: 0.9rem;
 }
 
 .NoteBody__Text::-webkit-scrollbar {

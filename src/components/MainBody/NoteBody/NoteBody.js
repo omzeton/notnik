@@ -13,7 +13,8 @@ class NoteBody extends Component {
   
   handleChange = evt => {
       this.setState({ textBody: evt.target.value });
-      this.props.onGetNewTextBody(this.state.textBody);
+      this.props.onGetNewTextBody(evt.target.value);
+  	  // console.log(evt.target.value);
     };
 
   render() {
@@ -30,16 +31,10 @@ class NoteBody extends Component {
   }
 }
 
-const mapStateToProps = state => {
-	return {
-		textBody: state.export.textBody
-	}
-}
-
 const mapDispatchToProps = dispatch => {
   return {
     onGetNewTextBody: (cargo) => dispatch(actionCreators.getNewTextBody(cargo))
 	}
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(NoteBody);
+export default connect(null, mapDispatchToProps)(NoteBody);

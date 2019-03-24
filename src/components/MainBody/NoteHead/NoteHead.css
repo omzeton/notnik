@@ -29,12 +29,14 @@
 	z-index: 9999;
 }
 
-.NoteHead .NoteHead__Info h2 {
+.NoteHead .NoteHead__Info .Title {
 	font-family: 'Baloo', cursive;
 	font-size: 3.5em;
 	line-height: 0em;
 	color: var(--w);
+	margin-top:0.9em;
 	margin-bottom: 0.6em;
+	outline: none;
 }
 
 .NoteHead .NoteHead__Info .Date__Container {
