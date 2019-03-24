@@ -1,6 +1,9 @@
 import React, { Component } from 'react';
 import ContentEditable from 'react-contenteditable';
 
+import { connect } from 'react-redux';
+import * as actionCreators from '../../../store/actions';
+
 import './NoteBody.css';
 
 class NoteBody extends Component {
@@ -10,6 +13,7 @@ class NoteBody extends Component {
   
   handleChange = evt => {
       this.setState({ textBody: evt.target.value });
+      this.props.onGetNewTextBody(this.state.textBody);
     };
 
   render() {
@@ -26,4 +30,16 @@ class NoteBody extends Component {
   }
 }
 
-export default NoteBody;
+const mapStateToProps = state => {
+	return {
+		textBody: state.export.textBody
+	}
+}
+
+const mapDispatchToProps = dispatch => {
+  return {
+    onGetNewTextBody: (cargo) => dispatch(actionCreators.getNewTextBody(cargo))
+	}
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(NoteBody);

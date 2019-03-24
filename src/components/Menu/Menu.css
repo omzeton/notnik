@@ -17,6 +17,7 @@
 	background-repeat: no-repeat;
 	background-size:40%;
 	background-position: 40% 50%;
+	cursor: pointer;
 }
 
 .Menu .button:hover {
@@ -54,4 +55,9 @@
 
 .Menu .button-save:after {
 	background-color: var(--blu);
+}
+
+.disable {
+	opacity: 0.3 !important;
+	pointer-events: none;
 }

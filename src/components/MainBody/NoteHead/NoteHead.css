@@ -37,15 +37,34 @@
 	margin-bottom: 0.6em;
 }
 
+.NoteHead .NoteHead__Info .Date__Container {
+	display: flex;
+	flex-direction: row;
+	position: relative;
+	top:0.5em;
+	overflow: hidden;
+}
+
+.NoteHead .NoteHead__Info .Date {
+	font-family: 'Montserrat', sans-serif;
+	line-height: 1em;
+	font-size: 0.8em;
+	color: var(--or2);
+	outline: none;
+}
+
+.NoteHead .NoteHead__Info .Date__Container .Separation {
+	position: relative;
+	padding:0 0.1em;
+	top:-0.4em;
+}
+
 .NoteHead .NoteHead__Info p {
 	font-family: 'Montserrat', sans-serif;
 	line-height: 0.3em;
 	font-size: 0.8em;
 	color: var(--or);
-}
-
-.NoteHead .NoteHead__Info p span {
-	color: var(--w2)
+	opacity: 0.6;
 }
 
 .NoteHead__Info--BgimgBtn {

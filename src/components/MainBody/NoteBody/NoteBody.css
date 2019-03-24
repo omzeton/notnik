@@ -17,6 +17,9 @@
 	line-height: 2em;
 	outline: none;
 	overflow-y: scroll;
+	font-family: 'Montserrat', sans-serif;
+	font-size: 0.9em;
+	color: var(--w);
 }
 
 .NoteBody__Text::-webkit-scrollbar {

@@ -3,15 +3,15 @@ import * as actionTypes from './actions';
 const initialState = {
 	import: null,
 	export: {
-      year: '',
-      month: '',
-      day: '',
-      hour: '',
-      textBody: '',
-      img: ''
+      year: 'xx',
+      month: 'xx',
+      day: 'xx',
+      hour: 'xx:xx',
+      textBody: 'xx',
+      img: 'xx'
     },
     error: false,
-    currentIndex: null
+    currentIndex: null,
 }
 
 const reducer = (state = initialState, action) => {
@@ -33,6 +33,15 @@ const reducer = (state = initialState, action) => {
 			return {
 				...state,
 				currentIndex: action.payLoad
+			}
+		}
+		case actionTypes.GET_NEW_TEXT_BODY: {
+			return {
+				...state,
+				export: {
+					...state.export,
+					textBody: action.payLoad
+				}
 			}
 		}
 		default: {
