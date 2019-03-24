@@ -4,7 +4,7 @@ import NoteBuilder from '../NoteBuilder/NoteBuilder';
 import List from '../List/List';
 import FullEntry from '../../components/FullEntry/FullEntry';
 
-import { Route, Switch } from 'react-router-dom';
+import { Route, Switch, Redirect } from 'react-router-dom';
 
 import './Notnik.css';
 
@@ -17,6 +17,7 @@ class Notnik extends Component {
           	 <Route path="/" exact component={List}></Route>
           	 <Route path="/newEntry" exact component={NoteBuilder}></Route>
              <Route path="/entry/:id" component={FullEntry}></Route>
+             <Route render={() => <Redirect to="/" />}/>
           </Switch>
       </div>
     );

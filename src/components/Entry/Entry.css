@@ -2,17 +2,23 @@
 	position: relative;
 	width: 30em;
 	height: 10em;
-	background-color: orange;
+	background-color: var(--bla1);
 	margin:1em 2em;
 	border-radius: 0.5em;
 	overflow: hidden;
 	display: grid;
 	grid-template-columns: 10em 1fr;
 	grid-template-rows: 1fr;
+	transition: all 0.2s linear;
+}
+
+.Entry *:hover, .Entry *:visited, .Entry *:link, .Entry *:active, {
+	text-decoration: none;
 }
 
 .Entry:hover {
-	background-color: blue;
+	transform:translateX(0.5em);
+	background-color: var(--bla2);
 }
 
 .Entry:hover .Entry__Img:after {
@@ -46,4 +52,38 @@
 	left:0;
 	opacity: 0.3;
 	background-color: #000;
+	transition: 0.2s linear;
+}
+
+.Entry__Info {
+	text-decoration: none;
+	color:var(--w);
+	padding:0.5em 1em;
+	display: flex;
+	justify-content: center;
+	flex-direction: column;
+}
+
+.Entry__Info h2 {
+	font-family: 'Baloo', cursive;
+	font-size: 1.2em;
+	line-height: 0em;
+	outline: none;
+}
+
+.Entry__Info h3 {
+	font-family: 'Montserrat', sans-serif;
+	line-height: 1em;
+	font-size: 0.7em;
+	color: var(--w2);
+	outline: none;
+}
+
+.Entry__Info h4 {
+	font-family: 'Montserrat', sans-serif;
+	line-height: 1em;
+	font-size: 0.7em;
+	color: var(--w1);
+	width:23em;
+	outline: none;
 }

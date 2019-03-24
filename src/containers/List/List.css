@@ -3,6 +3,10 @@
 	width: 100%;
 	height: 100%;
 	background-color:var(--bla3);
+	background-image: url(http://localhost:3000/assets/bg/christmas-dark.png);
+	background-repeat: repeat;
+	background-size: 15em; /* reindeers 15em = tic-tac-toe 20em*/
+	background-position: auto;
 	box-sizing: border-box;
 }
 .List__Start {

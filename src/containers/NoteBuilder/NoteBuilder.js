@@ -1,4 +1,6 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import * as actionCreators from '../../store/actions';
 import NoteBody from '../../components/MainBody/NoteBody/NoteBody';
 import NoteHead from '../../components/MainBody/NoteHead/NoteHead';
 
@@ -7,36 +9,52 @@ import './NoteBuilder.css';
 class NoteBuilder extends Component {
 
   state = {
-    header: 'Title',
-    year: '-',
-    month: '-',
-    day: '-',
-    hour: '-',
-    id: 'randomId',
-    img: 'notreally.png',
-    text: 'start writing!'
+    id: null
   }
-  // Get current date!
+
+  getRandomId() {
+    let id = Math.floor( Math.random() * 1000000 );
+    this.props.onSetIndex(id);
+    return id;
+  }
+
 
   render() {
-    let date = new Date();
-    console.log(`Day: ${date.getDate()}`);
-    console.log(`Month: ${date.getMonth() + 1}`);
-    console.log(`Year: ${date.getFullYear()}`);
-    console.log(`Hour: ${date.getHours()}:${date.getMinutes()}`);
+    let date = new Date(),
+        year = date.getFullYear(),
+        month = date.getMonth() + 1,
+        day = date.getDate(),
+        hour = date.getHours(),
+        header = "title",
+        id = this.getRandomId(),
+        text = "Tell me about it...",
+        img = "test.png";
+    hour += ":";
+    hour += date.getMinutes();
+
+    // if (month < 9) {
+    //   month.unshift("0");
+    // }
+
     return (
       <div className="NoteBuilder">
-          <NoteHead header={this.state.header}
-                    year={this.state.year}
-                    month={this.state.month}
-                    day={this.state.day}
-                    hour={this.state.hour}
-                    id={this.state.id}
-                    img={this.state.img}/>
-          <NoteBody text={this.state.text}/>
+          <NoteHead header={header}
+                    year={year}
+                    month={month}
+                    day={day}
+                    hour={hour}
+                    id={id}
+                    img={img}/>
+          <NoteBody text={text}/>
       </div>
     );
   }
 }
 
-export default NoteBuilder;
+const mapDispatchToProps = dispatch => {
+  return {
+    onSetIndex: (index) => dispatch(actionCreators.setIndex(index))
+  };
+};
+
+export default connect(null, mapDispatchToProps)(NoteBuilder);

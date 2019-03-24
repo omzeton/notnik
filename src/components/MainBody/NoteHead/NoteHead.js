@@ -9,12 +9,13 @@ class NoteHead extends Component {
 	state = {
 		selectedFile: null,
 		selectedFileName: '',
-		title: this.props.header,
+		header: this.props.header,
 		year: this.props.year,
 		month: this.props.month,
 		day: this.props.day,
 		hour: this.props.hour
 	}
+
 
 	handleYearChange = evt => {
 	    this.setState({ year: evt.target.value });
@@ -36,9 +37,9 @@ class NoteHead extends Component {
 	    this.props.onGetNewHour(evt.target.value);
 	}
 
-	handleTitleChange = evt => {
-		this.setState({ title: evt.target.value });
-		this.props.onGetNewTitle(evt.target.value);
+	handleHeaderChange = evt => {
+		this.setState({ header: evt.target.value });
+		this.props.onGetNewHeader(evt.target.value);
 	}
 
 	imgHandler = (e) => {
@@ -52,7 +53,7 @@ class NoteHead extends Component {
 	return (
 	  <div className="NoteHead" style={{backgroundImage: 'url(' + this.props.img + ')'}}>
 	  	<div className="NoteHead__Info">
-	  		<ContentEditable className="Title" onChange={this.handleTitleChange} html={this.state.title}></ContentEditable>
+	  		<ContentEditable className="Header" onChange={this.handleHeaderChange} html={this.state.header}></ContentEditable>
 	  		<div className="Date__Container">
 	  			<ContentEditable className="Date" onChange={this.handleYearChange} html={this.state.year}></ContentEditable> <div className="Separation">-</div> <ContentEditable className="Date" onChange={this.handleMonthChange} html={this.state.month}></ContentEditable> <div className="Separation">-</div> <ContentEditable className="Date" onChange={this.handleDayChange} html={this.state.day}></ContentEditable> <div className="Separation">-</div> <ContentEditable className="Date" onChange={this.handleHourChange} html={this.state.hour}></ContentEditable>
 	  		</div>
@@ -70,7 +71,7 @@ const mapDispatchToProps = dispatch => {
     onGetNewMonth: (cargo) => dispatch(actionCreators.getNewMonth(cargo)),
     onGetNewDay: (cargo) => dispatch(actionCreators.getNewDay(cargo)),
     onGetNewHour: (cargo) => dispatch(actionCreators.getNewHour(cargo)),
-    onGetNewTitle: (cargo) => dispatch(actionCreators.getNewTitle(cargo))
+    onGetNewHeader: (cargo) => dispatch(actionCreators.getNewHeader(cargo))
 	}
 };
 

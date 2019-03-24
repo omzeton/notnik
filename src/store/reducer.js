@@ -3,7 +3,7 @@ import * as actionTypes from './actions';
 const initialState = {
 	import: null,
 	export: {
-	  title: undefined,
+	  header: undefined,
       year: undefined,
       month: undefined,
       day: undefined,
@@ -91,12 +91,12 @@ const reducer = (state = initialState, action) => {
 				}
 			}
 		}
-		case actionTypes.GET_NEW_TITLE: {
+		case actionTypes.GET_NEW_HEADER: {
 			return {
 				...state,
 				export: {
 					...state.export,
-					title: action.payLoad
+					header: action.payLoad
 				}
 			}
 		}

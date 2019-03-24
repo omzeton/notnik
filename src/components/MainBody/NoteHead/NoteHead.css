@@ -29,7 +29,7 @@
 	z-index: 9999;
 }
 
-.NoteHead .NoteHead__Info .Title {
+.NoteHead .NoteHead__Info .Header {
 	font-family: 'Baloo', cursive;
 	font-size: 3.5em;
 	line-height: 0em;
