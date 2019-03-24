@@ -1,6 +1,7 @@
 import axios from 'axios';
 export const SET_SAMPLES = 'SET_SAMPLES';
 export const FETCH_SAMPLES_FAILED = 'FETCH_SAMPLES_FAILED';
+export const SET_INDEX = 'SET_INDEX';
 
 
 export const setSamples = (samples) => {
@@ -27,3 +28,10 @@ export const fetchSamples = () => {
 			});
 	};
 };
+
+export const setIndex = (index) => {
+	return {
+		type: SET_INDEX,
+		payLoad: index
+	}
+}

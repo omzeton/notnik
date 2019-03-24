@@ -10,7 +10,8 @@ const initialState = {
       textBody: '',
       img: ''
     },
-    error: false
+    error: false,
+    currentIndex: null
 }
 
 const reducer = (state = initialState, action) => {
@@ -28,8 +29,14 @@ const reducer = (state = initialState, action) => {
 				error: true
 			};
 		}
+		case actionTypes.SET_INDEX: {
+			return {
+				...state,
+				currentIndex: action.payLoad
+			}
+		}
 		default: {
-			return state;
+			return state
 		}
 	}
 }
