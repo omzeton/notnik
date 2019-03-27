@@ -30,7 +30,7 @@ class List extends Component {
         if (entries.length > 4) {
           return (<Link to={'/entry/' + result.id} key={result.id}><Entry 
           header={result.header} 
-          year={result.year} 
+          year={result.year}
           month={result.month} 
           day={result.day}
           text={result.textBody}
