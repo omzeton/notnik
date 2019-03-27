@@ -12,7 +12,8 @@ class NoteHead extends Component {
 		month: this.props.month,
 		day: this.props.day,
 		hour: this.props.hour,
-		img: this.props.img
+		img: this.props.img,
+		previewImg: this.props.img
 	}
 
 
@@ -43,20 +44,31 @@ class NoteHead extends Component {
 
 	imgHandler = (e) => {
 		const files = e.target.files[0];
+		this.setState({ img: files });
 		
 		const fileReader = new FileReader();
 		fileReader.addEventListener('load', () => {
-			this.setState({ img: fileReader.result });
+			this.setState({ previewImg: fileReader.result });
 		});
 		fileReader.readAsDataURL(files);
-		console.log(files);
 		this.props.onGetImg(files);
+	}
+
+	initExport = () => {
+		this.props.onGetNewYear(this.state.year);
+		this.props.onGetNewMonth(this.state.month);
+		this.props.onGetNewDay(this.state.day);
+		this.props.onGetNewHour(this.state.hour);
+		this.props.onGetNewHeader(this.state.header);
+		this.props.onGetImg(this.state.img);
 	}
 
 	render() {
 
+		this.initExport();
+
 	return (
-	  <div className="NoteHead" style={{backgroundImage: 'url(' + this.state.img + ')'}}>
+	  <div className="NoteHead" style={{backgroundImage: 'url(' + this.state.previewImg + ')'}}>
 	  	<div className="NoteHead__Info">
 	  		<ContentEditable className="Header" onChange={this.handleHeaderChange} html={this.state.header}></ContentEditable>
 	  		<div className="Date__Container">

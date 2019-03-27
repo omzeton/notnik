@@ -26,13 +26,26 @@ class List extends Component {
   		});
 
   		entries = arr.map(result => {
-  			return (<Link to={'/entry/' + result.id} key={result.id}><Entry 
-  				header={result.header} 
-  				year={result.year} 
-  				month={result.month} 
-  				day={result.day}
-  				text={result.textBody}
-  				img={result.img}/></Link>);
+
+        if (entries.length > 4) {
+          return (<Link to={'/entry/' + result.id} key={result.id}><Entry 
+          header={result.header} 
+          year={result.year} 
+          month={result.month} 
+          day={result.day}
+          text={result.textBody}
+          img={result.img}/></Link>);
+        } else {
+          return (<Link to={'/entry/' + result.id} key={result.id}><Entry 
+          header={result.header} 
+          year={result.year} 
+          month={result.month} 
+          day={result.day}
+          text={result.textBody}
+          img={result.img}/></Link>);
+        }
+
+  			
   		});
   	}
 
@@ -41,7 +54,9 @@ class List extends Component {
       	  <div className="List__Start">
       	  	 <Link to={'/newEntry'}><button className="Start--Buton" type="submit"></button></Link>
       	  </div>
-          { entries }
+          <div className="List__Entries">
+            { entries }
+          </div>
       </div>
     );
   }

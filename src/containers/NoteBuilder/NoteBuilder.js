@@ -29,7 +29,7 @@ class NoteBuilder extends Component {
         header = "...",
         id = this.getRandomId(),
         text = "Tell me about it...",
-        img = "test.png"; // could be some dummy background image!
+        img = "no-img"; // could be some dummy background image!
     if ( hour < 9 ) {
       hour = '0' + hour;
     }
@@ -53,6 +53,7 @@ class NoteBuilder extends Component {
 
     return (
       <div className="NoteBuilder">
+        <div>
           <NoteHead header={header}
                     year={year}
                     month={month}
@@ -61,6 +62,8 @@ class NoteBuilder extends Component {
                     id={id}
                     img={img}/>
           <NoteBody text={text}/>
+        </div>
+          
       </div>
     );
   }

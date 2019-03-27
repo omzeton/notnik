@@ -16,8 +16,9 @@ class Objectives extends Component {
 					<div className="show">
 						<div className="Objectives--toggle" onClick={this.toggleModal}></div>
 						<ul>
-							<li>"Error: Reference.update failed: First argument contains undefined in property" problem z pozyskaniem URL z pliku</li>
-							<li>Gdy piszemy nowy wpis nie może pozyskiwać danych z docelowej wartości, czyli z sampla bo jeszcze go nie ma!</li>
+							<li>Fix annoying scrollbars</li>
+							<li className="finished">"Error: Reference.update failed: First argument contains undefined in property" problem z pozyskaniem URL z pliku</li>
+							<li className="finished">Gdy piszemy nowy wpis nie może pozyskiwać danych z docelowej wartości, czyli z sampla bo jeszcze go nie ma!</li>
 							<li>Replace data from entry with the same id when hitting save.</li>
 							<li className="finished">Move uploaded images to note-img folder in Firebase.</li>
 							<li className="finished">Avoid name duplicates by assigning them id.</li>

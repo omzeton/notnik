@@ -18,6 +18,9 @@ class NoteBody extends Component {
     };
 
   render() {
+
+    this.props.onGetNewTextBody(this.state.textBody);
+
     return (
       <div className="NoteBody">
 	      	<ContentEditable
