@@ -7,13 +7,12 @@ import './NoteHead.css';
 class NoteHead extends Component {
 
 	state = {
-		selectedFile: null,
-		selectedFileName: '',
 		header: this.props.header,
 		year: this.props.year,
 		month: this.props.month,
 		day: this.props.day,
-		hour: this.props.hour
+		hour: this.props.hour,
+		img: this.props.img
 	}
 
 
@@ -43,15 +42,21 @@ class NoteHead extends Component {
 	}
 
 	imgHandler = (e) => {
-		this.setState({selectedFile: e.target.files[0], selectedFileName: e.target.files[0].name});
-
-		console.log(e.target.files[0].name);
+		const files = e.target.files[0];
+		
+		const fileReader = new FileReader();
+		fileReader.addEventListener('load', () => {
+			this.setState({ img: fileReader.result });
+		});
+		fileReader.readAsDataURL(files);
+		console.log(files);
+		this.props.onGetImg(files);
 	}
 
 	render() {
 
 	return (
-	  <div className="NoteHead" style={{backgroundImage: 'url(' + this.props.img + ')'}}>
+	  <div className="NoteHead" style={{backgroundImage: 'url(' + this.state.img + ')'}}>
 	  	<div className="NoteHead__Info">
 	  		<ContentEditable className="Header" onChange={this.handleHeaderChange} html={this.state.header}></ContentEditable>
 	  		<div className="Date__Container">
@@ -71,7 +76,8 @@ const mapDispatchToProps = dispatch => {
     onGetNewMonth: (cargo) => dispatch(actionCreators.getNewMonth(cargo)),
     onGetNewDay: (cargo) => dispatch(actionCreators.getNewDay(cargo)),
     onGetNewHour: (cargo) => dispatch(actionCreators.getNewHour(cargo)),
-    onGetNewHeader: (cargo) => dispatch(actionCreators.getNewHeader(cargo))
+    onGetNewHeader: (cargo) => dispatch(actionCreators.getNewHeader(cargo)),
+    onGetImg: (cargo) => dispatch(actionCreators.getImg(cargo))
 	}
 };
 

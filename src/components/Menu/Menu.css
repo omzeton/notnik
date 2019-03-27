@@ -34,7 +34,7 @@
 }
 
 .Menu .button-list {
-	background-image: url('http://localhost:3000/assets/list.svg');
+	background-image: url('https://firebasestorage.googleapis.com/v0/b/notnik-app.appspot.com/o/assets%2Flist.svg?alt=media&token=24fea949-42d0-4476-8e2e-be5e30dc5f7a');
 }
 
 .Menu .button-list:after {
@@ -42,7 +42,7 @@
 }
 
 .Menu .button-entry {
-	background-image: url('http://localhost:3000/assets/entry.svg');
+	background-image: url('https://firebasestorage.googleapis.com/v0/b/notnik-app.appspot.com/o/assets%2Fentry.svg?alt=media&token=51d9a515-d3d6-474a-924c-7c53b8318633');
 }
 
 .Menu .button-entry:after {
@@ -50,7 +50,7 @@
 }
 
 .Menu .button-save {
-	background-image: url('http://localhost:3000/assets/save.svg');
+	background-image: url('https://firebasestorage.googleapis.com/v0/b/notnik-app.appspot.com/o/assets%2Fsave.svg?alt=media&token=db7f0055-7d75-4966-baaf-7ca8fab3595a');
 }
 
 .Menu .button-save:after {

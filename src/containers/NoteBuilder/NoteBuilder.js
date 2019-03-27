@@ -25,16 +25,31 @@ class NoteBuilder extends Component {
         month = date.getMonth() + 1,
         day = date.getDate(),
         hour = date.getHours(),
-        header = "title",
+        minute = date.getMinutes(),
+        header = "...",
         id = this.getRandomId(),
         text = "Tell me about it...",
-        img = "test.png";
+        img = "test.png"; // could be some dummy background image!
+    if ( hour < 9 ) {
+      hour = '0' + hour;
+    }
     hour += ":";
-    hour += date.getMinutes();
+    if ( minute < 9 ) {
+      minute = '0' + minute;
+    }
+    hour += minute;
 
-    // if (month < 9) {
-    //   month.unshift("0");
-    // }
+    year = year.toString();
+    month = month.toString();
+    day = day.toString();
+    hour = hour.toString();
+    header = header.toString();
+    id = id.toString();
+
+    if (month < 9) {
+      month = '0' + month;
+    }
+
 
     return (
       <div className="NoteBuilder">

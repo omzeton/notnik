@@ -1,16 +1,31 @@
 import React, { Component } from 'react';
 import { NavLink } from 'react-router-dom';
 import { connect } from 'react-redux';
-import axios from 'axios';
 import * as actionCreators from '../../store/actions';
 import { withRouter } from 'react-router-dom';
+
+import firebase from '@firebase/app';
+import { storage } from '@firebase/storage';
+import { database } from '@firebase/database';
 import './Menu.css';
+
+const config = {
+	apiKey: "AIzaSyCVggrVx3OPHRM6sJim1dqa9lWYNnM704A",
+	    authDomain: "notnik-app.firebaseapp.com",
+	    databaseURL: "https://notnik-app.firebaseio.com",
+	    projectId: "notnik-app",
+	    storageBucket: "notnik-app.appspot.com",
+	    messagingSenderId: "813392804298"
+	  };
+firebase.initializeApp(config);
+const firebaseStorage = firebase.storage();
+
 
 class Menu extends Component {
 	saveHandler = () => {
 
 		let currentIndex = this.props.index;
-		let crtEntry = null;
+		let crtEntry;
 		this.props.onGetId(currentIndex);
 		let toExport = this.props.toExport;
 		toExport.id = currentIndex;
@@ -20,13 +35,6 @@ class Menu extends Component {
 		let data = Object.keys(arr).map(key => {
 			return arr[key];
 		});
-
-		let axiosConfig = {
-			headers: {
-				'Content-Type': 'application/json;charset=UTF-8',
-				"Access-Control-Allow-Origin": "*",
-			}
-		}
 
 		data.map(el => {
 		// eslint-disable-next-line
@@ -44,13 +52,31 @@ class Menu extends Component {
 		copy.month = toExport.month ? toExport.month : crtEntry.month;
 		copy.textBody = toExport.textBody ? toExport.textBody : crtEntry.textBody;
 		copy.year = toExport.year ? toExport.year : crtEntry.year;
-		copy.img = crtEntry.img;
+		copy.img = toExport.img ? toExport.img : crtEntry.img;
 
-		console.log(copy);
-		axios.post('https://notnik-app.firebaseio.com/notes.json', copy, axiosConfig)
-			.then(response => {
-				console.log(response);
-			}).catch(error => {
+		// The problem here is that when there is no sample from databse to work with
+		// There is nothing to assign the new value from
+		// Becasue it doesnt exist when creating new entry
+
+		// copy
+		let imageUrl;
+		let key;
+		firebase.database().ref('notes').push(copy)
+			.then((data) => {
+				key = data.key
+				return key
+			})
+			.then(key => {
+				const filename = copy.img.name
+				const ext = filename.slice(filename.lastIndexOf('.'))
+				return firebase.storage().ref('note-img/' + key + '.' + ext).put(copy.img)
+			})
+			.then(fileData => {
+				imageUrl = fileData.metadata.downloadURLs
+				return firebase.database().ref('notes').child(key).update({img: imageUrl})
+				console.log(imageUrl)
+			})
+			.catch((error) => {
 				console.log(error);
 			});
 	}

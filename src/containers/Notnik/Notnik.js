@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import Menu from '../../components/Menu/Menu';
 import NoteBuilder from '../NoteBuilder/NoteBuilder';
+import Objectives from '../../components/Objectives/Objectives';
 import List from '../List/List';
 import FullEntry from '../../components/FullEntry/FullEntry';
 
@@ -19,6 +20,7 @@ class Notnik extends Component {
              <Route path="/entry/:id" component={FullEntry}></Route>
              <Route render={() => <Redirect to="/" />}/>
           </Switch>
+          <Objectives />
       </div>
     );
   }

@@ -9,6 +9,7 @@ export const GET_NEW_DAY = 'GET_NEW_DAY';
 export const GET_NEW_HOUR = 'GET_NEW_HOUR';
 export const GET_ID = 'GET_ID';
 export const GET_NEW_HEADER = 'GET_NEW_HEADER';
+export const GET_IMG = "GET_IMG";
 
 
 export const setSamples = (samples) => {
@@ -88,6 +89,13 @@ export const getId = (cargo) => {
 export const getNewHeader = (cargo) => {
 	return {
 		type: GET_NEW_HEADER,
+		payLoad: cargo
+	}
+}
+
+export const getImg = (cargo) => {
+	return {
+		type: GET_IMG,
 		payLoad: cargo
 	}
 }

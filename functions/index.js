@@ -58,3 +58,45 @@ exports.specifyURL = functions.storage.object().onFinalize(object => {
 // 1.1 -- GetURL of an img
 // 1.2 -- Rename that img to sth unique
 // 2.0 -- 
+
+exports.uploadFile = functions.https.onRequest((req, res) => {
+  cors(req, res, () => {
+    if (req.method !== "POST") {
+      return res.status(500).json({
+        message: "Not allowed"
+      });
+    }
+    const busboy = new Busboy({ headers: req.headers });
+    let uploadData = null;
+
+    busboy.on("file", (fieldname, file, filename, encoding, mimetype) => {
+      const filepath = path.join(os.tmpdir(), filename);
+      uploadData = { file: filepath, type: mimetype };
+      file.pipe(fs.createWriteStream(filepath));
+    });
+
+    busboy.on("finish", () => {
+      const bucket = storage.bucket("gs://notnik-app.appspot.com/note-img"); // this the destination folder
+      bucket
+        .upload(uploadData.file, {
+          uploadType: "media",
+          metadata: {
+            metadata: {
+              contentType: uploadData.type
+            }
+          }
+        })
+        .then(() => {
+          res.status(200).json({
+            message: "It worked!"
+          });
+        })
+        .catch(err => {
+          res.status(500).json({
+            error: err
+          });
+        });
+    });
+    busboy.end(req.rawBody);
+  });
+});

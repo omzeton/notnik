@@ -100,6 +100,15 @@ const reducer = (state = initialState, action) => {
 				}
 			}
 		}
+		case actionTypes.GET_IMG: {
+			return {
+				...state,
+				export: {
+					...state.export,
+					img: action.payLoad
+				}
+			}
+		}
 		default: {
 			return state
 		}

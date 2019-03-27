@@ -3,7 +3,7 @@
 	width: 100%;
 	height: 100%;
 	background-color:var(--bla3);
-	background-image: url(http://localhost:3000/assets/bg/christmas-dark.png);
+	background-image: url('https://firebasestorage.googleapis.com/v0/b/notnik-app.appspot.com/o/assets%2Fchristmas-dark.png?alt=media&token=366d39a3-46c2-4c9a-bed9-a141cc3a0cd8');
 	background-repeat: repeat;
 	background-size: 15em; /* reindeers 15em = tic-tac-toe 20em*/
 	background-position: auto;
@@ -22,7 +22,7 @@
 	background-color: var(--bla1);
 	border:none;
 	border-radius: 0.5em;
-	background-image:url('http://localhost:3000/assets/plus.svg');
+	background-image:url('https://firebasestorage.googleapis.com/v0/b/notnik-app.appspot.com/o/assets%2Fplus.svg?alt=media&token=9f984368-a62d-45ff-b2f1-a6dbc9dda784');
 	background-size: 60%;
 	background-position: center;
 	background-repeat: no-repeat;
