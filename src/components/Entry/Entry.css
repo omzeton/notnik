@@ -8,6 +8,7 @@
 	display: grid;
 	grid-template-columns: 10em 1fr;
 	grid-template-rows: 1fr;
+	box-shadow: 0 0 40px -20px rgba(255,255,255,0);
 	transition: all 0.2s linear;
 }
 
@@ -16,11 +17,16 @@
 }
 
 .Entry:hover {
-	transform:translateX(0.5em);
+	transform:translateX(0.2em);
 	background-color: var(--bla2);
+	box-shadow: 0 0 40px -20px rgba(255,255,255,0.5);
 }
 
 .Entry:hover .Entry__Img:after {
+	opacity: 0.1;
+} 
+
+.Entry:hover .Entry__Img:before {
 	opacity: 0.1;
 } 
 

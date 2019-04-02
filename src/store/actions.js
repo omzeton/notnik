@@ -8,6 +8,7 @@ export const GET_NEW_MONTH = 'GET_NEW_MONTH';
 export const GET_NEW_DAY = 'GET_NEW_DAY';
 export const GET_NEW_HOUR = 'GET_NEW_HOUR';
 export const GET_ID = 'GET_ID';
+export const GET_FKEY = "GET_FKEY";
 export const GET_NEW_HEADER = 'GET_NEW_HEADER';
 export const GET_IMG = "GET_IMG";
 
@@ -82,6 +83,13 @@ export const getNewHour = (cargo) => {
 export const getId = (cargo) => {
 	return {
 		type: GET_ID,
+		payLoad: cargo
+	}
+}
+
+export const getfKey = (cargo) => {
+	return {
+		type: GET_FKEY,
 		payLoad: cargo
 	}
 }

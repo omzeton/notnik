@@ -42,6 +42,7 @@ class FullEntry extends Component {
 										day={entry.day}
 										hour={entry.hour}
 										id={entry.id}
+										firebaseKey={entry.fKey}
 										img={entry.img} />
 									<NoteBody text={entry.textBody} />
 								</div>

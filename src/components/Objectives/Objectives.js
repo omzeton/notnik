@@ -16,12 +16,10 @@ class Objectives extends Component {
 					<div className="show">
 						<div className="Objectives--toggle" onClick={this.toggleModal}></div>
 						<ul>
-							<li>Fix annoying scrollbars</li>
-							<li className="finished">"Error: Reference.update failed: First argument contains undefined in property" problem z pozyskaniem URL z pliku</li>
-							<li className="finished">Gdy piszemy nowy wpis nie może pozyskiwać danych z docelowej wartości, czyli z sampla bo jeszcze go nie ma!</li>
-							<li>Replace data from entry with the same id when hitting save.</li>
-							<li className="finished">Move uploaded images to note-img folder in Firebase.</li>
-							<li className="finished">Avoid name duplicates by assigning them id.</li>
+							<li>Double click on newEntry's save creates entries with new Id</li>
+							<li>Display all entries in columns with 4 entries in each one.</li>
+							<li>Push edited entry and replace the old one.</li>
+							<li>Delete entries</li>
 						</ul>
 					</div>
 				</div>

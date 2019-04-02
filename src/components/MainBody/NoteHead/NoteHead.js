@@ -13,6 +13,7 @@ class NoteHead extends Component {
 		day: this.props.day,
 		hour: this.props.hour,
 		img: this.props.img,
+		fKey: this.props.firebaseKey,
 		previewImg: this.props.img
 	}
 
@@ -61,10 +62,12 @@ class NoteHead extends Component {
 		this.props.onGetNewHour(this.state.hour);
 		this.props.onGetNewHeader(this.state.header);
 		this.props.onGetImg(this.state.img);
+		this.props.onSetFKey(this.state.fKey);
 	}
 
 	render() {
 
+		// It's not good that it renders like that every time :(
 		this.initExport();
 
 	return (
@@ -89,7 +92,8 @@ const mapDispatchToProps = dispatch => {
     onGetNewDay: (cargo) => dispatch(actionCreators.getNewDay(cargo)),
     onGetNewHour: (cargo) => dispatch(actionCreators.getNewHour(cargo)),
     onGetNewHeader: (cargo) => dispatch(actionCreators.getNewHeader(cargo)),
-    onGetImg: (cargo) => dispatch(actionCreators.getImg(cargo))
+    onGetImg: (cargo) => dispatch(actionCreators.getImg(cargo)),
+    onSetFKey: (cargo) => dispatch(actionCreators.getfKey(cargo))
 	}
 };
 

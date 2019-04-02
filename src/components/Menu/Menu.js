@@ -59,32 +59,42 @@ class Menu extends Component {
 			copy.textBody = toExport.textBody ? toExport.textBody : crtEntry.textBody;
 			copy.year = toExport.year ? toExport.year : crtEntry.year;
 			copy.img = toExport.img ? toExport.img : crtEntry.img;
-			
 		}
 				// copy
 				let imageUrl;
 				let key;
-				firebase.database().ref('notes').push(copy)
-					.then((data) => {
-						key = data.key
-						return key
-					})
-					.then(key => {
-						const filename = copy.img.name
-						const ext = filename.slice(filename.lastIndexOf('.'))
-						return firebase.storage().ref('note-img/' + key + '.' + ext).put(copy.img)
-					})
-					.then(fileData => {
-						imageUrl = firebase.storage().ref(fileData.metadata.fullPath).getDownloadURL()
-						return imageUrl
-					})
-					.then(url => {
-						return firebase.database().ref('notes').child(key).update({img: url})
-					})
-					.catch((error) => {
-						console.log(error);
-					});
-		
+				let newFirebaseKey;	
+				// eslint-disable-next-line
+				if ( this.props.location.pathname == '/newEntry' ) {
+					console.log('Creating a new entry...');
+					// Creates new entry
+					firebase.database().ref('notes').push(copy)
+						.then((data) => {
+							key = data.key
+							newFirebaseKey = data.key
+							return key
+						})
+						.then(key => {
+							const filename = copy.img.name
+							const ext = filename.slice(filename.lastIndexOf('.'))
+							return firebase.storage().ref('note-img/' + key + '.' + ext).put(copy.img)
+						})
+						.then(fileData => {
+							imageUrl = firebase.storage().ref(fileData.metadata.fullPath).getDownloadURL()
+							return imageUrl
+						})
+						.then(url => {
+							console.log("Note created! <3");
+							return firebase.database().ref('notes').child(key).update({img: url, fKey: newFirebaseKey})
+						})
+						.catch((error) => {
+							console.log(error);
+						});
+				} else {
+					console.log('Note edited! <3');
+					// Edits existing entry
+					firebase.database().ref('notes').child(copy.fKey).update(copy);
+				}	
 	}
 
 	render() {

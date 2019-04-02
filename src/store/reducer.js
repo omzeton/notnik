@@ -10,7 +10,8 @@ const initialState = {
       hour: undefined,
       textBody: undefined,
       img: undefined,
-      id: undefined
+      id: undefined,
+      fKey: undefined
     },
     error: false,
     currentIndex: null,
@@ -88,6 +89,15 @@ const reducer = (state = initialState, action) => {
 				export: {
 					...state.export,
 					id: action.payLoad
+				}
+			}
+		}
+		case actionTypes.GET_FKEY: {
+			return {
+				...state,
+				export: {
+					...state.export,
+					fKey: action.payLoad
 				}
 			}
 		}

@@ -30,13 +30,17 @@ class NoteBuilder extends Component {
         id = this.getRandomId(),
         text = "Tell me about it...",
         img = "no-img"; // could be some dummy background image!
+    // Add 0 if hour is less than 9
     if ( hour < 9 ) {
       hour = '0' + hour;
     }
+    // Separator
     hour += ":";
+    // Add 0 if minute is less than 9
     if ( minute < 9 ) {
       minute = '0' + minute;
     }
+    // Combine hour, separator and minutes to one string
     hour += minute;
 
     year = year.toString();
@@ -46,6 +50,11 @@ class NoteBuilder extends Component {
     header = header.toString();
     id = id.toString();
 
+    // Add 0 if day is less than 9
+    if ( day < 9 ) {
+      day = '0' + day;
+    }
+    // Add 0 if month is less than 9
     if (month < 9) {
       month = '0' + month;
     }
@@ -60,6 +69,7 @@ class NoteBuilder extends Component {
                     day={day}
                     hour={hour}
                     id={id}
+                    firebaseKey={"to-be-assigned"}
                     img={img}/>
           <NoteBody text={text}/>
         </div>

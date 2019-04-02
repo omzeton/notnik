@@ -5,8 +5,15 @@ import './Entry.css';
 function Entry(props) {
 
   let orgText = props.text;
-  let previewText = orgText.slice(0, 75);
-  previewText += "...";
+  let previewText;
+  if(orgText.length > 75) {
+    previewText = orgText.slice(0, 75);
+    previewText += "...";
+  } else {
+    previewText = props.text;
+  }
+
+  console.log(props.text);
 
   return (
     <div className="Entry">
