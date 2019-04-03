@@ -57,20 +57,39 @@
 	background-color: var(--blu);
 }
 
-.button-save:before {
+.disable {
+	opacity: 0.3 !important;
+	pointer-events: none;
+}
+
+.confirm {
+	position: relative;
+}
+
+.confirm:before {
 	content:'';
 	position: absolute;
 	left:100%;
 	top:50%;
 	transform:translateY(-50%);
-	z-index: 99999;
-	width:0.3em;
-	height:1em;
-	opacity: 0;
-	background-color: #3FC577;
+	z-index:0;
+	width:0;
+	height:0;
+	opacity:0;
+	background-color: var(--blu);
+	box-shadow: 0 0 80px 40px var(--blu);
+	animation: confirm 1.5s ease-in-out infinite;
+	animation-fill-mode: forwards;
 }
 
-.disable {
-	opacity: 0.3 !important;
-	pointer-events: none;
+@keyframes confirm {
+	0% {
+		opacity: 0;
+	}
+	15% {
+		opacity: 0.8;
+	}
+	100% {
+		opacity: 0;
+	}
 }

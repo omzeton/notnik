@@ -59,6 +59,7 @@
 .List__Entries::-webkit-scrollbar {
 	height: 0.7em;
 	width: 0.7em;
+	cursor: e-resize;
 }
 
 .List__Entries::-webkit-scrollbar-track {
@@ -69,4 +70,13 @@
 }
 .List__Entries::-webkit-scrollbar-thumb:hover {
 	background:var(--bla3);
+}
+
+.copy {
+	top:50%;
+	transform:rotateZ(-90deg) translateY(-50%);
+	right:-8em;
+	position: absolute;
+	font-size: 0.5em;
+	color: var(--w);
 }

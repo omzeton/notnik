@@ -60,6 +60,7 @@ class Menu extends Component {
 			copy.year = toExport.year ? toExport.year : crtEntry.year;
 			copy.img = toExport.img ? toExport.img : crtEntry.img;
 		}
+
 				// copy
 				let imageUrl;
 				let key;

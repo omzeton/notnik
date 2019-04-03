@@ -79,6 +79,7 @@ class List extends Component {
           <div className="List__Entries" style={listStyle}>
             { entries }
           </div>
+          <p className="copy">Made with &#10084; by Doria, Ior and Adam - &copy; 2019</p>
       </div>
     );
   }
