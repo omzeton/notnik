@@ -17,9 +17,8 @@ class Objectives extends Component {
 						<div className="Objectives--toggle" onClick={this.toggleModal}></div>
 						<ul>
 							<li>Double click on newEntry's save creates entries with new Id</li>
-							<li>Display all entries in columns with 4 entries in each one.</li>
-							<li>Push edited entry and replace the old one.</li>
 							<li>Delete entries</li>
+							<li>Show some sort of notifier after save has been completed</li>
 						</ul>
 					</div>
 				</div>
