@@ -80,3 +80,24 @@
 	font-size: 0.5em;
 	color: var(--w);
 }
+
+.Login {
+	position: absolute;
+	right: 2em;
+	top:3em;
+	cursor: pointer;
+	z-index: 9999;
+}
+
+.Login h2 {
+	font-family: 'Baloo', cursive;
+	font-size:0.9em;
+	color:var(--w);
+	line-height: 0em;
+	outline: none;
+	transition: text-shadow 0.2s linear;
+}
+
+.Login h2:hover {
+	text-shadow: 0 0 20px var(--w);
+}

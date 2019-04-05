@@ -17,7 +17,9 @@ class Objectives extends Component {
 						<div className="Objectives--toggle" onClick={this.toggleModal}></div>
 						<ul>
 							<li>Weird divs and markup in small Entry's text</li>
+							<li>Cannot edit the pictures!</li>
 							<li>Registration and login system</li>
+							<li>Nicer error messages when loging in nad signing up - switch statement for error messages</li>
 							<li>Delete entries</li>
 						</ul>
 					</div>

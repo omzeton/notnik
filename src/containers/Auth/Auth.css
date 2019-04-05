@@ -1,0 +1,117 @@
+.Auth {
+	position: absolute;
+	width: 100%;
+	height: 100%;
+	z-index: 999;
+	display:flex;
+	align-items: center;
+	justify-content: center;
+	background-color: rgba(34,34,32,0.8)
+}
+
+.Auth .Auth__Container {
+	width: 25em;
+	height: 30em;
+	background-color:var(--bla3);
+	box-shadow: 0 0 50px 0 var(--bla1);
+	border-radius: 0.5em;
+	display: grid;
+	grid-template-areas: 'header'
+						 'input'
+						 'input'
+						 'button';
+	grid-auto-rows: 6em;
+}
+
+.Auth .Auth__Container .Auth__Container__Heading {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	position: relative;
+	margin-top:2em;
+}
+
+.Auth .Auth__Container h2 {
+	position: relative;
+	font-family: 'Baloo', cursive;
+	font-size: 2em;
+	color:var(--w);
+}
+
+.Auth .Auth__Container input[type="text"],
+.Auth .Auth__Container input[type="password"] {
+	position: relative;
+	width:80%;
+	height:5em;
+	left:50%;
+	top:50%;
+	transform:translateX(-50%) translateY(-50%);
+	background-color: transparent;
+	border:none;
+	outline: none;
+	border-bottom:1px solid var(--w);
+	font-family: 'Montserrat', sans-serif;
+	font-weight: 400;
+	font-size:0.8em;
+	color: var(--w2);
+}
+
+.Auth .Auth__Container input[type="text"]:focus,
+.Auth .Auth__Container input[type="password"]:focus {
+	border-bottom:1px solid var(--rd);
+}
+
+.Auth .Auth__Container .Auth__Container__Buttons {
+	position: relative;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	flex-direction: row;
+}
+
+.Auth .Auth__Container .Auth__Container__Buttons input {
+	margin:0 2em;
+	width:6em;
+	outline: none;
+	height:3em;
+	background-color: transparent;
+	border-radius: 0.5em;
+	border:1px solid var(--w);
+	font-family: 'Montserrat', sans-serif;
+	font-weight: 700;
+	font-size: 0.8em;
+	color:var(--w);
+	cursor: pointer;
+}
+
+.Auth .Auth__Container .Auth__Container__Buttons input:hover {
+	background-color: var(--w);
+	color:var(--bla3);
+}
+
+.Auth .Auth__Container .Auth__Container__Buttons input:nth-child(2) {
+	border:1px solid var(--rd);
+}
+
+.Auth .Auth__Container .Auth__Container__Buttons input:nth-child(2):hover {
+	background-color: var(--rd);
+	color:var(--w);
+}
+
+.Auth__Container__Popup {
+	width:100%;
+	height: 100%;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	flex-direction: row;
+}
+
+.Auth__Container__Popup p {
+	font-family: 'Montserrat', sans-serif;
+	font-weight: 700;
+	font-size: 0.8em;
+	width:20em;
+	text-align: center;
+	color:var(--rd);
+}

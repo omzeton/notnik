@@ -5,14 +5,28 @@ import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import * as actionCreators from '../../store/actions';
 import Entry from '../../components/Entry/Entry';
+import Auth from '../Auth/Auth';
 
 import './List.css';
 
 class List extends Component {
 
+  state = {
+    logged: false,
+    toggleAuth: true
+  }
+
 	componentDidMount () {
 		this.props.onFetchSamples();
 	}
+
+  authHandler = () => {
+     this.setState((prevState, props) => {
+       return {
+         toggleAuth: !prevState.toggleAuth
+       }
+     });
+  }
 
   render() {
 
@@ -71,8 +85,18 @@ class List extends Component {
       gridTemplateColumns: `repeat(${columns}, 30em)`
     }
 
+    let signMsg = this.state.logged ? "log out" : "log in";
+    let logPage = this.state.toggleAuth ? <Auth /> : null;
+
     return (
       <div className="List">
+
+          <div className="Login" onClick={this.authHandler}>
+            <h2>{signMsg}</h2>
+          </div>
+
+          {logPage}
+
       	  <div className="List__Start">
       	  	 <Link to={'/newEntry'}><button className="Start--Buton" type="submit"></button></Link>
       	  </div>

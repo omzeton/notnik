@@ -25,6 +25,7 @@ firebase.initializeApp(config);
 class Menu extends Component {
 
 	state = {
+		method: null,
 		loading: false,
 		error: false
 	}
@@ -75,6 +76,7 @@ class Menu extends Component {
 				// If user creates new entry store it as separate one in database
 				// eslint-disable-next-line
 				if ( this.props.location.pathname == '/newEntry' ) {
+					this.setState({method: 'POST'})
 					console.log('Creating a new entry...');
 					this.setState({error: false});
 					this.setState({loading: true});
@@ -118,10 +120,17 @@ class Menu extends Component {
 
 				// If user is not on /newEntry route it means he's editing already
 				// existing entry, so don't create a new one!
-				} else {
-					console.log('Note edited! <3');
+				} else {					
 					// Edits existing entry
-					firebase.database().ref('notes').child(copy.fKey).update(copy);
+					firebase.database().ref('notes').child(copy.fKey).update(copy)
+						.then(response => {
+							console.log(response);
+							return response;
+						})
+						.catch((err) => {
+							console.log(err);
+							return err;
+						})
 				}	
 	}
 
@@ -154,6 +163,7 @@ class Menu extends Component {
 			<NavLink to="/" exact><div className={['button', 'button-list'].join(' ')}></div></NavLink>
 			<NavLink to={entryPath} exact><div className={['button', 'button-entry'].join(' ')}></div></NavLink>
 			<div className={saveStyles} onClick={this.saveHandler}></div>
+			
 			<div></div>
 		</div>
 		);
