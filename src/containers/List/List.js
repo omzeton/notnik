@@ -13,7 +13,7 @@ class List extends Component {
 
   state = {
     logged: false,
-    toggleAuth: true
+    toggleAuth: false
   }
 
 	componentDidMount () {

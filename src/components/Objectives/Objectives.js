@@ -21,6 +21,12 @@ class Objectives extends Component {
 							<li>Registration and login system</li>
 							<li>Nicer error messages when loging in nad signing up - switch statement for error messages</li>
 							<li>Delete entries</li>
+							<li>Settings button:</li>
+							<ol>
+								<li>5 background patterns to choose from</li>
+								<li>3 Font pairs</li>
+								<li>3 font sizes</li>
+							</ol>
 						</ul>
 					</div>
 				</div>

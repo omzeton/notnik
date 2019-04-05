@@ -95,7 +95,6 @@
 	color:var(--w);
 	line-height: 0em;
 	outline: none;
-	transition: text-shadow 0.2s linear;
 }
 
 .Login h2:hover {
