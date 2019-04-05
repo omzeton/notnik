@@ -3,6 +3,7 @@ import { NavLink } from 'react-router-dom';
 import { connect } from 'react-redux';
 import * as actionCreators from '../../store/actions';
 import { withRouter } from 'react-router-dom';
+import Loader from '../Loader/Loader';
 
 import firebase from '@firebase/app';
 // eslint-disable-next-line
@@ -22,6 +23,12 @@ const config = {
 firebase.initializeApp(config);
 
 class Menu extends Component {
+
+	state = {
+		loading: false,
+		error: false
+	}
+
 	saveHandler = () => {
 
 		let currentIndex = this.props.index;
@@ -65,9 +72,12 @@ class Menu extends Component {
 				let imageUrl;
 				let key;
 				let newFirebaseKey;	
+				// If user creates new entry store it as separate one in database
 				// eslint-disable-next-line
 				if ( this.props.location.pathname == '/newEntry' ) {
 					console.log('Creating a new entry...');
+					this.setState({error: false});
+					this.setState({loading: true});
 					// Creates new entry
 					firebase.database().ref('notes').push(copy)
 						.then((data) => {
@@ -89,8 +99,25 @@ class Menu extends Component {
 							return firebase.database().ref('notes').child(key).update({img: url, fKey: newFirebaseKey})
 						})
 						.catch((error) => {
+							this.setState({error: true})
 							console.log(error);
 						});
+					// After entry is created switch route to the id
+					// to prevent infinite creation of entries
+					console.log(this.state.error);
+					setTimeout(() => {
+						if (!this.state.error) {
+							this.setState({loading: false});
+							this.props.history.push(`/entry/${this.props.index}`);
+						} else {
+							this.props.history.push(`/`);
+						}
+					}, 4000);
+					
+					
+
+				// If user is not on /newEntry route it means he's editing already
+				// existing entry, so don't create a new one!
 				} else {
 					console.log('Note edited! <3');
 					// Edits existing entry
@@ -99,6 +126,10 @@ class Menu extends Component {
 	}
 
 	render() {
+
+		let loader = this.state.error ? null : <Loader />;
+		let loadingMsg = this.state.error ? <h2 style={{color: 'var(--rd)'}}>Whoops! Your entry could not be saved!</h2> : <h2>Uploading data . . . </h2>;
+		let loadingScreen = this.state.loading ? <div className="waitForNewEntry">{loader}{loadingMsg}</div> : null;
 
 		let saveStyles = null;
 		if(this.props.location.pathname === '/') {
@@ -117,6 +148,7 @@ class Menu extends Component {
 
 		return (
 			<div className="Menu">
+			{loadingScreen}
 			<div></div>
 
 			<NavLink to="/" exact><div className={['button', 'button-list'].join(' ')}></div></NavLink>

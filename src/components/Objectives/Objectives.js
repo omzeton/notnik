@@ -16,9 +16,8 @@ class Objectives extends Component {
 					<div className="show">
 						<div className="Objectives--toggle" onClick={this.toggleModal}></div>
 						<ul>
-							<li>Double click on newEntry's save creates entries with new Id</li>
+							<li>Weird divs and markup in small Entry's text</li>
 							<li>Delete entries</li>
-							<li>Show some sort of notifier after save has been completed</li>
 						</ul>
 					</div>
 				</div>

@@ -68,7 +68,7 @@ class List extends Component {
         }
 
     let listStyle = {
-      gridTemplateColumns: `repeat(${columns}, 1fr)`
+      gridTemplateColumns: `repeat(${columns}, 30em)`
     }
 
     return (
