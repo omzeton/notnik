@@ -13,8 +13,6 @@ function Entry(props) {
     previewText = props.text;
   }
 
-  console.log(previewText);
-
   return (
     <div className="Entry">
     	<div className="Entry__Img" style={{backgroundImage: 'url(' + props.img + ')'}}></div>

@@ -6,7 +6,8 @@
 }
 .NoteBody__Text {
 	width: 100%;
-	height: calc(100vh - 11em);
+	margin-top:1em;
+	height: calc(100vh - 14em);
 	background-color:var(--bla2);
 	border:none;
 	box-sizing: border-box;

@@ -17,6 +17,7 @@ class Objectives extends Component {
 						<div className="Objectives--toggle" onClick={this.toggleModal}></div>
 						<ul>
 							<li>Weird divs and markup in small Entry's text</li>
+							<li>Registration and login system</li>
 							<li>Delete entries</li>
 						</ul>
 					</div>
