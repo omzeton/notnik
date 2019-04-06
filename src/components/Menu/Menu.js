@@ -67,6 +67,7 @@ class Menu extends Component {
 			copy.textBody = toExport.textBody ? toExport.textBody : crtEntry.textBody;
 			copy.year = toExport.year ? toExport.year : crtEntry.year;
 			copy.img = toExport.img ? toExport.img : crtEntry.img;
+			copy.userId = this.props.userId;
 		}
 
 				// copy
@@ -80,6 +81,8 @@ class Menu extends Component {
 					console.log('Creating a new entry...');
 					this.setState({error: false});
 					this.setState({loading: true});
+					copy.userId = this.props.userId;
+					console.log(copy);
 					// Creates new entry
 					firebase.database().ref('notes').push(copy)
 						.then((data) => {
@@ -112,6 +115,7 @@ class Menu extends Component {
 							this.setState({loading: false});
 							this.props.history.push(`/entry/${this.props.index}`);
 						} else {
+							this.setState({loading: false});
 							this.props.history.push(`/`);
 						}
 					}, 4000);
@@ -147,6 +151,8 @@ class Menu extends Component {
 			saveStyles = ['button', 'button-save'].join(' ');
 		}
 
+		let start = this.props.isSignedIn ? null : 'disable';
+
 		let entryPath = null;
 
 		if (this.props.index == null) {
@@ -160,8 +166,8 @@ class Menu extends Component {
 			{loadingScreen}
 			<div></div>
 
-			<NavLink to="/" exact><div className={['button', 'button-list'].join(' ')}></div></NavLink>
-			<NavLink to={entryPath} exact><div className={['button', 'button-entry'].join(' ')}></div></NavLink>
+			<NavLink to="/" exact className={start}><div className={['button', 'button-list'].join(' ')}></div></NavLink>
+			<NavLink to={entryPath} exact className={start}><div className={['button', 'button-entry'].join(' ')}></div></NavLink>
 			<div className={saveStyles} onClick={this.saveHandler}></div>
 			
 			<div></div>
@@ -174,7 +180,9 @@ const mapStateToProps = state => {
   return {
       index: state.currentIndex,
       imported: state.import,
-      toExport: state.export
+      toExport: state.export,
+      isSignedIn: state.auth.isSignedIn,
+      userId: state.auth.userId
   };
 };
 

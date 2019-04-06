@@ -12,7 +12,8 @@ const initialState = {
       textBody: undefined,
       img: undefined,
       id: undefined,
-      fKey: undefined
+      fKey: undefined,
+      userId: undefined
     },
     error: false,
     currentIndex: null,

@@ -3,6 +3,7 @@ import Noresult from '../../components/Noresult/Noresult';
 import Loader from '../../components/Loader/Loader';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
+import { withRouter } from 'react-router-dom';
 import * as actionCreators from '../../store/actions';
 import Entry from '../../components/Entry/Entry';
 import Auth from '../Auth/Auth';
@@ -12,15 +13,26 @@ import './List.css';
 class List extends Component {
 
   state = {
-    toggleAuth: false
+    toggleAuth: false,
+    samplesFetched: false
   }
 
 	componentDidMount () {
-		this.props.onFetchSamples(this.props.token);
+    if (this.props.isSignedIn) {
+      this.props.onFetchSamples(this.props.token);
+    }
 	}
 
   fetchSamples () {
-    this.props.onFetchSamples(this.props.token);
+    if(!this.state.samplesFetched) {
+      this.props.onFetchSamples(this.props.token);
+      this.setState((prevState, props) => {
+        return {
+          samplesFetched: !prevState.samplesFetched
+        }
+      });
+    }
+    console.log('fetching samples...');
   }
 
   authHandler = () => {
@@ -33,6 +45,7 @@ class List extends Component {
 
   logOutHandler = () => {
     this.props.onLogOut();
+    this.props.history.push(`/`);
     this.setState({toggleAuth: false});
     this.props.onFetchSamples(this.props.token);
   }
@@ -46,8 +59,14 @@ class List extends Component {
     } else {
       logged = false;
     }
+  	
+    let entries;
 
-  	let entries = this.props.error ? <Noresult /> : <Loader />;
+    if (this.props.isSignedIn) {
+        entries = this.props.error ? <Noresult signed={this.props.isSignedIn} /> : <Loader />;
+    } else {
+        entries = <Noresult signed={this.props.isSignedIn} />;
+    }
 
     	if ( this.props.import ) {
     		const object = this.props.import;
@@ -55,32 +74,19 @@ class List extends Component {
     		let arr = Object.keys(object).map(function(key) {
     		    return object[key];
     		});
-
+        // eslint-disable-next-line
     		entries = arr.map(result => {
-
-          if (entries.length > 4) {
-            return (<Link to={'/entry/' + result.id} key={result.id}><Entry 
-            header={result.header}
-            year={result.year}
-            month={result.month} 
-            day={result.day}
-            text={result.textBody}
-            img={result.img}/></Link>);
-          } else {
-            return (<Link to={'/entry/' + result.id} key={result.id}><Entry 
-            header={result.header}
-            year={result.year} 
-            month={result.month} 
-            day={result.day}
-            text={result.textBody}
-            img={result.img}/></Link>);
-          }
-
-    			
+          // eslint-disable-next-line
+          if (result.userId == this.props.userId) {
+              return (<Link to={'/entry/' + result.id} key={result.id}><Entry 
+              header={result.header}
+              year={result.year}
+              month={result.month} 
+              day={result.day}
+              text={result.textBody}
+              img={result.img}/></Link>);
+          }    			
     		});
-
-
-
     	}
 
     // Column display 5
@@ -105,12 +111,12 @@ class List extends Component {
     let signMsg = logged ? "log out" : "log in";
     let logPage = this.state.toggleAuth ? <Auth isOpened={this.state.toggleAuth} /> : null;
     let authMethod = this.props.isSignedIn ? this.logOutHandler : this.authHandler;
+    let listStartStyle = ["List__Start", "disableStart"].join(' ');
 
     if (this.props.isSignedIn) {
       logPage = null;
       this.fetchSamples();
-    } else {
-
+      listStartStyle = ["List__Start"].join(' ');
     }
 
     return (
@@ -122,13 +128,13 @@ class List extends Component {
 
           {logPage}
 
-      	  <div className="List__Start">
+      	  <div className={listStartStyle}>
       	  	 <Link to={'/newEntry'}><button className="Start--Buton" type="submit"></button></Link>
       	  </div>
           <div className="List__Entries" style={listStyle}>
             { entries }
           </div>
-          <p className="copy">Made with &#10084; by Doria, Ior and Adam - &copy; 2019</p>
+          <p className="copy">Made with love by Doria, Ior and Adam - &copy; 2019</p>
       </div>
     );
   }
@@ -139,7 +145,8 @@ const mapStateToProps = state => {
       import: state.import,
       error: state.error,
       token: state.auth.token,
-      isSignedIn: state.auth.isSignedIn
+      isSignedIn: state.auth.isSignedIn,
+      userId: state.auth.userId
   };
 };
 
@@ -151,4 +158,4 @@ const mapDispatchToProps = dispatch => {
 };
 
 
-export default connect(mapStateToProps, mapDispatchToProps)(List);
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(List));

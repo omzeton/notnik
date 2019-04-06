@@ -26,8 +26,6 @@ class Auth extends Component {
 	render() {
 		let errorMsg;
 
-		console.log(this.props.isOpened);
-
 		if (this.props.loading) {
 			errorMsg = <Loader />;
 		}

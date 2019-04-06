@@ -23,8 +23,14 @@
 
 .Noresult h3 {
 	font-family: 'Montserrat', sans-serif;
-	line-height: 1em;
+	line-height: 1.5em;
 	font-size: 0.7em;
 	font-weight: 400;
 	color: var(--w);
+	width: 23em;
+	text-align: center;
+}
+
+.Noresult--alert {
+	color:var(--rd) !important;
 }
