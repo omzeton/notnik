@@ -20,7 +20,8 @@ const initialState = {
     	token: null,
 		userId: null,
 		error: null,
-		loading: false
+		loading: false,
+		isSignedIn: null
     }
 		
 }
@@ -35,7 +36,8 @@ const authSuccess = (state, action) => {
 			token: action.idToken,
 			userId: action.userId,
 			error: false, 
-			loading: false
+			loading: false,
+			isSignedIn: true
 		}
 	});
 };
@@ -44,7 +46,8 @@ const authFail = ( state, action ) => {
 	return updateObject(state, {
 		auth: {
 			error: action.error,
-			loading: false
+			loading: false,
+			isSignedIn: false
 		}
 	});
 };

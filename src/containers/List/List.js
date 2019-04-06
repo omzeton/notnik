@@ -12,7 +12,6 @@ import './List.css';
 class List extends Component {
 
   state = {
-    logged: false,
     toggleAuth: false
   }
 
@@ -20,7 +19,7 @@ class List extends Component {
 		this.props.onFetchSamples(this.props.token);
 	}
 
-  fetchAfterLoginSuccess () {
+  fetchSamples () {
     this.props.onFetchSamples(this.props.token);
   }
 
@@ -32,7 +31,21 @@ class List extends Component {
      });
   }
 
+  logOutHandler = () => {
+    this.props.onLogOut();
+    this.setState({toggleAuth: false});
+    this.props.onFetchSamples(this.props.token);
+  }
+
   render() {
+
+    let logged = null;
+
+    if (this.props.token) {
+      logged = true;
+    } else {
+      logged = false;
+    }
 
   	let entries = this.props.error ? <Noresult /> : <Loader />;
 
@@ -89,13 +102,21 @@ class List extends Component {
       gridTemplateColumns: `repeat(${columns}, 30em)`
     }
 
-    let signMsg = this.state.logged ? "log out" : "log in";
+    let signMsg = logged ? "log out" : "log in";
     let logPage = this.state.toggleAuth ? <Auth isOpened={this.state.toggleAuth} /> : null;
+    let authMethod = this.props.isSignedIn ? this.logOutHandler : this.authHandler;
+
+    if (this.props.isSignedIn) {
+      logPage = null;
+      this.fetchSamples();
+    } else {
+
+    }
 
     return (
       <div className="List">
 
-          <div className="Login" onClick={this.authHandler}>
+          <div className="Login" onClick={authMethod}>
             <h2>{signMsg}</h2>
           </div>
 
@@ -117,13 +138,15 @@ const mapStateToProps = state => {
   return {
       import: state.import,
       error: state.error,
-      token: state.auth.token
+      token: state.auth.token,
+      isSignedIn: state.auth.isSignedIn
   };
 };
 
 const mapDispatchToProps = dispatch => {
   return {
-    onFetchSamples: (token) => dispatch(actionCreators.fetchSamples(token))
+    onFetchSamples: (token) => dispatch(actionCreators.fetchSamples(token)),
+    onLogOut: () => dispatch(actionCreators.logout())
   };
 };
 
