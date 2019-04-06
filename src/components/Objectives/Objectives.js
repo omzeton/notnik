@@ -16,6 +16,7 @@ class Objectives extends Component {
 					<div className="show">
 						<div className="Objectives--toggle" onClick={this.toggleModal}></div>
 						<ul>
+							<li>Firebase permission denied when making new entry.</li>
 							<li>Weird divs and markup in small Entry's text</li>
 							<li>Cannot edit the pictures!</li>
 							<li>Registration and login system</li>
