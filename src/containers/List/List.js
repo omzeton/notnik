@@ -17,8 +17,12 @@ class List extends Component {
   }
 
 	componentDidMount () {
-		this.props.onFetchSamples();
+		this.props.onFetchSamples(this.props.token);
 	}
+
+  fetchAfterLoginSuccess () {
+    this.props.onFetchSamples(this.props.token);
+  }
 
   authHandler = () => {
      this.setState((prevState, props) => {
@@ -86,7 +90,7 @@ class List extends Component {
     }
 
     let signMsg = this.state.logged ? "log out" : "log in";
-    let logPage = this.state.toggleAuth ? <Auth /> : null;
+    let logPage = this.state.toggleAuth ? <Auth isOpened={this.state.toggleAuth} /> : null;
 
     return (
       <div className="List">
@@ -112,13 +116,14 @@ class List extends Component {
 const mapStateToProps = state => {
   return {
       import: state.import,
-      error: state.error
+      error: state.error,
+      token: state.auth.token
   };
 };
 
 const mapDispatchToProps = dispatch => {
   return {
-    onFetchSamples: () => dispatch(actionCreators.fetchSamples())
+    onFetchSamples: (token) => dispatch(actionCreators.fetchSamples(token))
   };
 };
 

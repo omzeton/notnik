@@ -17,7 +17,7 @@ class FullEntry extends Component {
 
 	componentDidMount () {
 		let id = this.props.match.params.id;
-		this.props.onFetchSamples();
+		this.props.onFetchSamples(this.props.token);
 		this.props.onSetIndex(id);
 	}
 	render() {
@@ -61,13 +61,14 @@ class FullEntry extends Component {
 const mapStateToProps = state => {
   return {
       import: state.import,
-      error: state.error
+      error: state.error,
+      token: state.auth.token
   };
 };
 
 const mapDispatchToProps = dispatch => {
   return {
-    onFetchSamples: () => dispatch(actionCreators.fetchSamples()),
+    onFetchSamples: (token) => dispatch(actionCreators.fetchSamples(token)),
     onSetIndex: (index) => dispatch(actionCreators.setIndex(index))
   };
 };

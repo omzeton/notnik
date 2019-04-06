@@ -32,9 +32,9 @@ export const fetchSamplesFailed = () => {
 	};
 };
 
-export const fetchSamples = () => {
+export const fetchSamples = (token) => {
 	return dispatch => {
-		axios.get('https://notnik-app.firebaseio.com/notes.json')
+		axios.get('https://notnik-app.firebaseio.com/notes.json?auth=' + token)
 			.then(response => {
 				dispatch(setSamples(response.data));
 			})

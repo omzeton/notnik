@@ -26,6 +26,8 @@ class Auth extends Component {
 	render() {
 		let errorMsg;
 
+		console.log(this.props.isOpened);
+
 		if (this.props.loading) {
 			errorMsg = <Loader />;
 		}
@@ -70,7 +72,8 @@ class Auth extends Component {
 const mapStateToProps = state => {
 	return {
 		loading: state.auth.loading,
-		error: state.auth.error
+		error: state.auth.error,
+		token: state.auth.token
 	};
 };
 
