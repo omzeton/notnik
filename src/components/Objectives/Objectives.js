@@ -17,10 +17,11 @@ class Objectives extends Component {
 						<div className="Objectives--toggle" onClick={this.toggleModal}></div>
 						<ul>
 							<li>Firebase permission denied when making new entry.</li>
+							<li>Restructure user data -> notnik-app : notes : $uId : their note data.</li>
+							<li>On log out return to main page</li>
 							<li>Weird divs and markup in small Entry's text</li>
 							<li>Cannot edit the pictures!</li>
 							<li>Registration and login system</li>
-							<li>Nicer error messages when loging in nad signing up - switch statement for error messages</li>
 							<li>Delete entries</li>
 							<li>Home page for unregistered users. Make it shiny!</li>
 							<li>Why is it fetching samples 4 times in List ?</li>

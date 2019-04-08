@@ -24,15 +24,34 @@ class Auth extends Component {
 	}
 
 	render() {
-		let errorMsg;
+		let errorMsg,
+			styledMsg;
 
 		if (this.props.loading) {
 			errorMsg = <Loader />;
 		}
 
 		if (this.props.error) {
+
+			let e = this.props.error.message;
+
+			switch (e) {
+				case "INVALID_EMAIL" :
+				case "INVALID_PASSWORD" :
+					styledMsg = "Wrong email or password";
+					break;
+				case "WEAK_PASSWORD : Password should be at least 6 characters":
+					styledMsg = "Password should be at least 6 characters long";
+					break;
+				case "EMAIL_EXISTS" :
+					styledMsg = "This email is already taken";
+					break;
+				default:
+					return styledMsg;
+			}
+
 			errorMsg = (
-				<p>{this.props.error.message}</p>
+				<p>{styledMsg}</p>
 			);
 		}
 
