@@ -82,7 +82,6 @@ class Menu extends Component {
 					this.setState({error: false});
 					this.setState({loading: true});
 					copy.userId = this.props.userId;
-					console.log(copy);
 					// Creates new entry
 					firebase.database().ref('notes').push(copy)
 						.then((data) => {
@@ -109,7 +108,6 @@ class Menu extends Component {
 						});
 					// After entry is created switch route to the id
 					// to prevent infinite creation of entries
-					console.log(this.state.error);
 					setTimeout(() => {
 						if (!this.state.error) {
 							this.setState({loading: false});

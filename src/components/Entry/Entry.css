@@ -92,3 +92,20 @@
 	width:23em;
 	outline: none;
 }
+
+.Entry--Delete {
+	position: absolute;
+	top:0.6em;
+	right:0.6em;
+	width:0.9em;
+	height:0.9em;
+	opacity: 0.1;
+	background-image: url('http://localhost:3000/assets/delete.svg');
+	background-position: center;
+	background-size: cover;
+	background-repeat: no-repeat;
+	z-index: 9999;
+}
+.Entry--Delete:hover {
+	opacity: 1;
+}

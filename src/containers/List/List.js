@@ -81,6 +81,8 @@ class List extends Component {
               return (<Link to={'/entry/' + result.id} key={result.id}><Entry 
               header={result.header}
               year={result.year}
+              fKey={result.fKey}
+              uid={result.userId}
               month={result.month} 
               day={result.day}
               text={result.textBody}
