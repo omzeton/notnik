@@ -16,9 +16,8 @@ class Objectives extends Component {
 					<div className="show">
 						<div className="Objectives--toggle" onClick={this.toggleModal}></div>
 						<ul>
-							<li className="blue">Firebase database permission denied when making new entry.</li>
-							<li>After delete don't switch route</li>
-							<li>On log out return to main page</li>
+							<li className="blue">Firebase database permissions for users.</li>
+							<li>After delete reload entries</li>
 							<li>Weird divs and markup in small Entry's text</li>
 							<li>Cannot edit the pictures!</li>
 							<li>Home page for unregistered users. Make it shiny!</li>

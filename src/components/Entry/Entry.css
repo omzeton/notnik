@@ -10,6 +10,7 @@
 	grid-template-rows: 1fr;
 	box-shadow: 0 0 40px -20px rgba(255,255,255,0);
 	transition: all 0.2s linear;
+	cursor: pointer;
 }
 
 .Entry *:hover, .Entry *:visited, .Entry *:link, .Entry *:active, {
@@ -104,7 +105,7 @@
 	background-position: center;
 	background-size: cover;
 	background-repeat: no-repeat;
-	z-index: 9999;
+	z-index: 99999;
 }
 .Entry--Delete:hover {
 	opacity: 1;

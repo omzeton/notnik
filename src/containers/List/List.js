@@ -78,15 +78,17 @@ class List extends Component {
     		entries = arr.map(result => {
           // eslint-disable-next-line
           if (result.userId == this.props.userId) {
-              return (<Link to={'/entry/' + result.id} key={result.id}><Entry 
+              return (<Entry
+              id={result.id}
+              key={result.fKey}
               header={result.header}
               year={result.year}
               fKey={result.fKey}
               uid={result.userId}
-              month={result.month} 
+              month={result.month}
               day={result.day}
               text={result.textBody}
-              img={result.img}/></Link>);
+              img={result.img}/>);
           }    			
     		});
     	}
