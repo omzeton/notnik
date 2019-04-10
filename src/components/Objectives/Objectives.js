@@ -18,7 +18,6 @@ class Objectives extends Component {
 						<ul>
 							<li className="blue">Firebase database permissions for users.</li>
 							<li>Call onFetchSamples on once!</li>
-							<li>Weird divs and markup in small Entry's text - convert getInnerHTML to getInnerText.</li>
 							<li>Cannot edit the pictures!</li>
 							<li>Home page for unregistered users. Make it shiny!</li>
 						</ul>

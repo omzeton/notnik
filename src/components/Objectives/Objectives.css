@@ -1,7 +1,7 @@
 .Objectives {
 	position: fixed;
 	display: block;
-	z-index: 9999;
+	z-index: 999999;
 	background-color: var(--bla2);
 	width: 30em;
 	height: 100%;

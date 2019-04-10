@@ -27,6 +27,12 @@ class Entry extends Component {
     }
   }
 
+  extractContent(s) {
+    const span = document.createElement('span');
+    span.innerHTML = s;
+    return span.textContent || span.innerText;
+  };
+
   render() {
       let orgText = this.props.text;
       let previewText;
@@ -36,6 +42,7 @@ class Entry extends Component {
       } else {
         previewText = this.props.text;
       }
+      previewText = this.extractContent(previewText);
     return (
       <div className="Entry" onClick={this.onClick} ref={(el) => this.whole = el}>
         <div className="Entry__Img" style={{backgroundImage: 'url(' + this.props.img + ')'}}></div>
