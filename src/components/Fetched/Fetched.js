@@ -10,16 +10,23 @@ import './Fetched.css';
 
 class Fetched extends Component {
 
+	state = {
+		fetchStatus: false
+	}
+
+	onFetch = () => {
+		// Call this function only once!!
+		// this.props.onFetchSamples(this.props.token);
+		// this.setState({fetchStatus: true});
+		console.log('fetch - call this function only once!!');
+	}
+
 	render() {
 		let entries;
-		let signStatus = this.props.isSignedIn,
-			hasFetched = false;
+		let signStatus = this.props.isSignedIn;
 
 		if (signStatus) {
-			if (!hasFetched) {
-				this.props.onFetchSamples(this.props.token);
-				hasFetched = true;
-			}
+			this.onFetch();
 		}
 
 		if (signStatus) {

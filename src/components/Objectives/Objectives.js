@@ -18,9 +18,11 @@ class Objectives extends Component {
 						<ul>
 							<li className="blue">Firebase database permissions for users.</li>
 							<li>Call onFetchSamples only once!</li>
+							<li>Small load component for uploading and editing entries.</li>
 							<li>Can't edit the pictures!</li>
-							<li>Home page for unregistered users. Make it shiny!</li>
-							<li>Stay logged, even after refresh.</li>
+							<li>After logout redirect to splash page.</li>
+							<li>Splash page for unregistered users. Make it shiny!</li>
+							<li>Loading screen is a must.</li>
 						</ul>
 					</div>
 				</div>

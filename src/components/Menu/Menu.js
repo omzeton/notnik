@@ -12,16 +12,6 @@ import { storage } from '@firebase/storage';
 import { database } from '@firebase/database';
 import './Menu.css';
 
-const config = {
-	apiKey: "AIzaSyCVggrVx3OPHRM6sJim1dqa9lWYNnM704A",
-	    authDomain: "notnik-app.firebaseapp.com",
-	    databaseURL: "https://notnik-app.firebaseio.com",
-	    projectId: "notnik-app",
-	    storageBucket: "notnik-app.appspot.com",
-	    messagingSenderId: "813392804298"
-	  };
-firebase.initializeApp(config);
-
 class Menu extends Component {
 
 	state = {

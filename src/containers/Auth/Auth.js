@@ -7,20 +7,20 @@ import './Auth.css';
 
 class Auth extends Component {
 	state = {
-		isSignin: true
+		logReg: true
 	}
 
 	toggleMode = () => {
 		this.setState((prevState, props) => {
 			return {
-				isSignin: !prevState.isSignin
+				logReg: !prevState.logReg
 			}
 		})
 	}
 
 	submitHandler = (event) => {
 		event.preventDefault();
-		this.props.onAuth(this.email.value, this.password.value, this.state.isSignin);
+		this.props.onAuth(this.email.value, this.password.value, this.state.logReg);
 	}
 
 	render() {
@@ -55,9 +55,9 @@ class Auth extends Component {
 			);
 		}
 
-		let heading = this.state.isSignin ? 'Log in' : 'Register';
+		let heading = this.state.logReg ? 'Log in' : 'Register';
 
-		let buttons = this.state.isSignin ? 
+		let buttons = this.state.logReg ? 
 				<div className="Auth__Container__Buttons">
 					<input type="submit" value="Log In" onClick={this.submitHandler}/>
 					<input type="submit" value="Register" onClick={this.toggleMode}/>
@@ -96,7 +96,7 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
 	return {
-		onAuth: (email, password, isSignin ) => dispatch(actions.auth(email, password, isSignin))
+		onAuth: (email, password, logReg ) => dispatch(actions.auth(email, password, logReg))
 	};
 };
 
