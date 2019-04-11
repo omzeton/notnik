@@ -20,7 +20,7 @@ class Entry extends Component {
     if (e.stopPropagation) { e.stopPropagation(); }
     if (window.confirm('Are you sure you wish to delete this item?')) {
       firebase.database().ref('notes').child(this.props.fKey).remove();
-      // firebase.database().ref('notes').on('value', () => { this.props.onFetchSamples(this.props.token); });
+      // firebase.database().ref('notes').on('value', () => { this.setState({reload: true}) });
       // The bit above listens to changes in database and returns a callback function.
       // It looks like it's updating, but it's only because onFetchSamples is called again and again
       this.props.history.push(`/`);

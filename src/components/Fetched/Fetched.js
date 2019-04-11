@@ -15,10 +15,19 @@ class Fetched extends Component {
 	}
 
 	onFetch = () => {
-		// Call this function only once!!
-		// this.props.onFetchSamples(this.props.token);
-		// this.setState({fetchStatus: true});
-		console.log('fetch - call this function only once!!');
+		if(!this.state.fetchStatus) {
+			this.setState({fetchStatus: true});
+			this.props.onFetchSamples(this.props.token);
+			console.log('fetch - call this function only once!!');
+		}
+	}
+
+	onReload = () => {
+		if(!this.state.fetchStatus) {
+			this.setState({fetchStatus: true});
+			this.props.onFetchSamples(this.props.token);
+			console.log('fetch - call this function only once!!');
+		}
 	}
 
 	render() {

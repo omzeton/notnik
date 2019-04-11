@@ -17,11 +17,12 @@ class Objectives extends Component {
 						<div className="Objectives--toggle" onClick={this.toggleModal}></div>
 						<ul>
 							<li className="blue">Firebase database permissions for users.</li>
-							<li>Call onFetchSamples only once!</li>
 							<li>Small load component for uploading and editing entries.</li>
 							<li>Can't edit the pictures!</li>
+							<li>Reload entries after delete.</li>
 							<li>After logout redirect to splash page.</li>
 							<li>Splash page for unregistered users. Make it shiny!</li>
+							<li>Stay logged after refresh.</li>
 							<li>Loading screen is a must.</li>
 						</ul>
 					</div>

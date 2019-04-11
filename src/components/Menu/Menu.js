@@ -17,7 +17,12 @@ class Menu extends Component {
 	state = {
 		method: null,
 		loading: false,
-		error: false
+		error: false,
+		crtImg: this.props.toExport.img
+	}
+
+	componentDidUpdate() {
+		console.log('updated');
 	}
 
 	saveHandler = () => {
@@ -28,6 +33,7 @@ class Menu extends Component {
 		let toExport = this.props.toExport;
 		toExport.id = currentIndex;
 		let copy = toExport;
+
 
 		// eslint-disable-next-line
 		if (this.props.location.pathname == '/newEntry') {
@@ -57,7 +63,9 @@ class Menu extends Component {
 			copy.textBody = toExport.textBody ? toExport.textBody : crtEntry.textBody;
 			copy.year = toExport.year ? toExport.year : crtEntry.year;
 			copy.img = toExport.img ? toExport.img : crtEntry.img;
+			copy.fKey = this.props.noteFId;
 			copy.userId = this.props.userId;
+
 		}
 
 				// copy
@@ -106,24 +114,54 @@ class Menu extends Component {
 							this.setState({loading: false});
 							this.props.history.push(`/`);
 						}
-					}, 4000);
+					}, 3000);
 					
 					
 
 				// If user is not on /newEntry route it means he's editing already
 				// existing entry, so don't create a new one!
-				} else {					
+				} else {			
+					let oldState = this.state.crtImg
+					let newState = copy.img;		
 					// Edits existing entry
-					firebase.database().ref('notes').child(copy.fKey).update(copy)
-						.then(response => {
-							console.log(response);
-							return response;
-						})
-						.catch((err) => {
-							console.log(err);
-							return err;
-						})
-				}	
+					console.log(oldState) // Old
+					console.log(newState); // New
+					// if (oldState !== newState) {
+					// 	let existingKey = copy.fKey;
+					// 	let newImgUrl;
+					// 	firebase.database().ref('notes').child(copy.fKey).update(copy)
+					// 		.then(key => {
+					// 			const filename = copy.img.name
+					// 			const ext = filename.slice(filename.lastIndexOf('.'))
+					// 			console.log('2');
+					// 			return firebase.storage().ref('note-img/' + existingKey + '.' + ext).put(copy.img);
+					// 		})
+					// 		.then(fileData => {
+					// 			imageUrl = firebase.storage().ref(fileData.metadata.fullPath).getDownloadURL()
+					// 			newImgUrl = imageUrl;
+					// 			console.log('3');
+					// 			return imageUrl
+					// 		})
+					// 		.then(url => {
+					// 			console.log('Note edited! <3<3')
+					// 			return firebase.database().ref('notes').child(existingKey).update({img: newImgUrl.i})
+					// 		})
+					// 		.catch((error) => {
+					// 			this.setState({error: true})
+					// 			console.log(error);
+					// 		});
+					// } else {
+					// 	firebase.database().ref('notes').child(copy.fKey).update(copy)
+					// 		.then(response => {
+					// 			console.log(response);
+					// 			return response;
+					// 		})
+					// 		.catch((err) => {
+					// 			console.log(err);
+					// 			return err;
+					// 		})
+					// }
+				}
 	}
 
 	render() {
@@ -156,7 +194,7 @@ class Menu extends Component {
 
 			<NavLink to="/" exact className={start}><div className={['button', 'button-list'].join(' ')}></div></NavLink>
 			<NavLink to={entryPath} exact className={start}><div className={['button', 'button-entry'].join(' ')}></div></NavLink>
-			<div className={saveStyles} onClick={this.saveHandler}></div>
+			<div className={saveStyles} onClick={() => {this.saveHandler()}}></div>
 			
 			<div></div>
 		</div>
@@ -170,7 +208,8 @@ const mapStateToProps = state => {
       imported: state.import,
       toExport: state.export,
       isSignedIn: state.auth.isSignedIn,
-      userId: state.auth.userId
+      userId: state.auth.userId,
+      noteFId: state.export.fKey
   };
 };
 
