@@ -18,7 +18,7 @@ class Fetched extends Component {
 		if(!this.state.fetchStatus) {
 			this.setState({fetchStatus: true});
 			this.props.onFetchSamples(this.props.token);
-			console.log('fetch - call this function only once!!');
+			console.log('fetching entries...');
 		}
 	}
 
@@ -26,7 +26,7 @@ class Fetched extends Component {
 		if(!this.state.fetchStatus) {
 			this.setState({fetchStatus: true});
 			this.props.onFetchSamples(this.props.token);
-			console.log('fetch - call this function only once!!');
+			console.log('reloading...');
 		}
 	}
 

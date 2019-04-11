@@ -34,12 +34,9 @@ class App extends Component {
       firebase.auth().onAuthStateChanged((user) => {
         if (user) {
           this.setState({ loading: false, authenticated: true });
-          console.log(user);
           this.props.onAuth(user.email, '123456', true);
-          console.log('welcome back!');
         } else {
           this.setState({ loading: false, authenticated: false });
-          console.log('nobody logged in yet...');
         }
       });
     }
