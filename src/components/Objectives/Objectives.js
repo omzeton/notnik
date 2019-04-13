@@ -1,33 +1,29 @@
-import React, { Component } from 'react';
+import React, { useState } from 'react';
 import './Objectives.css';
 
-class Objectives extends Component {
-	state = {
-		showModal: false
-	}
-	toggleModal = () => {
-		let crt = this.state.showModal;
-		this.setState({showModal: !crt});
-	}
-		render() {
-			const modalToggle = this.state.showModal ? { right: "0em" } : { right: "-30em"}
-			return (
-				<div className="Objectives" style={modalToggle}>
-					<div className="show">
-						<div className="Objectives--toggle" onClick={this.toggleModal}></div>
-						<ul>
-							<li className="blue">Firebase database permissions for users.</li>
-							<li>Small load component for uploading and editing entries.</li>
-							<li>Reload entries after delete.</li>
-							<li>After logout redirect to splash page.</li>
-							<li>Splash page for unregistered users. Make it shiny!</li>
-							<li>Stay logged after refresh.</li>
-							<li>Loading screen is a must.</li>
-						</ul>
-					</div>
-				</div>
-			);
-		}
+const objectives = props => {
+
+	let [modal, toggleModal] = useState('');
+
+	const modalHanlder = () => {
+		toggleModal(modal = !modal);
+	};
+
+	return (
+		<div className="Objectives" style={modal ? { right: "0em" } : { right: "-30em"}}>
+			<div className="show">
+				<div className="Objectives--toggle" onClick={modalHanlder}></div>
+				<h2>Ja prdele... To działa. Naprawdę działa i zrobiłem to sam.</h2>
+				<ul>
+					<li className="blue">Firebase database permissions for users.</li>
+					<li>After logout redirect to splash page.</li>
+					<li>Splash page for unregistered users. Make it shiny!</li>
+					<li>Stay logged after refresh.</li>
+					<li>Loading screen is a must.</li>
+				</ul>
+			</div>
+		</div>
+	);
 };
 
-export default Objectives;
+export default objectives;
