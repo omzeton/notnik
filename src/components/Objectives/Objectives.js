@@ -16,10 +16,9 @@ const objectives = props => {
 				<h2>Ja prdele... To działa. Naprawdę działa i zrobiłem to sam.</h2>
 				<ul>
 					<li className="blue">Firebase database permissions for users.</li>
-					<li>After logout redirect to splash page.</li>
-					<li>Splash page for unregistered users. Make it shiny!</li>
 					<li>Stay logged after refresh.</li>
 					<li>Loading screen is a must.</li>
+					<li>That wallpaper in bg of Splash.. Let's make it more stylish!</li>
 				</ul>
 			</div>
 		</div>

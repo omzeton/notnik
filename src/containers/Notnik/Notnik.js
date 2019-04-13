@@ -4,6 +4,7 @@ import NoteBuilder from '../NoteBuilder/NoteBuilder';
 import Objectives from '../../components/Objectives/Objectives';
 import List from '../List/List';
 import FullEntry from '../../components/FullEntry/FullEntry';
+import Splash from '../../components/Splash/Splash';
 import { connect } from 'react-redux';
 
 import { Route, Switch, Redirect } from 'react-router-dom';
@@ -15,7 +16,7 @@ class Notnik extends Component {
 
     let routes = (
       <Switch>
-        <Route path="/" exact component={List}></Route>
+        <Route path="/" exact component={Splash}></Route>
         <Redirect to="/" />
       </Switch>
     );

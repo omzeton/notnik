@@ -11,10 +11,6 @@ import './FullEntry.css';
 
 class FullEntry extends Component {
 
-	state = {
-		error: this.props.error
-	}
-
 	componentDidMount () {
 		let id = this.props.match.params.id;
 		this.props.onFetchSamples(this.props.token);
@@ -22,7 +18,7 @@ class FullEntry extends Component {
 	}
 	render() {
 
-			let result = this.state.error ? <Noresult /> : <Loader />;
+			let result = this.props.error ? <Noresult /> : <Loader />;
 
 			if ( this.props.import ) {
 				const object = this.props.import;

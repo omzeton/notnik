@@ -51,66 +51,66 @@ export const setIndex = (index) => {
 	}
 }
 
-export const getNewTextBody = (cargo) => {
+export const getNewTextBody = (payLoad) => {
 	return {
 		type: GET_NEW_TEXT_BODY,
-		payLoad: cargo
+		payLoad: payLoad
 	}
 }
 
-export const getNewYear = (cargo) => {
+export const getNewYear = (payLoad) => {
 	return {
 		type: GET_NEW_YEAR,
-		payLoad: cargo
+		payLoad: payLoad
 	}
 }
 
-export const getNewMonth = (cargo) => {
+export const getNewMonth = (payLoad) => {
 	return {
 		type: GET_NEW_MONTH,
-		payLoad: cargo
+		payLoad: payLoad
 	}
 }
 
-export const getNewDay = (cargo) => {
+export const getNewDay = (payLoad) => {
 	return {
 		type: GET_NEW_DAY,
-		payLoad: cargo
+		payLoad: payLoad
 	}
 }
 
-export const getNewHour = (cargo) => {
+export const getNewHour = (payLoad) => {
 	return {
 		type: GET_NEW_HOUR,
-		payLoad: cargo
+		payLoad: payLoad
 	}
 }
 
-export const getId = (cargo) => {
+export const getId = (payLoad) => {
 	return {
 		type: GET_ID,
-		payLoad: cargo
+		payLoad: payLoad
 	}
 }
 
-export const getfKey = (cargo) => {
+export const getfKey = (payLoad) => {
 	return {
 		type: GET_FKEY,
-		payLoad: cargo
+		payLoad: payLoad
 	}
 }
 
-export const getNewHeader = (cargo) => {
+export const getNewHeader = (payLoad) => {
 	return {
 		type: GET_NEW_HEADER,
-		payLoad: cargo
+		payLoad: payLoad
 	}
 }
 
-export const getImg = (cargo) => {
+export const getImg = (payLoad) => {
 	return {
 		type: GET_IMG,
-		payLoad: cargo
+		payLoad: payLoad
 	}
 }
 

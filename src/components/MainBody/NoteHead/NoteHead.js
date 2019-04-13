@@ -87,13 +87,13 @@ class NoteHead extends Component {
 }
 const mapDispatchToProps = dispatch => {
   return {
-    onGetNewYear: (cargo) => dispatch(actionCreators.getNewYear(cargo)),
-    onGetNewMonth: (cargo) => dispatch(actionCreators.getNewMonth(cargo)),
-    onGetNewDay: (cargo) => dispatch(actionCreators.getNewDay(cargo)),
-    onGetNewHour: (cargo) => dispatch(actionCreators.getNewHour(cargo)),
-    onGetNewHeader: (cargo) => dispatch(actionCreators.getNewHeader(cargo)),
-    onGetImg: (cargo) => dispatch(actionCreators.getImg(cargo)),
-    onSetFKey: (cargo) => dispatch(actionCreators.getfKey(cargo))
+    onGetNewYear: (payLoad) => dispatch(actionCreators.getNewYear(payLoad)),
+    onGetNewMonth: (payLoad) => dispatch(actionCreators.getNewMonth(payLoad)),
+    onGetNewDay: (payLoad) => dispatch(actionCreators.getNewDay(payLoad)),
+    onGetNewHour: (payLoad) => dispatch(actionCreators.getNewHour(payLoad)),
+    onGetNewHeader: (payLoad) => dispatch(actionCreators.getNewHeader(payLoad)),
+    onGetImg: (payLoad) => dispatch(actionCreators.getImg(payLoad)),
+    onSetFKey: (payLoad) => dispatch(actionCreators.getfKey(payLoad))
 	}
 };
 
