@@ -16,8 +16,6 @@ class Notnik extends Component {
 
     let routes;
 
-    console.log(this.props.isAuthenticated);
-
     if (this.props.isAuthenticated) {
       routes = (
         <Switch>

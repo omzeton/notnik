@@ -141,7 +141,7 @@ class Menu extends Component {
 								return imageUrl
 							})
 							.then(url => {
-								console.log('Note edited! <3<3')
+								console.log('Note + img edited! <3<3')
 								return firebase.database().ref('notes').child(existingKey).update({img: newImgUrl.i})
 							})
 							.catch((error) => {
@@ -151,7 +151,7 @@ class Menu extends Component {
 					} else {
 						firebase.database().ref('notes').child(entry.fKey).update(entry)
 							.then(response => {
-								console.log(response);
+								console.log('Note (plain text) edited! <3<3');
 								return response;
 							})
 							.catch((err) => {

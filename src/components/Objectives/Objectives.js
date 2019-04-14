@@ -18,10 +18,9 @@ const objectives = props => {
 					<li className="blue">Firebase database permissions for users.</li>
 					<li>Logging after refresh works! But only for test@test.com, cuz we're hardcoding the password. How to get it from fb?</li>
 					<li>Loading screen is a must.</li>
-					<li>Ask for password 2 times when registering.</li>
+					<li>Load bar at the top border of screen to indicate if entry was saved!</li>
 					<li>After register and List is shown populate it with example entries.</li>
 					<li>Alert upon clicking delete button looks ugly.</li>
-					<li>That wallpaper in bg of Splash.. Let's make it more stylish!</li>
 					<li>Following the style of background, sample bgs for new entry. 5 different colors and shapes.</li>
 				</ul>
 			</div>
