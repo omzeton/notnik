@@ -14,12 +14,9 @@ import './Notnik.css';
 class Notnik extends Component {
   render() {
 
-    let routes = (
-      <Switch>
-        <Route path="/" exact component={Splash}></Route>
-        <Redirect to="/" />
-      </Switch>
-    );
+    let routes;
+
+    console.log(this.props.isAuthenticated);
 
     if (this.props.isAuthenticated) {
       routes = (
@@ -30,6 +27,13 @@ class Notnik extends Component {
              <Route render={() => <Redirect to="/" />}/>
         </Switch>
       );
+    } else if (!this.props.isAuthenticated) {
+      routes = (
+            <Switch>
+              <Route path="/" exact component={Splash}></Route>
+              <Redirect to="/" />
+            </Switch>
+          );
     }
 
     return (
@@ -44,7 +48,7 @@ class Notnik extends Component {
 
 const mapStateToProps = state => {
     return {
-        isAuthenticated: state.auth.token !== null
+        isAuthenticated: state.auth.token
     };
 };
 

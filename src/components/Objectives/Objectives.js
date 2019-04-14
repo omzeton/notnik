@@ -18,6 +18,9 @@ const objectives = props => {
 					<li className="blue">Firebase database permissions for users.</li>
 					<li>Stay logged after refresh.</li>
 					<li>Loading screen is a must.</li>
+					<li>Ask for password 2 times when registering.</li>
+					<li>After register and List is shown populate it with example entries.</li>
+					<li>Alert upon clicking delete button looks ugly.</li>
 					<li>That wallpaper in bg of Splash.. Let's make it more stylish!</li>
 				</ul>
 			</div>

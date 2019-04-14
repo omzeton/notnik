@@ -7,7 +7,8 @@ import './Auth.css';
 
 class Auth extends Component {
 	state = {
-		logReg: true
+		logReg: true,
+		regSuccess: true
 	}
 
 	toggleMode = () => {
@@ -20,12 +21,26 @@ class Auth extends Component {
 
 	submitHandler = (event) => {
 		event.preventDefault();
-		this.props.onAuth(this.email.value, this.password.value, this.state.logReg);
+		if(!this.state.logReg) {
+
+			if (this.password1.value !== this.password2.value) {
+				this.setState({regSuccess: false});
+			} else {
+				this.setState({regSuccess: true});
+				this.props.onAuth(this.email.value, this.password2.value, this.state.logReg);
+			}
+
+		} else {
+			this.props.onAuth(this.email.value, this.password.value, this.state.logReg);
+		}
+		
 	}
 
 	render() {
 		let errorMsg,
 			styledMsg;
+
+		let regInputStyle = this.state.regSuccess ? "" : "mismatch";
 
 		if (this.props.loading) {
 			errorMsg = <Loader />;
@@ -68,6 +83,13 @@ class Auth extends Component {
 					<input type="submit" value="Back" onClick={this.toggleMode}/>
 				</div>;
 
+		let password = this.state.logReg ?
+			[<input type="password" placeholder="Password" key="i1" ref={(input) => {this.password = input}}/>]
+			:
+			[<input type="password" className={regInputStyle} placeholder="Password" key="i2" ref={(input) => {this.password1 = input}}/>,
+			<input type="password" className={regInputStyle} placeholder="Repeat password" key="i3" ref={(input) => {this.password2 = input}}/>];
+
+
 		return (
 			<div className="Auth">
 				<div className="Auth__Container">
@@ -75,7 +97,7 @@ class Auth extends Component {
 						<h2>{heading}</h2>
 					</div>
 					<input type="text" placeholder="Email address" ref={(input) => {this.email = input}}/>
-					<input type="password" placeholder="Password" ref={(input) => {this.password = input}}/>
+					{password}
 					{buttons}
 					<div className="Auth__Container__Popup">
 						{errorMsg}
