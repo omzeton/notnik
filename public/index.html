@@ -10,10 +10,32 @@
     <link href="https://fonts.googleapis.com/css?family=Baloo|Montserrat:400,700" rel="stylesheet">
     <meta name="theme-color" content="#000000" />
     <link rel="manifest" href="%PUBLIC_URL%/manifest.json" />
+    <script>
+      window.addEventListener('load', () => {
+        const load_screen = document.getElementById('load-screen');
+        const shape_overlay = document.getElementById('shape-overlay');
+        setTimeout(function () {
+          load_screen.style.height = '0';
+          shape_overlay.style.height = '0';
+        }, 1000);
+        setTimeout(function () {
+          document.body.removeChild(load_screen);
+        }, 2000);
+        setTimeout(function() {
+          document.body.removeChild(shape_overlay);
+        }, 2500);
+      });
+    </script>
     <title>Notnik - When you have to write it down</title>
   </head>
   <body>
     <noscript>You need to enable JavaScript to run this app.</noscript>
+    <div id="load-screen">
+      <h2>Notnik</h2>
+      <div class="load-animation"></div>
+    </div>
+    <div id="shape-overlay"></div>
     <div id="root"></div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/2.1.2/TweenLite.min.js"></script>
   </body>
 </html>

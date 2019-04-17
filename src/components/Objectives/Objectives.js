@@ -15,8 +15,7 @@ const objectives = props => {
 				<div className="Objectives--toggle" onClick={modalHanlder}></div>
 				<h2>Ja prdele... To działa. Naprawdę działa i zrobiłem to sam.</h2>
 				<ul>
-					<li className="blue">Firebase database permissions for users.</li>
-					<li>Logging after refresh works! But only for test@test.com, cuz we're hardcoding the password. How to get it from fb?</li>
+					<li>Stay logged after refresh.</li>
 					<li>Loading screen is a must.</li>
 					<li>Load bar at the top border of screen to indicate if entry was saved!</li>
 					<li>After register and List is shown populate it with example entries.</li>

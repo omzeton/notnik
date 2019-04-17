@@ -54,7 +54,8 @@ class Fetched extends Component {
 			entries = arr.map(result => {
 	        // eslint-disable-next-line
 		      if (result.userId == this.props.userId) {
-		          return (<Entry
+		          return (
+		          	<Entry
 		          id={result.id}
 		          key={result.fKey}
 		          header={result.header}
@@ -64,7 +65,8 @@ class Fetched extends Component {
 		          month={result.month}
 		          day={result.day}
 		          text={result.textBody}
-		          img={result.img}/>);
+		          img={result.img}/>
+		          );
 		      }    			
 			});
 		}
