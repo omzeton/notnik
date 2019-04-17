@@ -13,17 +13,12 @@
     <script>
       window.addEventListener('load', () => {
         const load_screen = document.getElementById('load-screen');
-        const shape_overlay = document.getElementById('shape-overlay');
         setTimeout(function () {
           load_screen.style.height = '0';
-          shape_overlay.style.height = '0';
         }, 1000);
         setTimeout(function () {
           document.body.removeChild(load_screen);
         }, 2000);
-        setTimeout(function() {
-          document.body.removeChild(shape_overlay);
-        }, 2500);
       });
     </script>
     <title>Notnik - When you have to write it down</title>

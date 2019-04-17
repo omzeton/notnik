@@ -16,15 +16,15 @@ class Entry extends Component {
   }
 
   onDelete = (e) => {
-    if (!e) { e.cancelBubble = true; }
-    if (e.stopPropagation) { e.stopPropagation(); }
-    if (window.confirm('Are you sure you wish to delete this item?')) {
-      firebase.database().ref('notes').child(this.props.fKey).remove();
-      firebase.database().ref('notes').on('value', () => { this.props.onFetchSamples(this.props.token); });
-      console.log('re-fetching entries after deletion...');
-      this.props.history.push(`/`);
+      if (!e) { e.cancelBubble = true; }
+      if (e.stopPropagation) { e.stopPropagation(); }
+      if (window.confirm('Are you sure you wish to delete this item?')) {
+        firebase.database().ref('notes').child(this.props.fKey).remove();
+        firebase.database().ref('notes').on('value', () => { this.props.onFetchSamples(this.props.token); });
+        console.log('re-fetching entries after deletion...');
+        this.props.history.push(`/`);
+      }
     }
-  }
 
   extractContent(s) {
     const span = document.createElement('span');

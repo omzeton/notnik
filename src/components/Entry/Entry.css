@@ -110,3 +110,39 @@
 .Entry--Delete:hover {
 	opacity: 1;
 }
+
+.Entry__DeleteModal {
+	position: absolute;
+	width: 100%;
+	height: 100%;
+	background-color: var(--or);
+	z-index: 9;
+	display: grid;
+	opacity: 0.8;
+	grid-template-columns: 1fr 1fr;
+	grid-template-rows: 1fr;
+	overflow: hidden;
+	z-index: 9999999;
+}
+
+.Entry__DeleteModal--Left,
+.Entry__DeleteModal--Right {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+.Entry__DeleteModal--Left:hover {
+	background-color: var(--g);
+}
+
+.Entry__DeleteModal--Right:hover {
+	background-color: var(--rd);
+}
+
+.Entry__DeleteModal h2 {
+	font-family: 'Baloo', cursive;
+	font-size: 2em;
+	color: var(--w);
+	z-index: 99999;
+}
