@@ -16,7 +16,6 @@ const objectives = props => {
 				<h2>Ja prdele... To działa. Naprawdę działa i zrobiłem to sam.</h2>
 				<ul>
 					<li>Stay logged after refresh.</li>
-					<li>Loading screen is a must.</li>
 					<li>Load bar at the top border of screen to indicate if entry was saved!</li>
 					<li>After register and List is shown populate it with example entries.</li>
 					<li>Alert upon clicking delete button looks ugly.</li>

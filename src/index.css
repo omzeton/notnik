@@ -72,13 +72,3 @@ code {
    background-size: cover;
    background-image: url('http://localhost:3000/assets/loader.svg');
 }
-
-#shape-overlay {
-  position: fixed;
-  height: 100%;
-  width: 100%;
-  background-color: var(--rd);
-  z-index:999998;
-  transition: height 1s;
-  transition-delay: 0.1s;
-}
