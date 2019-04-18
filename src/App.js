@@ -30,16 +30,16 @@ class App extends Component {
     authenticated: false,
   }
 
-  componentDidMount() {
-      firebase.auth().onAuthStateChanged((user) => {
-        if (user) {
-          this.setState({ loading: false, authenticated: true });
-          this.props.onAuth('brambor@gmail.com', 'brambor', true);
-        } else {
-          this.setState({ loading: false, authenticated: false });
-        }
-      });
-    }
+  // componentDidMount() {
+  //     firebase.auth().onAuthStateChanged((user) => {
+  //       if (user) {
+  //         this.setState({ loading: false, authenticated: true });
+  //         this.props.onAuth('brambor@gmail.com', 'brambor', true);
+  //       } else {
+  //         this.setState({ loading: false, authenticated: false });
+  //       }
+  //     });
+  //   }
 
   render() {
 
