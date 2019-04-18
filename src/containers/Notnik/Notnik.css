@@ -5,3 +5,31 @@
 	display: grid;
 	grid-template-columns: 3em 1fr;
 }
+
+.TransitionGroup {
+	position: absolute;
+	left: 3em;
+	right: ;
+	height: 100%;
+	width: calc(100% - 3em);
+}
+
+.fade-appear,
+.fade-enter {
+    opacity: 0;
+    z-index: 1;
+}
+.fade-appear-active,
+.fade-enter.fade-enter-active {
+    opacity: 1;
+    transition: opacity .5s linear;
+}
+
+.fade-exit {
+    opacity: 1;
+}
+
+.fade-exit.fade-exit-active {
+    opacity: 0;
+    transition: opacity .5s linear;
+}
