@@ -11,40 +11,48 @@ import './FullEntry.css';
 
 class FullEntry extends Component {
 
-	componentDidMount () {
+	componentDidMount() {
 		let id = this.props.match.params.id;
 		this.props.onFetchSamples(this.props.token);
 		this.props.onSetIndex(id);
 	}
 	render() {
 
-			let result = this.props.error ? <Noresult /> : <Loader />;
+		let result = this.props.error ? <Noresult /> : <Loader />;
 
-			if ( this.props.import ) {
-				const object = this.props.import;
+		if (this.props.import) {
+			const object = this.props.import.users;
+			let key = this.props.userId,
+				  arr;
 
-				let arr = Object.keys(object).map(function(key) {
-				    return object[key];
-				});
-				// eslint-disable-next-line
-				result = arr.map(entry => {
-					// eslint-disable-next-line
-					if ( entry.id == this.props.match.params.id) {
-						return <div key={entry.id}>
-									<NoteHead 
-										header={entry.header}
-										year={entry.year}
-										month={entry.month}
-										day={entry.day}
-										hour={entry.hour}
-										id={entry.id}
-										firebaseKey={entry.fKey}
-										img={entry.img} />
-									<NoteBody text={entry.textBody} />
-								</div>
-					}
-				});
+			for (let user in object) {
+				if (user === key) {
+					arr = object[user];
+				}
 			}
+
+			arr = Object.keys(arr).map(function (key) {
+				return arr[key];
+			});
+			// eslint-disable-next-line
+			result = arr.map(entry => {
+				// eslint-disable-next-line
+				if (entry.id == this.props.match.params.id) {
+					return <div key={entry.id}>
+						<NoteHead
+							header={entry.header}
+							year={entry.year}
+							month={entry.month}
+							day={entry.day}
+							hour={entry.hour}
+							id={entry.id}
+							firebaseKey={entry.fKey}
+							img={entry.img} />
+						<NoteBody text={entry.textBody} />
+					</div>
+				}
+			});
+		}
 
 		return (
 			<div className="FullEntry">
@@ -55,18 +63,19 @@ class FullEntry extends Component {
 }
 
 const mapStateToProps = state => {
-  return {
-      import: state.import,
-      error: state.error,
-      token: state.auth.token
-  };
+	return {
+		import: state.import,
+		error: state.error,
+		token: state.auth.token,
+		userId: state.auth.userId
+	};
 };
 
 const mapDispatchToProps = dispatch => {
-  return {
-    onFetchSamples: (token) => dispatch(actionCreators.fetchSamples(token)),
-    onSetIndex: (index) => dispatch(actionCreators.setIndex(index))
-  };
+	return {
+		onFetchSamples: (token) => dispatch(actionCreators.fetchSamples(token)),
+		onSetIndex: (index) => dispatch(actionCreators.setIndex(index))
+	};
 };
 
 export default withRouter(connect(mapStateToProps, mapDispatchToProps)(FullEntry));

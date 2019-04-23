@@ -54,6 +54,7 @@
 	font-weight: 400;
 	font-size:0.8em;
 	color: var(--w2);
+	transition: border-bottom .1s linear;
 }
 
 .Auth .Auth__Container input[type="text"]:focus,
@@ -82,6 +83,7 @@
 	font-size: 0.8em;
 	color:var(--w);
 	cursor: pointer;
+	transition: all .1s linear;
 }
 
 .Auth .Auth__Container .Auth__Container__Buttons input:hover {

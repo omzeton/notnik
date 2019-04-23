@@ -82,7 +82,7 @@ class Menu extends Component {
 					this.setState({loading: true});
 					entry.userId = this.props.userId;
 					// Creates new entry
-					firebase.database().ref('notes').push(entry)
+					firebase.database().ref('notes').child('users').child(this.props.userId).push(entry)
 						.then((data) => {
 							key = data.key
 							newFirebaseKey = data.key
@@ -99,7 +99,7 @@ class Menu extends Component {
 						})
 						.then(url => {
 							console.log("Note created! <3");
-							return firebase.database().ref('notes').child(key).update({img: url, fKey: newFirebaseKey})
+							return firebase.database().ref('notes').child('users').child(this.props.userId).child(key).update({img: url, fKey: newFirebaseKey})
 						})
 						.catch((error) => {
 							this.setState({error: true})
@@ -127,7 +127,7 @@ class Menu extends Component {
 					if (isChangingimg) {
 						let existingKey = entry.fKey;
 						let newImgUrl;
-						firebase.database().ref('notes').child(entry.fKey).update(entry)
+						firebase.database().ref('notes').child('users').child(this.props.userId).child(entry.fKey).update(entry)
 							.then(key => {
 								const filename = entry.img.name
 								const ext = filename.slice(filename.lastIndexOf('.'))
@@ -142,14 +142,14 @@ class Menu extends Component {
 							})
 							.then(url => {
 								console.log('Note + img edited! <3<3')
-								return firebase.database().ref('notes').child(existingKey).update({img: newImgUrl.i})
+								return firebase.database().ref('notes').child('users').child(this.props.userId).child(existingKey).update({img: newImgUrl.i})
 							})
 							.catch((error) => {
 								this.setState({error: true})
 								console.log(error);
 							});
 					} else {
-						firebase.database().ref('notes').child(entry.fKey).update(entry)
+						firebase.database().ref('notes').child('users').child(this.props.userId).child(entry.fKey).update(entry)
 							.then(response => {
 								console.log('Note (plain text) edited! <3<3');
 								return response;

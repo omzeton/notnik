@@ -19,7 +19,7 @@ class Entry extends Component {
       if (!e) { e.cancelBubble = true; }
       if (e.stopPropagation) { e.stopPropagation(); }
       if (window.confirm('Are you sure you wish to delete this item?')) {
-        firebase.database().ref('notes').child(this.props.fKey).remove();
+        firebase.database().ref('notes').child('users').child(this.props.userId).child(this.props.fKey).remove();
         firebase.database().ref('notes').on('value', () => { this.props.onFetchSamples(this.props.token); });
         console.log('re-fetching entries after deletion...');
         this.props.history.push(`/`);
@@ -58,7 +58,8 @@ class Entry extends Component {
 
 const mapStateToProps = state => {
   return {
-      token: state.auth.token
+      token: state.auth.token,
+      userId: state.auth.userId
   };
 };
 
