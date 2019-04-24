@@ -44,7 +44,7 @@ class Fetched extends Component {
 			entries = <Noresult signed={this.props.signedIn} />;
 		}
 
-		if (this.props.import) {
+		if (this.props.import && signStatus) {
 			const object = this.props.import.users;
 			let key = this.props.userId,
 				arr;

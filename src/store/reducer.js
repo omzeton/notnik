@@ -4,46 +4,47 @@ import { updateObject } from './utility';
 const initialState = {
 	import: null,
 	export: {
-	  header: undefined,
-      year: undefined,
-      month: undefined,
-      day: undefined,
-      hour: undefined,
-      textBody: undefined,
-      img: undefined,
-      id: undefined,
-      fKey: undefined,
-      userId: undefined
-    },
-    error: false,
-    currentIndex: null,
-    auth: {
-    	token: null,
+		header: undefined,
+		year: undefined,
+		month: undefined,
+		day: undefined,
+		hour: undefined,
+		textBody: undefined,
+		img: undefined,
+		id: undefined,
+		fKey: undefined,
+		userId: undefined
+	},
+	error: false,
+	currentIndex: null,
+	auth: {
+		token: null,
 		userId: null,
 		error: null,
 		loading: false,
 		isSignedIn: null
-    }
-		
+	}
+
 }
 
-const authStart = ( state, action ) => {
-	return updateObject(state, { auth: {error: null, loading: true }});
+const authStart = (state, action) => {
+	return updateObject(state, { auth: { error: null, loading: true } });
 };
 
 const authSuccess = (state, action) => {
-	return updateObject( state, { 
+	return updateObject(state, {
 		auth: {
+			...state.auth,
 			token: action.idToken,
 			userId: action.userId,
-			error: false, 
+			error: false,
 			loading: false,
 			isSignedIn: true
 		}
 	});
 };
 
-const authFail = ( state, action ) => {
+const authFail = (state, action) => {
 	return updateObject(state, {
 		auth: {
 			error: action.error,
@@ -54,7 +55,7 @@ const authFail = ( state, action ) => {
 };
 
 const authLogout = (state, action) => {
-	return updateObject(state, { auth: {token:null, userId: null} })
+	return updateObject(state, { auth: { token: null, userId: null } })
 }
 
 const reducer = (state = initialState, action) => {

@@ -9,6 +9,19 @@
 	background-repeat: no-repeat;
 	background-size: cover;
 	background-position: center;
+	animation: zoom 30s ease-in-out infinite;
+}
+
+@keyframes zoom {
+	0% {
+		background-size: 300%;
+	}
+	50% {
+		background-size: 350%;
+	}
+	100% {
+		background-size: 300%;
+	}
 }
 
 .Splash__Left {

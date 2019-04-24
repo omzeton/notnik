@@ -13,7 +13,6 @@ const objectives = props => {
 		<div className="Objectives" style={modal ? { right: "0em" } : { right: "-30em"}}>
 			<div className="show">
 				<div className="Objectives--toggle" onClick={modalHanlder}></div>
-				<h2>Ja prdele... To działa. Naprawdę działa i zrobiłem to sam.</h2>
 				<ul>
 					<li>Stay logged after refresh.</li>
 					<li>Load bar at the top border of screen to indicate if entry was saved!</li>
