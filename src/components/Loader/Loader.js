@@ -2,7 +2,7 @@ import React from 'react';
 
 import './Loader.css';
 	
-function Loader() {
+function loader() {
 	return (
 		<div className="Loader">
 			<div className="lds-ripple"><div></div><div></div></div>
@@ -11,4 +11,4 @@ function Loader() {
 	);
 }
 
-export default Loader;
+export default loader;

@@ -5,7 +5,7 @@
 	display: grid;
 	grid-template-columns: 27em 1fr;
 	grid-template-rows: 1fr;
-	background-image: url('http://localhost:3000/assets/bg/Notnik-Bg2.jpg');
+	background-image: url('https://firebasestorage.googleapis.com/v0/b/notnik-app.appspot.com/o/assets%2FNotnik-bg-splash.jpg?alt=media&token=6b6e10ac-5fec-4e5d-950f-b05b30f30be9');
 	background-repeat: no-repeat;
 	background-size: cover;
 	background-position: center;

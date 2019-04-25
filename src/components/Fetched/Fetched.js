@@ -38,6 +38,7 @@ class Fetched extends Component {
 			this.onFetch();
 		}
 
+
 		if (signStatus) {
 			entries = this.props.error ? <Noresult signed={this.props.isSignedIn} /> : <Loader />;
 		} else {
