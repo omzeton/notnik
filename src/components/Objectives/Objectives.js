@@ -14,11 +14,10 @@ const objectives = props => {
 			<div className="show">
 				<div className="Objectives--toggle" onClick={modalHanlder}></div>
 				<ul>
-					<li>Stay logged after refresh.</li>
 					<li>Load bar at the top border of screen to indicate if entry was saved!</li>
-					<li>After register and List is shown populate it with example entries.</li>
 					<li>Alert upon clicking delete button looks ugly.</li>
-					<li>Following the style of background, sample bgs for new entry. 5 different colors and shapes.</li>
+					<li>Media qureies</li>
+					<li>Browser compability</li>
 				</ul>
 			</div>
 		</div>

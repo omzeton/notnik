@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import Menu from '../../components/Menu/Menu';
 import NoteBuilder from '../NoteBuilder/NoteBuilder';
 import Objectives from '../../components/Objectives/Objectives';
@@ -15,12 +15,11 @@ import { Route, Switch, Redirect } from 'react-router-dom';
 
 import './Notnik.css';
 
-class Notnik extends Component {
-  render() {
+const notnik = props => {
 
     let routes;
 
-    if (this.props.isAuthenticated) {
+    if (props.isAuthenticated) {
       routes = (
         <Route render={({location}) => (
             <TransitionGroup className="TransitionGroup">
@@ -34,9 +33,8 @@ class Notnik extends Component {
             </CSSTransition>
             </TransitionGroup>
         )} />
-        
       );
-    } else if (!this.props.isAuthenticated) {
+    } else if (!props.isAuthenticated) {
       routes = (
         <Route render={({location}) => (
           <TransitionGroup>
@@ -59,7 +57,6 @@ class Notnik extends Component {
           <Objectives />
       </div>
     );
-  }
 }
 
 const mapStateToProps = state => {
@@ -68,4 +65,4 @@ const mapStateToProps = state => {
     };
 };
 
-export default connect(mapStateToProps, null)(Notnik);
+export default connect(mapStateToProps, null)(notnik);
