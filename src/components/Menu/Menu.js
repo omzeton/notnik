@@ -15,15 +15,14 @@ import './Menu.css';
 class Menu extends Component {
 
 	state = {
-		method: null,
 		loading: false,
 		error: false
 	}
 
 	saveHandler = () => {
 
-		let currentIndex = this.props.index, // What entry we're currently viewing
-			crtEntry, // The entry with this id number
+		let currentIndex = this.props.index,
+			existingEntry, // The entry with this id number
 			isChangingimg, // Boolean for listening on img change
 			toExport = this.props.toExport, // toExport is now whatever is in Redux' export object
 			entry = toExport; // What will be sent to firebase
@@ -35,43 +34,38 @@ class Menu extends Component {
 		if (this.props.location.pathname !== '/newEntry') {
 
 			const object = this.props.imported.users;
-			let key = this.props.userId,
-				arr,
-				data;
+			let data;
 
 			for (let user in object) {
-				if (user === key) {
-					arr = object[user];
+				if (user === this.props.userId) {
+					data = object[user];
 				}
 			}
 
-			data = Object.keys(arr).map(function (key) {
-				return arr[key];
+			data = Object.keys(data).map(function (key) {
+				return data[key];
 			});
 
 
 			data.map(el => {
 				// eslint-disable-next-line
 				if (el.id == currentIndex) {
-					crtEntry = el;
+					existingEntry = el;
 				}
-				return crtEntry;
+				return existingEntry;
 			});
 
-			entry.header = toExport.header ? toExport.header : crtEntry.header;
-			entry.day = toExport.day ? toExport.day : crtEntry.day;
-			entry.hour = toExport.hour ? toExport.hour : crtEntry.hour;
-			entry.month = toExport.month ? toExport.month : crtEntry.month;
-			entry.textBody = toExport.textBody ? toExport.textBody : crtEntry.textBody;
-			entry.year = toExport.year ? toExport.year : crtEntry.year;
-			entry.img = toExport.img ? toExport.img : crtEntry.img;
+			entry.header = toExport.header ? toExport.header : existingEntry.header;
+			entry.day = toExport.day ? toExport.day : existingEntry.day;
+			entry.hour = toExport.hour ? toExport.hour : existingEntry.hour;
+			entry.month = toExport.month ? toExport.month : existingEntry.month;
+			entry.textBody = toExport.textBody ? toExport.textBody : existingEntry.textBody;
+			entry.year = toExport.year ? toExport.year : existingEntry.year;
+			entry.img = toExport.img ? toExport.img : existingEntry.img;
 			entry.fKey = this.props.noteFId;
 			entry.userId = this.props.userId;
 
-			console.log(crtEntry);
-			console.log(toExport);
-
-			if (crtEntry.img !== toExport.img) {
+			if (existingEntry.img !== toExport.img) {
 				isChangingimg = true;
 			} else {
 				isChangingimg = false;
@@ -86,7 +80,6 @@ class Menu extends Component {
 		// If user creates new entry store it as separate one in database
 		// eslint-disable-next-line
 		if (this.props.location.pathname == '/newEntry') {
-			this.setState({ method: 'POST' })
 			console.log('Creating a new entry...');
 			this.setState({ error: false });
 			this.setState({ loading: true });
@@ -141,13 +134,11 @@ class Menu extends Component {
 					.then(key => {
 						const filename = entry.img.name
 						const ext = filename.slice(filename.lastIndexOf('.'))
-						console.log('2');
 						return firebase.storage().ref('note-img/' + existingKey + '.' + ext).put(entry.img);
 					})
 					.then(fileData => {
 						imageUrl = firebase.storage().ref(fileData.metadata.fullPath).getDownloadURL()
 						newImgUrl = imageUrl;
-						console.log('3');
 						return imageUrl
 					})
 					.then(url => {

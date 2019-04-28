@@ -11,6 +11,7 @@ class Auth extends Component {
 		regSuccess: true
 	}
 
+
 	toggleMode = () => {
 		this.setState((prevState, props) => {
 			return {
@@ -19,7 +20,8 @@ class Auth extends Component {
 		})
 	}
 
-	submitHandler = (event) => {
+	submitHandler = () => {
+
 		if(!this.state.logReg) {
 
 			if (this.password1.value !== this.password2.value) {
@@ -37,17 +39,9 @@ class Auth extends Component {
 
 	render() {
 
-		window.addEventListener('keypress', (e) => {
-		    var key = e.which || e.keyCode;
-		    if (key === 13) { 
-		      this.submitHandler();
-		    }
-		});
-
 		let errorMsg,
-			styledMsg;
-
-		let regInputStyle = this.state.regSuccess ? "" : "mismatch";
+			styledMsg,
+			regInputStyle = this.state.regSuccess ? "" : "mismatch";
 
 		if (this.props.loading) {
 			errorMsg = <Loader />;

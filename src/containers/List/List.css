@@ -1,7 +1,8 @@
 .List {
 	position:absolute;
-	width: 100%;
+	width: calc(100% - 3em);
 	height: 100%;
+	right: 0;
 	background-color:var(--bla3);
 	background-image: url('https://firebasestorage.googleapis.com/v0/b/notnik-app.appspot.com/o/assets%2Fchristmas-dark.png?alt=media&token=366d39a3-46c2-4c9a-bed9-a141cc3a0cd8');
 	background-repeat: repeat;

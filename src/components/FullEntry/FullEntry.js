@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { useEffect } from 'react';
 import NoteHead from '../MainBody/NoteHead/NoteHead';
 import NoteBody from '../MainBody/NoteBody/NoteBody';
 import Noresult from '../Noresult/Noresult';
@@ -9,58 +9,55 @@ import { connect } from 'react-redux';
 
 import './FullEntry.css';
 
-class FullEntry extends Component {
+const fullEntry = props => {
 
-	componentDidMount() {
-		let id = this.props.match.params.id;
-		this.props.onFetchSamples(this.props.token);
-		this.props.onSetIndex(id);
-	}
-	render() {
+	useEffect(() => {
+		let id = props.match.params.id;
+		props.onFetchSamples(props.token);
+		props.onSetIndex(id);
+	}, []);
 
-		let result = this.props.error ? <Noresult /> : <Loader />;
+	let result = props.error ? <Noresult /> : <Loader />;
 
-		if (this.props.import) {
-			const object = this.props.import.users;
-			let key = this.props.userId,
-				  arr;
+	if (props.import) {
 
-			for (let user in object) {
-				if (user === key) {
-					arr = object[user];
-				}
+		let imported = props.import.users;
+
+		for (let user in imported) {
+			if (user === props.userId) {
+				imported = imported[user];
 			}
-
-			arr = Object.keys(arr).map(function (key) {
-				return arr[key];
-			});
-			// eslint-disable-next-line
-			result = arr.map(entry => {
-				// eslint-disable-next-line
-				if (entry.id == this.props.match.params.id) {
-					return <div key={entry.id}>
-						<NoteHead
-							header={entry.header}
-							year={entry.year}
-							month={entry.month}
-							day={entry.day}
-							hour={entry.hour}
-							id={entry.id}
-							firebaseKey={entry.fKey}
-							img={entry.img} />
-						<NoteBody text={entry.textBody} />
-					</div>
-				}
-			});
 		}
 
-		return (
-			<div className="FullEntry">
-				{result}
-			</div>
-		);
+		imported = Object.keys(imported).map(function (key) {
+			return imported[key];
+		});
+		// eslint-disable-next-line
+		result = imported.map(entry => {
+			// eslint-disable-next-line
+			if (entry.id == props.match.params.id) {
+				return <div key={entry.id}>
+							<NoteHead
+								header={entry.header}
+								year={entry.year}
+								month={entry.month}
+								day={entry.day}
+								hour={entry.hour}
+								id={entry.id}
+								firebaseKey={entry.fKey}
+								img={entry.img} />
+							<NoteBody text={entry.textBody} />
+						</div>
+			}
+		});
 	}
-}
+
+	return (
+		<div className="FullEntry">
+			{result}
+		</div>
+	);
+};
 
 const mapStateToProps = state => {
 	return {
@@ -78,4 +75,4 @@ const mapDispatchToProps = dispatch => {
 	};
 };
 
-export default withRouter(connect(mapStateToProps, mapDispatchToProps)(FullEntry));
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(fullEntry));

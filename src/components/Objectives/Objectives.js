@@ -14,11 +14,8 @@ const objectives = props => {
 			<div className="show">
 				<div className="Objectives--toggle" onClick={modalHanlder}></div>
 				<ul>
-					<li>Put Firebase key into fKey in firstEntry => cannot delete that entry.</li>
-					<li>Load bar at the top border of screen to indicate if entry was saved!</li>
-					<li>Alert upon clicking delete button looks ugly.</li>
 					<li>Media qureies</li>
-					<li>Browser compability</li>
+					<li>Trouble deploying project to Firebase</li>
 				</ul>
 			</div>
 		</div>

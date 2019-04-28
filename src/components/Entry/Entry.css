@@ -81,8 +81,13 @@
 	font-family: 'Montserrat', sans-serif;
 	line-height: 1em;
 	font-size: 0.7em;
-	color: var(--w2);
+	margin-top: 0em;
+	color: var(--bla4);
 	outline: none;
+}
+
+.Entry__Info h3 span {
+	color:var(--bla4);
 }
 
 .Entry__Text {
@@ -92,6 +97,7 @@
 	color: var(--w1);
 	width:23em;
 	outline: none;
+	text-align: justify;
 }
 
 .Entry--Delete {

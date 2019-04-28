@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { withRouter } from 'react-router-dom';
 import firebase from '@firebase/app';
 // eslint-disable-next-line
@@ -9,51 +9,56 @@ import * as actionCreators from '../../store/actions';
 
 import './Entry.css';
 
-class Entry extends Component {
+const entry = props => {
 
-  onClick = () => {
-    this.props.history.push(`/entry/${this.props.id}`);
+  const pushHistory = () => {
+    props.history.push(`/entry/${props.id}`);
   }
 
-  onDelete = (e) => {
+  const deleteEntry = e => {
       if (!e) { e.cancelBubble = true; }
       if (e.stopPropagation) { e.stopPropagation(); }
       if (window.confirm('Are you sure you wish to delete this item?')) {
-        firebase.database().ref('notes').child('users').child(this.props.userId).child(this.props.fKey).remove();
-        firebase.database().ref('notes').on('value', () => { this.props.onFetchSamples(this.props.token); });
+        firebase.database().ref('notes').child('users').child(props.userId).child(props.fKey).remove();
+        firebase.database().ref('notes').on('value', () => { props.onFetchSamples(props.token); });
         console.log('re-fetching entries after deletion...');
-        this.props.history.push(`/`);
+        props.history.push(`/`);
       }
     }
 
-  extractContent(s) {
+  const checkIfTooLong = str => {
+    let output;
+    if(str.length > 75) {
+      output = str.slice(0, 75);
+      output += "...";
+    } else {
+      output = str;
+    }
+    return output;
+  }
+
+  const extractContent = s => {
     const span = document.createElement('span');
     span.innerHTML = s;
     return span.textContent || span.innerText;
   };
 
-  render() {
-      let orgText = this.props.text;
-      let previewText;
-      if(orgText.length > 75) {
-        previewText = orgText.slice(0, 75);
-        previewText += "...";
-      } else {
-        previewText = this.props.text;
-      }
-      previewText = this.extractContent(previewText);
+      let previewText = checkIfTooLong(props.text),
+          prevHeader = checkIfTooLong(props.header);
+
+      previewText = extractContent(previewText);
+
     return (
-      <div className="Entry" onClick={this.onClick} ref={(el) => this.whole = el}>
-        <div className="Entry__Img" style={{backgroundImage: 'url(' + this.props.img + ')'}}></div>
+      <div className="Entry" onClick={pushHistory}>
+        <div className="Entry__Img" style={{backgroundImage: 'url(' + props.img + ')'}}></div>
         <div className="Entry__Info">
-          <div className="Entry--Delete" ref={(el) => this.delete = el} onClick={this.onDelete}></div>
-          <h2>{this.props.header}</h2>
-          <h3>{this.props.year}.{this.props.month}.{this.props.day}</h3>
+          <div className="Entry--Delete" onClick={deleteEntry}></div>
+          <h2>{prevHeader}</h2>
+          <h3>{props.year} <span>-</span> {props.month} <span>-</span> {props.day}</h3>
           <div className="Entry__Text">{previewText}</div>
         </div>
       </div>
     );
-  }
 };
 
 const mapStateToProps = state => {
@@ -69,4 +74,4 @@ const mapDispatchToProps = dispatch => {
   };
 };
 
-export default withRouter(connect(mapStateToProps, mapDispatchToProps)(Entry));
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(entry));
