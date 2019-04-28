@@ -180,60 +180,25 @@ export const authenticate = (email, password, isSignin) => {
 					return err;
 				})
 		} else {
-			firebase.auth().createUserWithEmailAndPassword(authData.email, authData.password).then(res => {
-				// firstEntry.fKey = key; key needs to be equal to what Firebase assigns
+			firebase.auth().createUserWithEmailAndPassword(authData.email, authData.password)
+			.then(res => {
 				userId = res.user.uid;
-				firebase.database().ref('notes').child('users').child(userId).push(firstEntry).then(data => {
-					firebase.database().ref('notes').child('users').child(userId).push(backup);
-					return firebase.database().ref('notes').child('users').child(userId).child(data.key).update({ fKey: data.key, userId: userId });
-				}).catch(err => console.log(err));
-				console.log(res);
-				return res;
-			}).then(() => {
-				return axios.post('https://www.googleapis.com/identitytoolkit/v3/relyingparty/verifyPassword?key=AIzaSyCVggrVx3OPHRM6sJim1dqa9lWYNnM704A', authData)
-				.then(response => {
-					dispatch(authSuccess(response.data.idToken, response.data.localId));
-					dispatch(checkAuthTimeout(response.data.expiresIn));
-					return response;
-				})
-				.catch(err => {
-					console.log(err);
-					dispatch(authFail(err.response.data.error));
-					return err;
-				})
+				return firebase.database().ref('notes').child('users').child(userId).push(firstEntry)})
+			.then(data => {
+				firebase.database().ref('notes').child('users').child(userId).push(backup);
+				return firebase.database().ref('notes').child('users').child(userId).child(data.key).update({ fKey: data.key, userId: userId });
+			})
+			.then(() => axios.post('https://www.googleapis.com/identitytoolkit/v3/relyingparty/verifyPassword?key=AIzaSyCVggrVx3OPHRM6sJim1dqa9lWYNnM704A', authData))
+			.then(response => {
+				dispatch(authSuccess(response.data.idToken, response.data.localId));
+				dispatch(checkAuthTimeout(response.data.expiresIn));
+				return response;
 			})
 			.catch(err => {
+				dispatch(authFail(err.response.data.error));
 				console.log(err);
 				return err;
-			})
+			});
 		}
-
 	};
 };
-
-/*
-// Creates new entry
-firebase.database().ref('notes').child('users').child(this.props.userId).push(entry)
-.then((data) => {
-	key = data.key
-	newFirebaseKey = data.key
-	return key
-})
-.then(key => {
-	const filename = entry.img.name
-	const ext = filename.slice(filename.lastIndexOf('.'))
-	return firebase.storage().ref('note-img/' + key + '.' + ext).put(entry.img)
-})
-.then(fileData => {
-	imageUrl = firebase.storage().ref(fileData.metadata.fullPath).getDownloadURL()
-	return imageUrl
-})
-.then(url => {
-	console.log("Note created! <3");
-	return firebase.database().ref('notes').child('users').child(this.props.userId).child(key).update({ img: url, fKey: newFirebaseKey })
-})
-.catch((error) => {
-	this.setState({ error: true })
-	console.log(error);
-});
-*/
