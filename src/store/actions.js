@@ -206,10 +206,12 @@ export const authenticate = (email, password, isSignin) => {
 				.then(response => {
 					dispatch(authSuccess(response.data.idToken, response.data.localId));
 					dispatch(checkAuthTimeout(response.data.expiresIn));
+					return response;
 				})
 				.catch(err => {
 					console.log(err);
 					dispatch(authFail(err.response.data.error));
+					return err;
 				})
 		} else {
 			firebase.auth().createUserWithEmailAndPassword(authData.email, authData.password).then(res => {
@@ -217,19 +219,23 @@ export const authenticate = (email, password, isSignin) => {
 				firstEntry.userId = res.user.uid;
 				firebase.database().ref('notes').child('users').child(res.user.uid).push(firstEntry);
 				console.log(res);
+				return res;
 			}).then(() => {
-				axios.post('https://www.googleapis.com/identitytoolkit/v3/relyingparty/verifyPassword?key=AIzaSyCVggrVx3OPHRM6sJim1dqa9lWYNnM704A', authData)
+				return axios.post('https://www.googleapis.com/identitytoolkit/v3/relyingparty/verifyPassword?key=AIzaSyCVggrVx3OPHRM6sJim1dqa9lWYNnM704A', authData)
 				.then(response => {
 					dispatch(authSuccess(response.data.idToken, response.data.localId));
 					dispatch(checkAuthTimeout(response.data.expiresIn));
+					return response;
 				})
 				.catch(err => {
 					console.log(err);
 					dispatch(authFail(err.response.data.error));
+					return err;
 				})
 			})
 			.catch(err => {
 				console.log(err);
+				return err;
 			})
 		}
 

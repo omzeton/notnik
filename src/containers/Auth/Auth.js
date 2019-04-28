@@ -20,7 +20,6 @@ class Auth extends Component {
 	}
 
 	submitHandler = (event) => {
-		event.preventDefault();
 		if(!this.state.logReg) {
 
 			if (this.password1.value !== this.password2.value) {
@@ -37,6 +36,14 @@ class Auth extends Component {
 	}
 
 	render() {
+
+		window.addEventListener('keypress', (e) => {
+		    var key = e.which || e.keyCode;
+		    if (key === 13) { 
+		      this.submitHandler();
+		    }
+		});
+
 		let errorMsg,
 			styledMsg;
 

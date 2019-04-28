@@ -27,21 +27,28 @@ class Menu extends Component {
 			isChangingimg, // Boolean for listening on img change
 			toExport = this.props.toExport, // toExport is now whatever is in Redux' export object
 			entry = toExport; // What will be sent to firebase
-
+ 
 		this.props.onGetId(currentIndex); // Set the id of the entry so it's ready to ship
 		toExport.id = currentIndex;
 
 
-		// eslint-disable-next-line
-		if (this.props.location.pathname == '/newEntry') {
-			// entry.header = this.props.header;
-		} else {
+		if (this.props.location.pathname !== '/newEntry') {
 
-			let arr = this.props.imported;
+			const object = this.props.imported.users;
+			let key = this.props.userId,
+				arr,
+				data;
 
-			let data = Object.keys(arr).map(key => {
+			for (let user in object) {
+				if (user === key) {
+					arr = object[user];
+				}
+			}
+
+			data = Object.keys(arr).map(function (key) {
 				return arr[key];
 			});
+
 
 			data.map(el => {
 				// eslint-disable-next-line
@@ -50,12 +57,6 @@ class Menu extends Component {
 				}
 				return crtEntry;
 			});
-
-			if (crtEntry.img !== toExport.img) {
-				isChangingimg = true;
-			} else {
-				isChangingimg = false;
-			}
 
 			entry.header = toExport.header ? toExport.header : crtEntry.header;
 			entry.day = toExport.day ? toExport.day : crtEntry.day;
@@ -66,6 +67,15 @@ class Menu extends Component {
 			entry.img = toExport.img ? toExport.img : crtEntry.img;
 			entry.fKey = this.props.noteFId;
 			entry.userId = this.props.userId;
+
+			console.log(crtEntry);
+			console.log(toExport);
+
+			if (crtEntry.img !== toExport.img) {
+				isChangingimg = true;
+			} else {
+				isChangingimg = false;
+			}
 
 		}
 
