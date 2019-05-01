@@ -14,8 +14,12 @@ const objectives = props => {
 			<div className="show">
 				<div className="Objectives--toggle" onClick={modalHanlder}></div>
 				<ul>
-					<li>Media qureies</li>
-					<li>Trouble deploying project to Firebase</li>
+					<li>Display the same on all devices</li>
+					<li>Columns with dynamic rows to fill up the screen (margin maybe?)</li>
+					<li>If note is not saved and user wants to close tab alert</li>
+					<li>Confirmation email? :)</li>
+					<li>Font size controls</li>
+					<li>Sort by date</li>
 				</ul>
 			</div>
 		</div>
