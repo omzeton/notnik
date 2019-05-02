@@ -16,9 +16,10 @@ const objectives = props => {
 				<ul>
 					<li>Display the same on all devices</li>
 					<li>Columns with dynamic rows to fill up the screen (margin maybe?)</li>
-					<li>If note is not saved and user wants to close tab alert</li>
+					<li>If note is not saved and user wants to close the tab alert!</li>
 					<li>Confirmation email? :)</li>
 					<li>Font size controls</li>
+					<li>Forgotten password</li>
 					<li>Sort by date</li>
 				</ul>
 			</div>
