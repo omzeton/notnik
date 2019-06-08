@@ -1,0 +1,52 @@
+.Settings {
+    background-color:var(--bla3);
+    padding-left:2em;
+}
+
+.Settings h2 {
+  position: relative;
+  font-family: "Baloo", cursive;
+  font-size: 2em;
+  color: var(--w);
+}
+
+.Settings h2:before {
+    position:absolute;
+    content:'';
+    width:2em;
+    height:1px;
+    top:100%;
+    background-color:var(--or);
+}
+
+.Settings .Settings__Categories {
+    margin:2em 0;
+}
+
+.Settings .Settings__Categories p {
+    color:var(--w);
+    opacity: 0.3;
+    cursor: not-allowed;
+    font-family: 'Montserrat', sans-serif;
+}
+
+.Settings input {
+	width:6em;
+	outline: none;
+	height:3em;
+	background-color: transparent;
+	border-radius: 0.5em;
+	border:1px solid var(--w);
+	font-family: 'Montserrat', sans-serif;
+	font-weight: 700;
+	font-size: 0.8em;
+	line-height: 0;
+	color:var(--w);
+	cursor: pointer;
+	transition: all .1s linear;
+}
+
+.Settings input:hover {
+	background-color: var(--w);
+	color:var(--bla3);
+}

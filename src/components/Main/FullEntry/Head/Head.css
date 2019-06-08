@@ -1,0 +1,87 @@
+.Entry__Head {
+	position: relative;
+	width:100%;
+	height:100%;
+	background-color:var(--bla1);
+	background-position: center;
+	background-size: cover;
+	background-repeat: no-repeat;
+}
+
+.Entry__Head .Input__Title {
+	position: absolute;
+	font-family: 'Baloo', cursive;
+	font-size: 3.5em;
+	line-height:0em;
+	color: var(--w);
+	margin-top:0.5em;
+	outline: none;
+	width:100%;
+	margin-left: 0.5em;
+	z-index: 9999;
+}
+
+.Entry__Head__Date__Container {
+	position: absolute;
+	top:7em;
+	margin-left: 2em;
+	z-index: 9999;
+}
+
+.Entry__Head__Date__Container .Input__Date {
+	font-family: 'Montserrat', sans-serif;
+	line-height: 1em;
+	font-size: 0.8em;
+	color: var(--or2);
+}
+
+.Entry__Head__Date__Container span {
+	line-height: 0em;
+	color: var(--w);
+	margin:0 0.2em;
+}
+
+.Entry__Head__Date__Container .Input__Date:nth-child(1) {
+	width:2rem;
+}
+
+.Entry__Head__Date__Container .Input__Date:nth-child(3),
+.Entry__Head__Date__Container .Input__Date:nth-child(5) {
+	width:1.3rem;
+}
+
+.Entry__Head__Date__Container .Input__Date:nth-child(7) {
+	width:2rem;
+}
+
+.Entry__Head .Input__Img {
+	position: absolute;
+	width:1.1em;
+	height:1.1em;
+	background-color: transparent;
+	border:1px solid var(--w);
+	cursor: pointer;
+	transition:0.3s box-shadow;
+	background-image: url('http://localhost:3000/assets/icons/new.svg');
+	background-size:100%;
+	background-position: center;
+	background-repeat: no-repeat;
+	top:1em;
+	right:1em;
+	z-index: 9999;
+}
+
+.Entry__Head .Input__Img:hover {
+	box-shadow:0 0 13px -1px rgba(255, 255, 255, 1);
+}
+
+.Entry__Head:after {
+	content:'';
+	position: absolute;
+	width: 100%;
+	height: 100%;
+	top: 0;
+	left: 0;
+	background-color: #000;
+	opacity: 0.5;
+}
