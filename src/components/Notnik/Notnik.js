@@ -153,10 +153,11 @@ class Notnik extends Component {
             authLoading: false,
             error: resData.message
           });
+        } else {
+          this.setState({ isAuth: true, authLoading: false });
+          this.props.history.replace("/");
         }
         console.log(resData);
-        this.setState({ isAuth: true, authLoading: false });
-        this.props.history.replace("/");
       })
       .catch(err => {
         console.log(err);
@@ -255,7 +256,7 @@ class Notnik extends Component {
       if (e.Handled) return;
       if (e.ctrlKey && e.keyCode === 83) {
         e.preventDefault();
-        if(location !== '/' && location !== '/settings') {
+        if (location !== "/" && location !== "/settings") {
           this.createNewEntry();
         }
       }
