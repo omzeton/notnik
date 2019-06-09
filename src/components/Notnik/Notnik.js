@@ -122,7 +122,6 @@ class Notnik extends Component {
     event.preventDefault();
     this.setState({ authLoading: true });
     let error = false;
-    console.log(authData.repeatPassword.value);
     fetch("http://localhost:8080/auth/signup", {
       method: "PUT",
       headers: {
