@@ -23,7 +23,21 @@ body {
   width: 100%;
   height: 100%;
   position: absolute;
-  overflow: hidden;
+}
+
+::-webkit-scrollbar {
+	height: 0.7em;
+	width: 0.7em;
+}
+
+::-webkit-scrollbar-track {
+	background:var(--bla1);
+}
+::-webkit-scrollbar-thumb {
+	background:var(--bla4);
+}
+::-webkit-scrollbar-thumb:hover {
+	background:var(--bla3);
 }
 
 code {

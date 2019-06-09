@@ -1,70 +1,84 @@
 .Menu {
-	position: relative;
-	width:100%;
-	height: 100%;
-	background-color: var(--bla1);
-	display: grid;
-	grid-template-columns:1fr;
-	grid-template-rows:1fr repeat(4, 3em) 1fr;
-	grid-row-gap: 2em;
-	
+  height: 100%;
+  background-color: var(--bla1);
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: 1fr repeat(4, 3em) 1fr;
+  grid-row-gap: 2em;
+  z-index: 9999;
 }
 
 .Menu .Menu__Btn {
-	position: relative;
-	width:100%;
-	height: 100%;
-	background-color:var(--bla2);
-	background-repeat: no-repeat;
-	background-size: 40%;
-	background-position: 40% 50%;
-	cursor: pointer;
-	transition:0.5s opacity;
+  position: relative;
+  width: 100%;
+  height: 100%;
+  background-color: var(--bla2);
+  background-repeat: no-repeat;
+  background-size: 40%;
+  background-position: 40% 50%;
+  cursor: pointer;
+  transition: 0.5s opacity;
 }
 
 .Menu .Menu__Btn:after {
-	content:'';
-	position: absolute;
-	width:0.2em;
-	top:0;
-	height:100%;
-	left:calc(100% - 0.2em);
+  content: "";
+  position: absolute;
+  width: 0.2em;
+  top: 0;
+  height: 100%;
+  left: calc(100% - 0.2em);
 }
 
 .Menu .Menu__Btn:nth-child(2) {
-	background-image: url('http://localhost:3000/assets/icons/new.svg');
+  background-image: url("http://localhost:3000/assets/icons/new.svg");
 }
 
 .Menu .Menu__Btn:nth-child(2):after {
-	background-color: var(--g);
+  background-color: var(--g);
 }
 
 .Menu .Menu__Btn:nth-child(3) {
-	background-image: url('https://firebasestorage.googleapis.com/v0/b/notnik-app.appspot.com/o/assets%2Flist.svg?alt=media&token=24fea949-42d0-4476-8e2e-be5e30dc5f7a');
+  background-image: url("https://firebasestorage.googleapis.com/v0/b/notnik-app.appspot.com/o/assets%2Flist.svg?alt=media&token=24fea949-42d0-4476-8e2e-be5e30dc5f7a");
 }
 
 .Menu .Menu__Btn:nth-child(3):after {
-	background-color: var(--rd);
+  background-color: var(--rd);
 }
 
 .Menu .Menu__Btn:nth-child(4) {
-	background-image: url('https://firebasestorage.googleapis.com/v0/b/notnik-app.appspot.com/o/assets%2Fsave.svg?alt=media&token=db7f0055-7d75-4966-baaf-7ca8fab3595a');
+  background-image: url("https://firebasestorage.googleapis.com/v0/b/notnik-app.appspot.com/o/assets%2Fsave.svg?alt=media&token=db7f0055-7d75-4966-baaf-7ca8fab3595a");
 }
 
 .Menu .Menu__Btn:nth-child(4):after {
-	background-color: var(--or2);
+  background-color: var(--or2);
 }
 
 .Menu .Menu__Btn:nth-child(5) {
-	background-image: url('http://localhost:3000/assets/icons/settings.svg');
+  background-image: url("http://localhost:3000/assets/icons/settings.svg");
 }
 
 .Menu .Menu__Btn:nth-child(5):after {
-	background-color: var(--blu);
+  background-color: var(--blu);
 }
 
 .Disable {
-	opacity: 0.3 !important;
-	pointer-events: none !important;
-	cursor: none !important;
+  opacity: 0.3 !important;
+  pointer-events: none !important;
+  cursor: none !important;
+}
+
+@media (min-width: 1025px) {
+  .Menu {
+    position: relative;
+    width: 100%;
+  }
+}
+
+@media (max-width: 1025px) {
+  .Menu {
+    position: fixed;
+    width: 3em;
+    left: 0;
+    top: 0;
+  }
 }

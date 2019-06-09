@@ -1,148 +1,169 @@
 .Auth {
-	position: absolute;
-	z-index: 999;
-	top:50%;
-	transform:translateY(-50%);
-	display:flex;
-	align-items: center;
-	justify-content: center;
-	background-color: rgba(34,34,32,0.8);
-	border-radius: 0.5em;
+  position: absolute;
+  z-index: 999;
+  top: 50%;
+  transform: translateY(-50%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 0.5em;
 }
 
 .Auth .Auth__Container {
-	width: 25em;
-	height: 30em;
-	background-color:var(--bla3);
-	box-shadow: 0 0 50px 0 var(--bla1);
-	border-radius: 0.5em;
-	display: grid;
-	grid-template-areas: 'header'
-						 'input'
-						 'input'
-						 'button';
-	grid-auto-rows: 6em;
-
+  height: 30em;
+  background-color: #2c2c2a;
+  box-shadow: 0 0 50px 0 var(--bla1);
+  border-radius: 0.5em;
+  display: grid;
+  grid-template-areas:
+    "header"
+    "input"
+    "input"
+    "button";
+  grid-auto-rows: 6em;
 }
 
 .Auth .Auth__Container .Auth__Container__Heading {
-	display: flex;
-	justify-content: center;
-	align-items: center;
-	position: relative;
-	margin-top:2em;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  margin-top: 2em;
 }
 
 .Auth .Auth__Container h2 {
-	position: relative;
-	font-family: 'Baloo', cursive;
-	font-size: 2em;
-	color:var(--w);
+  position: relative;
+  font-family: "Baloo", cursive;
+  font-size: 2em;
+  color: var(--w);
 }
 
 .Auth .Auth__Container input[type="email"],
 .Auth .Auth__Container input[type="password"] {
-	position: relative;
-	width:80%;
-	height:5em;
-	left:50%;
-	top:50%;
-	transform:translateX(-50%) translateY(-50%);
-	background-color: transparent;
-	border:none;
-	outline: none;
-	border-bottom:1px solid var(--w);
-	font-family: 'Montserrat', sans-serif;
-	font-weight: 400;
-	font-size:0.8em;
-	color: var(--w2);
-	transition: border-bottom .1s linear;
+  position: relative;
+  width: 80%;
+  height: 5em;
+  left: 50%;
+  top: 50%;
+  transform: translateX(-50%) translateY(-50%);
+  background-color: transparent;
+  border: none;
+  outline: none;
+  border-bottom: 1px solid var(--w);
+  font-family: "Montserrat", sans-serif;
+  font-weight: 400;
+  font-size: 0.8em;
+  color: var(--w2);
+  transition: border-bottom 0.1s linear;
 }
 
 .Auth .Auth__Container input[type="email"]:focus,
 .Auth .Auth__Container input[type="password"]:focus {
-	border-bottom:1px solid var(--rd);
+  border-bottom: 1px solid var(--rd);
 }
 
 .Auth .Auth__Container .Auth__Container__Buttons {
-	position: relative;
-	display: flex;
-	align-items: center;
-	justify-content: center;
-	flex-direction: row;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: row;
 }
 
 .Auth .Auth__Container .button {
-	display:flex;
-	align-items: center;
-	justify-content: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .Auth .Auth__Container .Auth__Container__Buttons input,
 .Auth .Auth__Container .button {
-	margin:0 2em;
-	width:6em;
-	outline: none;
-	height:3em;
-	background-color: transparent;
-	border-radius: 0.5em;
-	border:1px solid var(--w);
-	font-family: 'Montserrat', sans-serif;
-	font-weight: 700;
-	font-size: 0.8em;
-	line-height: 0;
-	color:var(--w);
-	cursor: pointer;
-	transition: all .1s linear;
+  margin: 0 2em;
+  width: 6em;
+  outline: none;
+  height: 3em;
+  background-color: transparent;
+  border-radius: 0.5em;
+  border: 1px solid var(--w);
+  font-family: "Montserrat", sans-serif;
+  font-weight: 700;
+  font-size: 0.8em;
+  line-height: 0;
+  color: var(--w);
+  cursor: pointer;
+  transition: all 0.1s linear;
 }
 
 .Auth .Auth__Container .Auth__Container__Buttons input:hover,
 .Auth .Auth__Container .button:hover {
-	background-color: var(--w);
-	color:var(--bla3);
+  background-color: var(--w);
+  color: var(--bla3);
 }
 
 .Auth .Auth__Container .Auth__Container__Buttons input:nth-child(2),
 .Auth .Auth__Container .button {
-	border:1px solid var(--rd);
+  border: 1px solid var(--rd);
 }
 
 .Auth .Auth__Container .Auth__Container__Buttons input:nth-child(2):hover,
 .Auth .Auth__Container .button:hover {
-	background-color: var(--rd);
-	color:var(--w);
+  background-color: var(--rd);
+  color: var(--w);
 }
 
 .Auth__Container__Popup {
-	width:20em;
-	height:auto;
-	position: absolute;
-	display: flex;
-	align-items: center;
-	justify-content: center;
-	flex-direction: row;
-	border-radius: 0.5em;
-	background-color:var(--rd);
-	left:50%;
-	bottom:2em;
-	transform:translateX(-50%);
-	transition:0.5s opacity;
+  width: 20em;
+  height: auto;
+  position: absolute;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: row;
+  border-radius: 0.5em;
+  background-color: var(--rd);
+  left: 50%;
+  bottom: 2em;
+  transform: translateX(-50%);
+  transition: 0.5s opacity;
 }
 
 .Auth__Container__Popup p {
-	font-family: 'Montserrat', sans-serif;
-	font-weight: 700;
-	font-size: 0.8em;
-	width:20em;
-	text-align: center;
-	color:var(--bla1);
+  font-family: "Montserrat", sans-serif;
+  font-weight: 700;
+  font-size: 0.8em;
+  width: 20em;
+  text-align: center;
+  color: var(--bla1);
 }
 
 .Auth__Container__Popup p::selection {
-	background-color:transparent;
-	color:var(--w);
+  background-color: transparent;
+  color: var(--w);
 }
 
 .mismatch {
-	border-bottom:1px solid red !important;
+  border-bottom: 1px solid red !important;
+}
+
+@media (min-width: 480px) {
+  .Auth .Auth__Container {
+    width: 25em;
+  }
+}
+
+@media (max-width: 480px) {
+  .Auth .Auth__Container {
+    width: 75vw;
+  }
+}
+
+@media (min-width: 1025px) {
+  .Auth .Auth__Container {
+    margin-left: 0em;
+  }
+}
+@media (max-width: 1025px) {
+  .Auth .Auth__Container {
+    margin-left: 3em;
+  }
 }

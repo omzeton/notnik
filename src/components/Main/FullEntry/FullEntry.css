@@ -1,26 +1,41 @@
 .FullEntry {
-	position: relative;
-	width:100%;
-	height: 100%;
-	background-color:var(--bla2);
-	display:grid;
-	grid-template-columns: 1fr;
-	grid-template-rows: 11em 1fr;
+  position: relative;
+  width: 100%;
+  height: 100%;
+  background-color: var(--bla2);
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: 11em 1fr;
+  overflow: hidden;
 }
 
 .FullEntry__Head {
-	position: relative;
-	width:100%;
-	height:100%;
-	background-color:var(--bla1);
-	background-position: center;
-	background-size: cover;
-	background-repeat: no-repeat;
+  position: relative;
+  width: 100%;
+  height: 100%;
+  background-color: var(--bla1);
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
 }
 
 .Input--NoStyling {
-	background-color:transparent;
-	color:inherit;
-	border:none;
-	outline: none;
+  background-color: transparent;
+  color: inherit;
+  border: none;
+  outline: none;
+}
+
+@media (min-width: 1025px) {
+  .FullEntry {
+    width: 100%;
+    margin-left: 0;
+  }
+}
+
+@media (max-width: 1025px) {
+  .FullEntry {
+    width: calc(100% - 3em);
+    margin-left: 3em;
+  }
 }

@@ -1,95 +1,107 @@
 .Entry {
-	position:relative;
-	width:30em;
-	height:9em;
-	background-color:var(--bla1);
-	border-radius: 0.5em;
-	overflow: hidden;
-	display:grid;
-	grid-template-columns:10em 1fr;
-	grid-template-rows:1fr;
-	box-shadow: 0 0 40px -20px rgba(255, 255, 255, 0);
-	transition: all 0.2s linear, opacity 0.5s linear;
-	cursor: pointer;
+  position: relative;
+  width: 30em;
+  height: 9em;
+  background-color: var(--bla1);
+  border-radius: 0.5em;
+  overflow: hidden;
+  display: grid;
+  grid-template-columns: 10em 1fr;
+  grid-template-rows: 1fr;
+  box-shadow: 0 0 40px -20px rgba(255, 255, 255, 0);
+  transition: all 0.2s linear, opacity 0.5s linear;
+  cursor: pointer;
 }
 
 .Entry:hover {
-	transform:translateX(0.2em);
-	background-color: var(--bla2);
-	box-shadow: 0 0 40px -20px rgba(255,255,255,0.3);
+  transform: translateX(0.2em);
+  background-color: var(--bla2);
+  box-shadow: 0 0 40px -20px rgba(255, 255, 255, 0.3);
 }
 
 .Entry__Img {
-	position: relative;
-	background-size: cover;
-	background-position: center;
-	background-repeat: no-repeat;
+  position: relative;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
 }
 
 .Entry__Img:before {
-	content:'';
-	position: absolute;
-	width:100%;
-	height: 100%;
-	left:0;
-	top:0;
-	background-color:#000;
-	opacity: 0.5;
-	mix-blend-mode:overlay;
-	transition:opacity 0.2s linear;
+  content: "";
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  left: 0;
+  top: 0;
+  background-color: #000;
+  opacity: 0.5;
+  mix-blend-mode: overlay;
+  transition: opacity 0.2s linear;
 }
 
 .Entry__Info {
-	color:var(--w);
-	padding:0.5em 1em;
-	display: flex;
-	justify-content: center;
-	flex-direction: column;
+  color: var(--w);
+  padding: 0.5em 1em;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
 }
 
 .Entry__Info h2 {
-	font-family: 'Baloo', cursive;
-	font-size: 1.2em;
-	line-height: 0em;
-	outline: none;
+  font-family: "Baloo", cursive;
+  font-size: 1.2em;
+  line-height: 0em;
+  outline: none;
 }
 
 .Entry__Info h3 {
-	font-family: 'Montserrat', sans-serif;
-	line-height: 1em;
-	font-size: 0.7em;
-	margin-top: 0em;
-	color: var(--bla4);
-	outline: none;
+  font-family: "Montserrat", sans-serif;
+  line-height: 1em;
+  font-size: 0.7em;
+  margin-top: 0em;
+  color: var(--bla4);
+  outline: none;
 }
 
 .Entry__Info h3 span {
-	color:var(--bla4);
+  color: var(--bla4);
 }
 
 .Entry__Text {
-	font-family: 'Montserrat', sans-serif;
-	line-height: 1em;
-	font-size: 0.7em;
-	color: var(--w1);
-	width:23em;
-	outline: none;
-	text-align: justify;
+  font-family: "Montserrat", sans-serif;
+  line-height: 1em;
+  font-size: 0.7em;
+  color: var(--w1);
+  width: 23em;
+  outline: none;
+  text-align: justify;
 }
 
 .Entry__Info--Delete {
-	position: absolute;
-	top:0.6em;
-	right:0.6em;
-	width:0.9em;
-	height:0.9em;
-	opacity: 0.1;
-	background-image: url('https://firebasestorage.googleapis.com/v0/b/notnik-app.appspot.com/o/assets%2Fdelete.svg?alt=media&token=b721d142-09d2-4c40-bbf9-8ae3e8ebb32c');
-	background-position: center;
-	background-size: cover;
-	background-repeat: no-repeat;
+  position: absolute;
+  top: 0.6em;
+  right: 0.6em;
+  width: 0.9em;
+  height: 0.9em;
+  opacity: 0.1;
+  background-image: url("https://firebasestorage.googleapis.com/v0/b/notnik-app.appspot.com/o/assets%2Fdelete.svg?alt=media&token=b721d142-09d2-4c40-bbf9-8ae3e8ebb32c");
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
 }
 
 .Entry__Info--Delete:hover {
-	opacity: 1;
+  opacity: 1;
+}
+
+@media (min-width: 1025px) {
+  .Entry {
+	width: 30em;
+  }
+}
+
+@media (max-width: 1025px) {
+  .Entry {
+	width: 62vw;
+  }
 }
