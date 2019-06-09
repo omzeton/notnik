@@ -40,7 +40,7 @@ const HomeEntries = props => {
   let fetched = loadingError ? (
     <h2 className="Connection_Refused">Connection error.</h2>
   ) : (
-    <Loader />
+    <Loader auth={false}/>
   );
 
   if (!stillFetching) {

@@ -111,19 +111,26 @@
   color: var(--w);
 }
 
+.Auth__Container__Bottom {
+  position: absolute;
+  height: 5em;
+  bottom:0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: row;
+}
+
 .Auth__Container__Popup {
   width: 20em;
   height: auto;
-  position: absolute;
+  position: relative;
   display: flex;
   align-items: center;
   justify-content: center;
   flex-direction: row;
   border-radius: 0.5em;
   background-color: var(--rd);
-  left: 50%;
-  bottom: 2em;
-  transform: translateX(-50%);
   transition: 0.5s opacity;
 }
 
@@ -161,9 +168,15 @@
   .Auth .Auth__Container {
     margin-left: 0em;
   }
+  .Auth__Container__Bottom {
+    width:100%;
+  }
 }
 @media (max-width: 1025px) {
   .Auth .Auth__Container {
     margin-left: 3em;
+  }
+  .Auth__Container__Bottom {
+    width:calc(100% - 3em);
   }
 }

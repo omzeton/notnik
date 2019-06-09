@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 
-// import Loader from "../Loader/Loader";
+import Loader from "../Loader/Loader";
 
 import "./Auth.css";
 
@@ -17,13 +17,13 @@ const Auth = props => {
       value: ""
     }
   });
-  const [errorMsg, setErrorMsg] = useState({opacity: '0'});
+  const [errorMsg, setErrorMsg] = useState({ opacity: "0" });
 
   useEffect(() => {
-    if (props.error) {
-      setErrorMsg({opacity:'1'});
+    if (props.error || props.authLoading) {
+      setErrorMsg({ opacity: "1" });
     }
-  }, [props.error]);
+  }, [props.error, props.authLoading]);
 
   const toggleAuthMode = () => {
     if (authMode === "log") {
@@ -65,7 +65,7 @@ const Auth = props => {
   };
 
   const hideErrorMsg = () => {
-    setErrorMsg({opacity: '0'});
+    setErrorMsg({ opacity: "0" });
     props.onClearError();
   };
 
@@ -119,7 +119,14 @@ const Auth = props => {
           />
         ];
 
-  let errorWarning = props.error ? <p>{props.error.message || props.error}</p> : <p />;
+  let errorWarning;
+  if (props.error) {
+    errorWarning = <p>{props.error.message || props.error}</p>;
+  } else if (props.authLoading) {
+    errorWarning = <Loader auth={true} />;
+  } else {
+    errorWarning = <p />;
+  }
 
   let formSubmission =
     authMode === "log"
@@ -143,7 +150,11 @@ const Auth = props => {
             />
             {password}
             {buttons}
-            <div className="Auth__Container__Popup" style={errorMsg}>{errorWarning}</div>
+            <div className="Auth__Container__Bottom">
+              <div className="Auth__Container__Popup" style={errorMsg}>
+                {errorWarning}
+              </div>
+            </div>
           </form>
         </div>
       </div>

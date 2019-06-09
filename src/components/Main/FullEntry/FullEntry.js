@@ -85,7 +85,7 @@ const FullEntry = props => {
   let result = fetchStatus.error ? (
     <h2>Oops! Something went wrong.</h2>
   ) : (
-    <Loader />
+    <Loader auth={false}/>
   );
 
   if (!fetchStatus.loading) {
