@@ -100,6 +100,8 @@ class Notnik extends Component {
       });
   };
 
+  /* LOGOUT */
+
   setAutoLogout = milliseconds => {
     setTimeout(() => {
       this.logoutHandler();
@@ -110,10 +112,63 @@ class Notnik extends Component {
     if (event) {
       event.preventDefault();
     }
-    this.setState({ isAuth: false, token: null });
+    this.setState({ isAuth: false, token: null, userId: null });
     localStorage.removeItem("token");
     localStorage.removeItem("expiryDate");
     localStorage.removeItem("userId");
+  };
+
+  /* DELETE ACCOUNT */
+
+  deleteAccount = () => {
+    let error;
+    this.setState({ authLoading: true });
+    fetch("http://localhost:8080/auth/terminate", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({
+        uId: this.state.userId
+      })
+    })
+      .then(res => {
+        console.log(res);
+        if (res.status === 422) {
+          error = true;
+        }
+        if ((res.status !== 200) & (res.status !== 201)) {
+          error = true;
+        }
+        return res.json();
+      })
+      .then(resData => {
+        if (error) {
+          this.setState({
+            authLoading: false,
+            error: resData.message
+          });
+        } else {
+          this.setState({
+            isAuth: false,
+            token: null,
+            userId: null,
+            authLoading: false,
+            error: false
+          });
+          localStorage.removeItem("token");
+          localStorage.removeItem("expiryDate");
+          localStorage.removeItem("userId");
+          this.props.history.replace("/");
+        }
+      })
+      .catch(err => {
+        console.log(err);
+        this.setState({
+          authLoading: false,
+          error: err
+        });
+      });
   };
 
   /* SIGNUP */
@@ -261,6 +316,11 @@ class Notnik extends Component {
       }
       e.Handled = true;
     });
+    let deleteAccountProps = {
+      function: this.deleteAccount,
+      error: this.state.errors,
+      authLoading: this.state.authLoading
+    };
     let routes = this.state.isAuth ? (
       <Route
         render={({ location }) => (
@@ -290,7 +350,13 @@ class Notnik extends Component {
             />
             <Route
               path="/settings"
-              render={() => <Settings onLogout={this.logoutHandler} />}
+              render={() => (
+                <Settings
+                  deletion={deleteAccountProps}
+                  onLogout={this.logoutHandler}
+                  userId={this.state.userId}
+                />
+              )}
             />
             <Route render={() => <Redirect to="/" />} />
           </Switch>

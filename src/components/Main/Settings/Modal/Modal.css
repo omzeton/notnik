@@ -1,0 +1,10 @@
+.Options__Modal {
+    position: absolute;
+    top:5em;
+    left:15em;
+    width:20em;
+    height:20em;
+    border-radius: 0.5em;
+    border:1px solid var(--rd);
+    transition:opacity 0.5s ease-out;
+}

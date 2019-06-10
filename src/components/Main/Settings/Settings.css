@@ -10,14 +10,14 @@
   padding: 2em;
 }
 
-.Settings h2 {
+.Settings .Settings__Heading {
   position: relative;
   font-family: "Baloo", cursive;
   font-size: 2em;
   color: var(--w);
 }
 
-.Settings h2:before {
+.Settings .Settings__Heading:before {
   position: absolute;
   content: "";
   width: 2em;
@@ -32,12 +32,16 @@
 
 .Settings .Settings__Categories p {
   color: var(--w);
-  opacity: 0.3;
-  cursor: not-allowed;
+  width:fit-content;
+  cursor: pointer;
   font-family: "Montserrat", sans-serif;
 }
 
-.Settings input {
+.Settings .Settings__Categories p:hover {
+  text-shadow:0 0 10px var(--rd);
+}
+
+.Settings form .Settings__Logout {
   width: 6em;
   outline: none;
   height: 3em;
@@ -53,7 +57,7 @@
   transition: all 0.1s linear;
 }
 
-.Settings input:hover {
+.Settings form .Settings__Logout:hover {
   background-color: var(--w);
   color: var(--bla3);
 }

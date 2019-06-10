@@ -38,7 +38,7 @@ const HomeEntries = props => {
   }, []);
 
   let fetched = loadingError ? (
-    <h2 className="Connection_Refused">Connection error.</h2>
+    <h2 className="Connection_Refused">No entries found.</h2>
   ) : (
     <Loader auth={false}/>
   );
