@@ -1,0 +1,31 @@
+.MenuPosition__Container {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
+.MenuPosition__Container .Select__Container {
+    position: relative;
+    height:inherit;
+    width:inherit;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
+
+.MenuPosition__Container .Select__Container select {
+  background-color: transparent;
+  position: relative;
+  width: 80%;
+  height: 3em;
+  font-family: "Montserrat", sans-serif;
+  font-weight: 400;
+  font-size: 0.8em;
+  border: 1px solid var(--w);
+  border-radius: 0.5em;
+  background-color: var(--bla3);
+  color: var(--w);
+  transition: all 0.1s linear;
+  outline: none;
+}

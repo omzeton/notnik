@@ -11,7 +11,6 @@ const HomeEntries = props => {
   const [loadingError, setLoadingError] = useState();
 
   useEffect(() => {
-    console.log(props.currentUser)
     fetch("http://localhost:8080/journal/entries", {
       method: "POST",
       headers: {

@@ -24,7 +24,6 @@ const Settings = props => {
           <p onClick={setType} data-name="reset">Reset password</p>
           <p onClick={setType} data-name="delete">Delete account</p>
           <p onClick={setType} data-name="font">Font size</p>
-          <p onClick={setType} data-name="color">Selection color</p>
           <p onClick={setType} data-name="menu">Menu bar position</p>
         </div>
         <form onSubmit={event => props.onLogout(event)}>

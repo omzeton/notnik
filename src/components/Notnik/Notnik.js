@@ -15,6 +15,10 @@ class Notnik extends Component {
     isAuth: false,
     token: null,
     userId: null,
+    userSettings: {
+      fontSize: null,
+      menuPosition: null
+    },
     authLoading: false,
     error: null,
     newEntry: {
@@ -33,9 +37,10 @@ class Notnik extends Component {
   };
 
   componentDidMount() {
-    console.log(this.state.userId);
     const token = localStorage.getItem("token");
     const expiryDate = localStorage.getItem("expiryDate");
+    const userSettings = localStorage.getItem("userSettings");
+    const parsedSettings = JSON.parse(userSettings);
     if (!token || !expiryDate) {
       return;
     }
@@ -46,7 +51,15 @@ class Notnik extends Component {
     const userId = localStorage.getItem("userId");
     const remainingMilliseconds =
       new Date(expiryDate).getTime() - new Date().getTime();
-    this.setState({ isAuth: true, token: token, userId: userId });
+    this.setState({
+      isAuth: true,
+      token: token,
+      userId: userId,
+      userSettings: {
+        fontSize: parsedSettings.fontSize,
+        menuPosition: parsedSettings.menuPosition
+      }
+    });
     this.setAutoLogout(remainingMilliseconds);
   }
 
@@ -80,10 +93,19 @@ class Notnik extends Component {
           isAuth: true,
           token: resData.token,
           authLoading: false,
-          userId: resData.userId
+          userId: resData.userId,
+          userSettings: {
+            fontSize: resData.userSettings.fontSize,
+            menuPosition: resData.userSettings.menuPosition
+          }
         });
+        const userSettings = {
+          fontSize: resData.userSettings.fontSize,
+          menuPosition: resData.userSettings.menuPosition
+        };
         localStorage.setItem("token", resData.token);
         localStorage.setItem("userId", resData.userId);
+        localStorage.setItem("userSettings", JSON.stringify(userSettings));
         const remainingMilliseconds = 60 * 60 * 1000;
         const expiryDate = new Date(
           new Date().getTime() + remainingMilliseconds
@@ -113,10 +135,21 @@ class Notnik extends Component {
     if (event) {
       event.preventDefault();
     }
-    this.setState({ isAuth: false, token: null, userId: null, error: null });
+    this.setState({
+      isAuth: false,
+      token: null,
+      userId: null,
+      error: null,
+      userSettings: {
+        fontSize: null,
+        selectionColor: null,
+        menuPosition: null
+      }
+    });
     localStorage.removeItem("token");
     localStorage.removeItem("expiryDate");
     localStorage.removeItem("userId");
+    localStorage.removeItem("userSettings");
   };
 
   /* DELETE ACCOUNT */
@@ -210,7 +243,7 @@ class Notnik extends Component {
           this.setState({
             isAuth: true,
             authLoading: false,
-            userId: resData.userId._id,
+            userId: resData.userId,
             token: resData.token
           });
           this.props.history.replace("/");
@@ -310,7 +343,12 @@ class Notnik extends Component {
     });
   };
 
+  /* SETTINGS */
+
+  registerSettings = () => {};
+
   render() {
+    console.log(this.state.userSettings);
     window.addEventListener("keydown", e => {
       let location = this.props.location.pathname;
       if (e.Handled) return;
@@ -351,6 +389,7 @@ class Notnik extends Component {
                 <FullEntry
                   loc={location}
                   onRegisterChange={this.registerChange}
+                  fontSize={this.state.userSettings.fontSize}
                 />
               )}
             />
@@ -392,7 +431,11 @@ class Notnik extends Component {
     );
     return (
       <div className="Notnik">
-        <Menu createNewEntry={this.createNewEntry} isAuth={this.state.isAuth} />
+        <Menu
+          createNewEntry={this.createNewEntry}
+          isAuth={this.state.isAuth}
+          menuPosition={this.state.userSettings.menuPosition}
+        />
         {routes}
       </div>
     );

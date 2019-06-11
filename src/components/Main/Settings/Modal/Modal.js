@@ -3,7 +3,6 @@ import React from "react";
 import ResetPassword from "../ResetPassword/ResetPassword";
 import DeleteAccount from "../DeleteAccount/DeleteAccount";
 import FontSize from "../FontSize/FontSize";
-import SelectionColor from "../SelectionColor/SelectionColor";
 import MenuPosition from "../MenuPosition/MenuPosition";
 
 import "./Modal.css";
@@ -19,9 +18,6 @@ const Modal = props => {
       break;
     case "font":
       form = <FontSize uId={props.userId} />;
-      break;
-    case "color":
-      form = <SelectionColor uId={props.userId} />;
       break;
     case "menu":
       form = <MenuPosition uId={props.userId} />;
