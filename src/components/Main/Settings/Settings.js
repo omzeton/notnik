@@ -39,6 +39,8 @@ const Settings = props => {
         <Modal
           defaultFontSize={props.defaultFontSize}
           onSetFontSize={props.onSetFontSize}
+          onMenuPosition={props.onMenuPosition}
+          defaultMenuPosition={props.defaultMenuPosition}
           deletion={props.deletion}
           userId={props.userId}
           type={options.type}

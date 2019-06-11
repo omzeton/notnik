@@ -3,9 +3,10 @@ import React, {useState} from "react";
 import './MenuPosition.css';
 
 const MenuPosition = props => {
-  const [menuPos, setMenuPos] = useState("left");
+  const [menuPos, setMenuPos] = useState(props.defaultMenuPosition);
 
   const menuHandler = event => {
+    props.onMenuPosition(event.target.value);
     setMenuPos(event.target.value);
   };
   return (

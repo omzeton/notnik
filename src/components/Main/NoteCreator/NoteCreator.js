@@ -86,6 +86,7 @@ const NoteCreator = props => {
         prevState={newEntryDataBody}
         location={currentPath}
         onSetNewData={setNewEntryDataBody}
+        fontSize={props.fontSize}
         body="So..."
       />
     </div>

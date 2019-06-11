@@ -124,9 +124,6 @@
     grid-template-rows: 1fr;
     height: 100%;
   }
-  .Splash__Left {
-    margin-left:0em;
-  }
 }
 
 @media (max-width: 1025px) {
@@ -134,8 +131,5 @@
     grid-template-columns: 1fr;
     grid-template-rows: 1fr 1fr;
     height: 200%;
-  }
-  .Splash__Left {
-    margin-left:3em;
   }
 }

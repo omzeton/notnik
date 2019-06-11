@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, Fragment } from "react";
 import { withRouter } from "react-router-dom";
 
 import Loader from "../Loader/Loader";
@@ -85,7 +85,7 @@ const FullEntry = props => {
   let result = fetchStatus.error ? (
     <h2>Oops! Something went wrong.</h2>
   ) : (
-    <Loader auth={false}/>
+    <Loader auth={false} />
   );
 
   if (!fetchStatus.loading) {
@@ -94,7 +94,7 @@ const FullEntry = props => {
         ? "http://localhost:8080/images/noimage"
         : "http://localhost:8080/" + fetchStatus.entry.imgUrl;
     result = (
-      <>
+      <Fragment>
         <Head
           prevState={newEntryDataHead}
           location={currentPath}
@@ -110,7 +110,7 @@ const FullEntry = props => {
           body={fetchStatus.entry.body}
           fontSize={props.fontSize}
         />
-      </>
+      </Fragment>
     );
   }
 

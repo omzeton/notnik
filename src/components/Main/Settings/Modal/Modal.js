@@ -26,7 +26,13 @@ const Modal = props => {
       );
       break;
     case "menu":
-      form = <MenuPosition uId={props.userId} />;
+      form = (
+        <MenuPosition
+          uId={props.userId}
+          defaultMenuPosition={props.defaultMenuPosition}
+          onMenuPosition={props.onMenuPosition}
+        />
+      );
       break;
     default:
       break;

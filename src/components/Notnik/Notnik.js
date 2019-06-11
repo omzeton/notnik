@@ -17,7 +17,7 @@ class Notnik extends Component {
     userId: null,
     userSettings: {
       fontSize: null,
-      menuPosition: null
+      menuPosition: "left"
     },
     authLoading: false,
     error: null,
@@ -41,7 +41,7 @@ class Notnik extends Component {
     const expiryDate = localStorage.getItem("expiryDate");
     const userSettings = localStorage.getItem("userSettings");
     const parsedSettings = JSON.parse(userSettings);
-    if (!token || !expiryDate) {
+    if (!token || !expiryDate || !userSettings) {
       return;
     }
     if (new Date(expiryDate) <= new Date()) {
@@ -142,8 +142,7 @@ class Notnik extends Component {
       error: null,
       userSettings: {
         fontSize: null,
-        selectionColor: null,
-        menuPosition: null
+        menuPosition: "left"
       }
     });
     localStorage.removeItem("token");
@@ -346,8 +345,7 @@ class Notnik extends Component {
   /* FONT SIZE */
 
   fontSizeHandler = data => {
-    const newFontSize = data,
-      userId = this.state.userId;
+    const userId = this.state.userId;
     fetch("http://localhost:8080/journal/font-size", {
       method: "POST",
       headers: {
@@ -355,7 +353,7 @@ class Notnik extends Component {
       },
       body: JSON.stringify({
         userId: userId,
-        newFontSize: newFontSize
+        newFontSize: data
       })
     })
       .then(res => {
@@ -382,8 +380,48 @@ class Notnik extends Component {
       });
   };
 
+  /* MENU BAR POSITON */
+
+  menuHandler = data => {
+    this.setState({
+      userSettings: { ...this.state.userSettings, menuPosition: data }
+    });
+    const userId = this.state.userId;
+    fetch("http://localhost:8080/journal/menu-position", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({
+        userId: userId,
+        newMenuPosition: data
+      })
+    })
+      .then(res => {
+        console.log(res);
+        if ((res.status !== 200) & (res.status !== 201)) {
+          throw new Error("Error when setting new font size!");
+        }
+        return res.json();
+      })
+      .then(resData => {
+        console.log(resData);
+        this.setState({
+          userSettings: {
+            ...this.state.userSettings,
+            menuPosition: data
+          }
+        });
+        const storage = JSON.parse(localStorage.getItem("userSettings"));
+        storage.menuPosition = data;
+        localStorage.setItem("userSettings", JSON.stringify(storage));
+      })
+      .catch(err => {
+        console.log(err);
+      });
+  };
+
   render() {
-    console.log(this.state.userSettings);
     window.addEventListener("keydown", e => {
       let location = this.props.location.pathname;
       if (e.Handled) return;
@@ -400,6 +438,9 @@ class Notnik extends Component {
       error: this.state.errors,
       authLoading: this.state.authLoading
     };
+    let scroll = this.state.isAuth
+      ? { overflow: "hidden" }
+      : { overflowY: "scroll" };
     let routes = this.state.isAuth ? (
       <Route
         render={({ location }) => (
@@ -415,6 +456,7 @@ class Notnik extends Component {
                 <NoteCreator
                   loc={location}
                   onRegisterChange={this.registerChange}
+                  fontSize={this.state.userSettings.fontSize}
                 />
               )}
             />
@@ -434,6 +476,8 @@ class Notnik extends Component {
                 <Settings
                   defaultFontSize={this.state.userSettings.fontSize}
                   onSetFontSize={this.fontSizeHandler}
+                  onMenuPosition={this.menuHandler}
+                  defaultMenuPosition={this.state.userSettings.menuPosition}
                   deletion={deleteAccountProps}
                   onLogout={this.logoutHandler}
                   userId={this.state.userId}
@@ -466,14 +510,69 @@ class Notnik extends Component {
         )}
       />
     );
+    let menuPosition;
+    const notnik = document.querySelector(".Notnik");
+    let menuFirstChild, menuSecondChild;
+    if (notnik !== null) {
+      menuFirstChild = notnik.firstChild;
+      menuSecondChild = notnik.firstChild.nextSibling;
+      switch (this.state.userSettings.menuPosition) {
+        case "left":
+          menuPosition = {
+            gridTemplateRows: "1fr",
+            gridTemplateColumns: "3em 1fr"
+          };
+          menuFirstChild.style.gridColumn = "1";
+          menuFirstChild.style.gridRow = "1";
+
+          menuSecondChild.style.gridColumn = "2";
+          menuSecondChild.style.gridRow = "1";
+          break;
+        case "top":
+          menuPosition = {
+            gridTemplateRows: "3em 1fr",
+            gridTemplateColumns: "1fr"
+          };
+          menuFirstChild.style.gridColumn = "1";
+          menuFirstChild.style.gridRow = "1";
+
+          menuSecondChild.style.gridColumn = "1";
+          menuSecondChild.style.gridRow = "2";
+          break;
+        case "right":
+          menuPosition = {
+            gridTemplateRows: "1fr",
+            gridTemplateColumns: "1fr 3em"
+          };
+          menuFirstChild.style.gridColumn = "2";
+          menuFirstChild.style.gridRow = "1";
+
+          menuSecondChild.style.gridColumn = "1";
+          menuSecondChild.style.gridRow = "1";
+          break;
+        case "bottom":
+          menuPosition = {
+            gridTemplateRows: "1fr 3em",
+            gridTemplateColumns: "1fr"
+          };
+          menuFirstChild.style.gridRow = "2";
+          menuFirstChild.style.gridColumn = "1";
+
+          menuSecondChild.style.gridRow = "1";
+          menuSecondChild.style.gridColumn = "1";
+          break;
+        default:
+          break;
+      }
+    }
     return (
-      <div className="Notnik">
+      <div className={"Notnik"} style={{ ...menuPosition, ...scroll }}>
         <Menu
           createNewEntry={this.createNewEntry}
           isAuth={this.state.isAuth}
           menuPosition={this.state.userSettings.menuPosition}
         />
-        {routes}
+        <div className="Content">{routes}</div>
       </div>
     );
   }

@@ -165,17 +165,11 @@
 }
 
 @media (min-width: 1025px) {
-  .Auth .Auth__Container {
-    margin-left: 0em;
-  }
   .Auth__Container__Bottom {
     width:100%;
   }
 }
 @media (max-width: 1025px) {
-  .Auth .Auth__Container {
-    margin-left: 3em;
-  }
   .Auth__Container__Bottom {
     width:calc(100% - 3em);
   }

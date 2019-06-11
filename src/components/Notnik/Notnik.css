@@ -1,5 +1,5 @@
 .Notnik {
-  position: absolute;
+  position: fixed;
   width: 100%;
   height: 100%;
   display: grid;
@@ -7,14 +7,10 @@
   grid-template-columns: 3em 1fr;
 }
 
-@media (min-width: 1025px) {
-  .Notnik {
-    display: grid;
-  }
+.Content {
+  position: relative;
+  width: 100%;
+  height: 100%;
 }
 
-@media (max-width: 1025px) {
-  .Notnik {
-    display: block;
-  }
-}
+/* 1025 */

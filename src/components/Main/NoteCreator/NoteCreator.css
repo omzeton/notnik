@@ -35,7 +35,6 @@
 
 @media (max-width: 1025px) {
   .NewEntry {
-    width: calc(100% - 3em);
     margin-left: 3em;
   }
 }
