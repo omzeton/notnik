@@ -3,16 +3,17 @@ import React, { useState } from "react";
 import "./FontSize.css";
 
 const FontSize = props => {
-  const [fontSize, setFontSize] = useState({ fontSize: "0.9rem" });
+  const [fontSize, setFontSize] = useState({ fontSize: props.defaultFontSize });
 
   const fontHandler = event => {
     setFontSize({ fontSize: event.target.value });
+    props.onSetFontSize(event.target.value);
   };
 
   return (
     <div className="FontSize__Container">
       <div className="Select__Container">
-        <select onChange={event => fontHandler(event)} defaultValue="0.9rem">
+        <select onChange={event => fontHandler(event)} defaultValue={fontSize.fontSize}>
           <option value="0.7rem">06</option>
           <option value="0.8rem">08</option>
           <option value="0.9rem">10</option>

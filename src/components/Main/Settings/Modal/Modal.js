@@ -17,7 +17,13 @@ const Modal = props => {
       form = <DeleteAccount deletion={props.deletion} uId={props.userId} />;
       break;
     case "font":
-      form = <FontSize uId={props.userId} />;
+      form = (
+        <FontSize
+          defaultFontSize={props.defaultFontSize}
+          uId={props.userId}
+          onSetFontSize={props.onSetFontSize}
+        />
+      );
       break;
     case "menu":
       form = <MenuPosition uId={props.userId} />;

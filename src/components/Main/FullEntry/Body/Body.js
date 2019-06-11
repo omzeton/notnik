@@ -24,6 +24,7 @@ const Body = props => {
       {/* Body */}
       <textarea
         className={["Input--NoStyling", "Input__Body"].join(" ")}
+        style={{fontSize: props.fontSize}}
         onChange={onUpdate}
         defaultValue={props.body}
       />

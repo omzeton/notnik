@@ -343,9 +343,44 @@ class Notnik extends Component {
     });
   };
 
-  /* SETTINGS */
+  /* FONT SIZE */
 
-  registerSettings = () => {};
+  fontSizeHandler = data => {
+    const newFontSize = data,
+      userId = this.state.userId;
+    fetch("http://localhost:8080/journal/font-size", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({
+        userId: userId,
+        newFontSize: newFontSize
+      })
+    })
+      .then(res => {
+        console.log(res);
+        if ((res.status !== 200) & (res.status !== 201)) {
+          throw new Error("Error when setting new font size!");
+        }
+        return res.json();
+      })
+      .then(resData => {
+        console.log(resData);
+        this.setState({
+          userSettings: {
+            ...this.state.userSettings,
+            fontSize: data
+          }
+        });
+        const storage = JSON.parse(localStorage.getItem("userSettings"));
+        storage.fontSize = data;
+        localStorage.setItem("userSettings", JSON.stringify(storage));
+      })
+      .catch(err => {
+        console.log(err);
+      });
+  };
 
   render() {
     console.log(this.state.userSettings);
@@ -397,6 +432,8 @@ class Notnik extends Component {
               path="/settings"
               render={() => (
                 <Settings
+                  defaultFontSize={this.state.userSettings.fontSize}
+                  onSetFontSize={this.fontSizeHandler}
                   deletion={deleteAccountProps}
                   onLogout={this.logoutHandler}
                   userId={this.state.userId}

@@ -108,6 +108,7 @@ const FullEntry = props => {
           location={currentPath}
           onSetNewData={setNewEntryDataBody}
           body={fetchStatus.entry.body}
+          fontSize={props.fontSize}
         />
       </>
     );
