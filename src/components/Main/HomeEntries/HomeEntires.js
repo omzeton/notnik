@@ -11,7 +11,7 @@ const HomeEntries = props => {
   const [loadingError, setLoadingError] = useState();
 
   useEffect(() => {
-    fetch("http://localhost:8080/journal/entries", {
+    fetch("https://notnik-api.herokuapp.com/journal/entries", {
       method: "POST",
       headers: {
         "Content-Type": "application/json"
@@ -49,8 +49,8 @@ const HomeEntries = props => {
     fetched = entryState.map(en => {
       let imgUrl =
         en.imgUrl === "noimage"
-          ? "http://localhost:8080/images/noimage"
-          : "http://localhost:8080/" + en.imgUrl;
+          ? "https://notnik-api.herokuapp.com/images/noimage"
+          : "https://notnik-api.herokuapp.com/" + en.imgUrl;
       return (
         <Entry
           key={en._id}

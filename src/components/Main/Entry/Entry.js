@@ -25,7 +25,7 @@ const Entry = props => {
       event.stopPropagation();
     }
     if (window.confirm("Are you sure you wish to delete this entry?")) {
-      fetch(`http://localhost:8080/journal/entry/${props.id}`, {
+      fetch(`https://notnik-api.herokuapp.com/journal/entry/${props.id}`, {
         method: "DELETE"
       })
         .then(res => {

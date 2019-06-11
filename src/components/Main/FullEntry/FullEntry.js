@@ -35,7 +35,7 @@ const FullEntry = props => {
 
   useEffect(() => {
     const entryId = props.match.params.id;
-    fetch(`http://localhost:8080/journal/entry/${entryId}`, {
+    fetch(`https://notnik-api.herokuapp.com/journal/entry/${entryId}`, {
       method: "GET"
     })
       .then(res => {
@@ -91,8 +91,8 @@ const FullEntry = props => {
   if (!fetchStatus.loading) {
     let imgUrl =
       fetchStatus.entry.imgUrl === "noimage"
-        ? "http://localhost:8080/images/noimage"
-        : "http://localhost:8080/" + fetchStatus.entry.imgUrl;
+        ? "https://notnik-api.herokuapp.com/images/noimage"
+        : "https://notnik-api.herokuapp.com/" + fetchStatus.entry.imgUrl;
     result = (
       <Fragment>
         <Head

@@ -29,7 +29,7 @@
 }
 
 .Menu .Menu__Btn:nth-child(2) {
-  background-image: url("http://localhost:3000/assets/icons/new.svg");
+  background-image: url("./assets/icons/new.svg");
 }
 
 .Menu .Menu__Btn:nth-child(2):after {
@@ -37,7 +37,7 @@
 }
 
 .Menu .Menu__Btn:nth-child(3) {
-  background-image: url("https://firebasestorage.googleapis.com/v0/b/notnik-app.appspot.com/o/assets%2Flist.svg?alt=media&token=24fea949-42d0-4476-8e2e-be5e30dc5f7a");
+  background-image: url("./assets/icons/list.svg");
 }
 
 .Menu .Menu__Btn:nth-child(3):after {
@@ -45,7 +45,7 @@
 }
 
 .Menu .Menu__Btn:nth-child(4) {
-  background-image: url("https://firebasestorage.googleapis.com/v0/b/notnik-app.appspot.com/o/assets%2Fsave.svg?alt=media&token=db7f0055-7d75-4966-baaf-7ca8fab3595a");
+  background-image: url("./assets/icons/save.svg");
 }
 
 .Menu .Menu__Btn:nth-child(4):after {
@@ -53,7 +53,7 @@
 }
 
 .Menu .Menu__Btn:nth-child(6) {
-  background-image: url("http://localhost:3000/assets/icons/settings.svg");
+  background-image: url("./assets/icons/settings.svg");
 }
 
 .Menu .Menu__Btn:nth-child(6):after {

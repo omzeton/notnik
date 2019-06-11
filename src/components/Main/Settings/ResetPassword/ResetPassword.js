@@ -39,7 +39,7 @@ const ResetPassword = props => {
   const onChangePassword = (event, form) => {
     event.preventDefault();
     setLoading(true);
-    fetch("http://localhost:8080/auth/password-change", {
+    fetch("https://notnik-api.herokuapp.com/auth/password-change", {
       method: "PUT",
       headers: {
         Accept: "application/json",

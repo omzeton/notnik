@@ -80,7 +80,7 @@ const NoteCreator = props => {
         onSetNewData={setNewEntryDataHead}
         title="A new memory"
         date={getCurrentDate()}
-        imgUrl="http://localhost:8080/images/noimage"
+        imgUrl="https://notnik-api.herokuapp.com/images/noimage"
       />
       <Body
         prevState={newEntryDataBody}

@@ -84,7 +84,7 @@
   width: 0.9em;
   height: 0.9em;
   opacity: 0.1;
-  background-image: url("https://firebasestorage.googleapis.com/v0/b/notnik-app.appspot.com/o/assets%2Fdelete.svg?alt=media&token=b721d142-09d2-4c40-bbf9-8ae3e8ebb32c");
+  background-image: url("./assets/icons/delete.svg");
   background-position: center;
   background-size: cover;
   background-repeat: no-repeat;

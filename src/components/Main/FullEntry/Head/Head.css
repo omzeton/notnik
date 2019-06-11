@@ -62,7 +62,7 @@
 	border:1px solid var(--w);
 	cursor: pointer;
 	transition:0.3s box-shadow;
-	background-image: url('http://localhost:3000/assets/icons/new.svg');
+	background-image: url('./assets/icons/new.svg');
 	background-size:100%;
 	background-position: center;
 	background-repeat: no-repeat;

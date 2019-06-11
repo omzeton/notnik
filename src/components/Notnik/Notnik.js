@@ -68,7 +68,7 @@ class Notnik extends Component {
   loginHandler = (event, authData) => {
     event.preventDefault();
     this.setState({ authLoading: true });
-    fetch("http://localhost:8080/auth/login", {
+    fetch("https://notnik-api.herokuapp.com/auth/login", {
       method: "POST",
       headers: {
         "Content-Type": "application/json"
@@ -156,7 +156,7 @@ class Notnik extends Component {
   deleteAccount = () => {
     let error;
     this.setState({ authLoading: true });
-    fetch("http://localhost:8080/auth/terminate", {
+    fetch("https://notnik-api.herokuapp.com/auth/terminate", {
       method: "POST",
       headers: {
         "Content-Type": "application/json"
@@ -210,7 +210,7 @@ class Notnik extends Component {
     event.preventDefault();
     this.setState({ authLoading: true });
     let error = false;
-    fetch("http://localhost:8080/auth/signup", {
+    fetch("https://notnik-api.herokuapp.com/auth/signup", {
       method: "PUT",
       headers: {
         "Content-Type": "application/json"
@@ -287,7 +287,7 @@ class Notnik extends Component {
     console.log(fd);
     let fetchData = { url: "", payLoad: {} };
     if (location === "/create-new-entry") {
-      fetchData.url = "http://localhost:8080/journal/entry";
+      fetchData.url = "https://notnik-api.herokuapp.com/journal/entry";
       fetchData.payLoad = {
         method: "POST",
         headers: {
@@ -296,7 +296,7 @@ class Notnik extends Component {
         body: fd
       };
     } else {
-      fetchData.url = `http://localhost:8080/journal${location}`;
+      fetchData.url = `https://notnik-api.herokuapp.com/journal${location}`;
       fetchData.payLoad = {
         method: "PUT",
         headers: {
@@ -346,7 +346,7 @@ class Notnik extends Component {
 
   fontSizeHandler = data => {
     const userId = this.state.userId;
-    fetch("http://localhost:8080/journal/font-size", {
+    fetch("https://notnik-api.herokuapp.com/journal/font-size", {
       method: "POST",
       headers: {
         "Content-Type": "application/json"
@@ -387,7 +387,7 @@ class Notnik extends Component {
       userSettings: { ...this.state.userSettings, menuPosition: data }
     });
     const userId = this.state.userId;
-    fetch("http://localhost:8080/journal/menu-position", {
+    fetch("https://notnik-api.herokuapp.com/journal/menu-position", {
       method: "POST",
       headers: {
         "Content-Type": "application/json"
