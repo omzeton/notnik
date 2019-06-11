@@ -566,13 +566,13 @@ class Notnik extends Component {
       }
     }
     return (
-      <div className={"Notnik"} style={{ ...menuPosition, ...scroll }}>
+      <div className={"Notnik"} style={{ ...menuPosition }}>
         <Menu
           createNewEntry={this.createNewEntry}
           isAuth={this.state.isAuth}
           menuPosition={this.state.userSettings.menuPosition}
         />
-        <div className="Content">{routes}</div>
+        <div className="Content" style={scroll}>{routes}</div>
       </div>
     );
   }

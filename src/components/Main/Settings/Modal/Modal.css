@@ -1,10 +1,22 @@
 .Options__Modal {
-    position: absolute;
-    top:5em;
-    left:15em;
-    width:20em;
-    height:20em;
-    border-radius: 0.5em;
-    border:1px solid var(--rd);
-    transition:opacity 0.5s ease-out;
+  position: absolute;
+  width: 20em;
+  height: 20em;
+  border-radius: 0.5em;
+  border: 1px solid var(--rd);
+  transition: opacity 0.5s ease-out;
+}
+
+@media (min-width: 1025px) {
+  .Options__Modal {
+    top: 5em;
+    left: 15em;
+  }
+}
+
+@media (max-width: 1025px) {
+  .Options__Modal {
+    top: 23em;
+    left: 2em;
+  }
 }
