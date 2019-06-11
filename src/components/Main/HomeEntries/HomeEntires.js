@@ -11,6 +11,7 @@ const HomeEntries = props => {
   const [loadingError, setLoadingError] = useState();
 
   useEffect(() => {
+    console.log(props.currentUser)
     fetch("http://localhost:8080/journal/entries", {
       method: "POST",
       headers: {
@@ -21,12 +22,14 @@ const HomeEntries = props => {
       })
     })
       .then(res => {
-        if (res.status !== 200) {
+        console.log(res);
+        if ((res.status !== 200) & (res.status !== 201)) {
           throw new Error("Failed to fetch entries.");
         }
         return res.json();
       })
       .then(resData => {
+        console.log(resData);
         setStillFetching(false);
         setEntryState(resData.entries);
       })
@@ -38,9 +41,9 @@ const HomeEntries = props => {
   }, []);
 
   let fetched = loadingError ? (
-    <h2 className="Connection_Refused">No entries found.</h2>
+    <h2 className="Connection_Refused">Connection error.</h2>
   ) : (
-    <Loader auth={false}/>
+    <Loader auth={false} />
   );
 
   if (!stillFetching) {

@@ -33,6 +33,7 @@ class Notnik extends Component {
   };
 
   componentDidMount() {
+    console.log(this.state.userId);
     const token = localStorage.getItem("token");
     const expiryDate = localStorage.getItem("expiryDate");
     if (!token || !expiryDate) {
@@ -83,7 +84,7 @@ class Notnik extends Component {
         });
         localStorage.setItem("token", resData.token);
         localStorage.setItem("userId", resData.userId);
-        const remainingMilliseconds = 60 * 60 * 1000; // sets the max session
+        const remainingMilliseconds = 60 * 60 * 1000;
         const expiryDate = new Date(
           new Date().getTime() + remainingMilliseconds
         );
@@ -112,7 +113,7 @@ class Notnik extends Component {
     if (event) {
       event.preventDefault();
     }
-    this.setState({ isAuth: false, token: null, userId: null });
+    this.setState({ isAuth: false, token: null, userId: null, error: null });
     localStorage.removeItem("token");
     localStorage.removeItem("expiryDate");
     localStorage.removeItem("userId");
@@ -191,11 +192,9 @@ class Notnik extends Component {
       .then(res => {
         console.log(res);
         if (res.status === 422) {
-          // throw new Error(`Validation failed. Make sure the email address isn't used yet!`);
           error = true;
         }
         if ((res.status !== 200) & (res.status !== 201)) {
-          // throw new Error("Creating a user failed!");
           error = true;
         }
         return res.json();
@@ -208,7 +207,12 @@ class Notnik extends Component {
             error: resData.message
           });
         } else {
-          this.setState({ isAuth: true, authLoading: false });
+          this.setState({
+            isAuth: true,
+            authLoading: false,
+            userId: resData.userId._id,
+            token: resData.token
+          });
           this.props.history.replace("/");
         }
         console.log(resData);
@@ -248,6 +252,7 @@ class Notnik extends Component {
     fd.append("date", date);
     fd.append("imgUrl", this.state.newEntry.imgUrl);
     fd.append("uId", this.state.newEntry.uId);
+    console.log(fd);
     let fetchData = { url: "", payLoad: {} };
     if (location === "/create-new-entry") {
       fetchData.url = "http://localhost:8080/journal/entry";
@@ -270,6 +275,7 @@ class Notnik extends Component {
     }
     fetch(fetchData.url, fetchData.payLoad)
       .then(res => {
+        console.log(res);
         if (res.status === 422) {
           throw new Error("Could not process a new entry!");
         }
