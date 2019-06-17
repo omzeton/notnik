@@ -25,3 +25,15 @@
   border: none;
   outline: none;
 }
+
+@media (min-width: 1025px) {
+  .FullEntry {
+    grid-template-rows: 11em 1fr;
+  }
+}
+
+@media (max-width: 1025px) {
+  .FullEntry {
+    grid-template-rows: 8em 1fr;
+  }
+}

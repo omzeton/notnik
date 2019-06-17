@@ -28,13 +28,12 @@
 
 @media (min-width: 1025px) {
   .NewEntry {
-    width: 100%;
-    margin-left: 0;
+    grid-template-rows: 11em 1fr;
   }
 }
 
 @media (max-width: 1025px) {
   .NewEntry {
-    margin-left: 3em;
+    grid-template-rows: 8em 1fr;
   }
 }

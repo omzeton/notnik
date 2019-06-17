@@ -7,7 +7,6 @@
 .Settings {
   position: relative;
   background-color: var(--bla3);
-  padding: 2em;
 }
 
 .Settings .Settings__Heading {
@@ -32,13 +31,13 @@
 
 .Settings .Settings__Categories p {
   color: var(--w);
-  width:fit-content;
+  width: fit-content;
   cursor: pointer;
   font-family: "Montserrat", sans-serif;
 }
 
 .Settings .Settings__Categories p:hover {
-  text-shadow:0 0 10px var(--rd);
+  text-shadow: 0 0 10px var(--rd);
 }
 
 .Settings form .Settings__Logout {
@@ -64,12 +63,14 @@
 
 @media (min-width: 1025px) {
   .Settings {
-      margin-left:0;
+    margin-left: 0;
+    padding:2em;
   }
 }
 
 @media (max-width: 1025px) {
   .Settings {
-    margin-left:3em;
+    margin-left: 3em;
+    padding-top:1em;
   }
 }

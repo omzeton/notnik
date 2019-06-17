@@ -96,12 +96,12 @@
 
 @media (min-width: 1025px) {
   .Entry {
-	width: 30em;
+    width: 30em;
   }
 }
 
 @media (max-width: 1025px) {
   .Entry {
-	width: 62vw;
+    width: 62vw;
   }
 }
