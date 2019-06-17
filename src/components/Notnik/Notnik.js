@@ -157,13 +157,9 @@ class Notnik extends Component {
     let error;
     this.setState({ authLoading: true });
     fetch("https://notnik-api.herokuapp.com/auth/terminate", {
-      method: "POST",
       headers: {
-        "Content-Type": "application/json"
-      },
-      body: JSON.stringify({
-        uId: this.state.userId
-      })
+        Authorization: 'Bearer ' + this.state.token
+      }
     })
       .then(res => {
         console.log(res);
@@ -284,14 +280,14 @@ class Notnik extends Component {
     fd.append("date", date);
     fd.append("imgUrl", this.state.newEntry.imgUrl);
     fd.append("uId", this.state.newEntry.uId);
-    console.log(fd);
     let fetchData = { url: "", payLoad: {} };
     if (location === "/create-new-entry") {
       fetchData.url = "https://notnik-api.herokuapp.com/journal/entry";
       fetchData.payLoad = {
         method: "POST",
         headers: {
-          Accept: "application/json"
+          Accept: "application/json",
+          Authorization: 'Bearer ' + this.state.token
         },
         body: fd
       };
@@ -300,7 +296,8 @@ class Notnik extends Component {
       fetchData.payLoad = {
         method: "PUT",
         headers: {
-          Accept: "application/json"
+          Accept: "application/json",
+          Authorization: 'Bearer ' + this.state.token
         },
         body: fd
       };

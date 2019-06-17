@@ -18,6 +18,7 @@ const Entry = props => {
   };
 
   const onDelete = event => {
+    const token = localStorage.getItem("token");
     if (!event) {
       event.cancelBubble = true;
     }
@@ -26,7 +27,10 @@ const Entry = props => {
     }
     if (window.confirm("Are you sure you wish to delete this entry?")) {
       fetch(`https://notnik-api.herokuapp.com/journal/entry/${props.id}`, {
-        method: "DELETE"
+        method: "DELETE",
+        headers: {
+          Authorization: 'Bearer ' + token
+        }
       })
         .then(res => {
           if (res.status !== 201) {

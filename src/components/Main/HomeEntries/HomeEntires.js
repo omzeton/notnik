@@ -11,14 +11,11 @@ const HomeEntries = props => {
   const [loadingError, setLoadingError] = useState();
 
   useEffect(() => {
+    const token = localStorage.getItem("token");
     fetch("https://notnik-api.herokuapp.com/journal/entries", {
-      method: "POST",
       headers: {
-        "Content-Type": "application/json"
-      },
-      body: JSON.stringify({
-        uId: props.currentUser
-      })
+        Authorization: 'Bearer ' + token
+      }
     })
       .then(res => {
         console.log(res);

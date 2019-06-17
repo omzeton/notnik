@@ -34,9 +34,13 @@ const FullEntry = props => {
   });
 
   useEffect(() => {
+    const token = localStorage.getItem("token");
     const entryId = props.match.params.id;
     fetch(`https://notnik-api.herokuapp.com/journal/entry/${entryId}`, {
-      method: "GET"
+      method: "GET",
+      headers: {
+        Authorization: "Bearer " + token
+      }
     })
       .then(res => {
         if (res.status !== 200) {
