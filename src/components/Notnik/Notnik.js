@@ -106,7 +106,7 @@ class Notnik extends Component {
         localStorage.setItem("token", resData.token);
         localStorage.setItem("userId", resData.userId);
         localStorage.setItem("userSettings", JSON.stringify(userSettings));
-        const remainingMilliseconds = 60 * 60 * 1000;
+        const remainingMilliseconds = 24 * 60 * 60 * 1000;
         const expiryDate = new Date(
           new Date().getTime() + remainingMilliseconds
         );
@@ -158,7 +158,7 @@ class Notnik extends Component {
     this.setState({ authLoading: true });
     fetch("https://notnik-api.herokuapp.com/auth/terminate", {
       headers: {
-        Authorization: 'Bearer ' + this.state.token
+        Authorization: "Bearer " + this.state.token
       }
     })
       .then(res => {
@@ -241,6 +241,19 @@ class Notnik extends Component {
             userId: resData.userId,
             token: resData.token
           });
+          const userSettings = {
+            fontSize: resData.userSettings.fontSize,
+            menuPosition: resData.userSettings.menuPosition
+          };
+          localStorage.setItem("token", resData.token);
+          localStorage.setItem("userId", resData.userId);
+          localStorage.setItem("userSettings", JSON.stringify(userSettings));
+          const remainingMilliseconds = 24 * 60 * 60 * 1000;
+          const expiryDate = new Date(
+            new Date().getTime() + remainingMilliseconds
+          );
+          localStorage.setItem("expiryDate", expiryDate.toISOString());
+          this.setAutoLogout(remainingMilliseconds);
           this.props.history.replace("/");
         }
         console.log(resData);
@@ -287,7 +300,7 @@ class Notnik extends Component {
         method: "POST",
         headers: {
           Accept: "application/json",
-          Authorization: 'Bearer ' + this.state.token
+          Authorization: "Bearer " + this.state.token
         },
         body: fd
       };
@@ -297,7 +310,7 @@ class Notnik extends Component {
         method: "PUT",
         headers: {
           Accept: "application/json",
-          Authorization: 'Bearer ' + this.state.token
+          Authorization: "Bearer " + this.state.token
         },
         body: fd
       };
@@ -569,7 +582,9 @@ class Notnik extends Component {
           isAuth={this.state.isAuth}
           menuPosition={this.state.userSettings.menuPosition}
         />
-        <div className="Content" style={scroll}>{routes}</div>
+        <div className="Content" style={scroll}>
+          {routes}
+        </div>
       </div>
     );
   }
