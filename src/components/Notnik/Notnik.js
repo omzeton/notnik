@@ -157,9 +157,13 @@ class Notnik extends Component {
     let error;
     this.setState({ authLoading: true });
     fetch("https://notnik-api.herokuapp.com/auth/terminate", {
+      method: "POST",
       headers: {
         Authorization: "Bearer " + this.state.token
-      }
+      },
+      body: JSON.stringify({
+        userId: this.state.userId
+      })
     })
       .then(res => {
         console.log(res);

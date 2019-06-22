@@ -16,9 +16,9 @@
 
 @media (max-width: 1025px) {
   .Options__Modal {
-    top: 23em;
+    top: 22em;
     left: 0em;
-    width: 15em;
-    height: 15em;
+    width: 17em;
+    height: 19em;
   }
 }
