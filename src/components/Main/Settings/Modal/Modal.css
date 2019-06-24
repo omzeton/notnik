@@ -3,6 +3,7 @@
   border-radius: 0.5em;
   border: 1px solid var(--rd);
   transition: opacity 0.5s ease-out;
+  margin-bottom:2em;
 }
 
 @media (min-width: 1025px) {
@@ -18,7 +19,7 @@
   .Options__Modal {
     top: 22em;
     left: 0em;
-    width: 17em;
+    width: 14em;
     height: 19em;
   }
 }

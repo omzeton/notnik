@@ -73,3 +73,23 @@
   background-color: var(--w);
   color: var(--bla1);
 }
+
+@media (min-width: 1025px) {
+  .DeleteAccount__Form .Delete__Account h2 {
+    font-size: 1.5em;
+  }
+  .DeleteAccount__Form .Delete__Account p {
+    font-size: 0.8em;
+    line-height: 1.5em;
+  }
+}
+
+@media (max-width: 1025px) {
+  .DeleteAccount__Form .Delete__Account h2 {
+    font-size: 1.2em;
+  }
+  .DeleteAccount__Form .Delete__Account p {
+    font-size: 0.7em;
+    line-height: 1.6em;
+  }
+}

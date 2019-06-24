@@ -98,9 +98,14 @@
 @media (min-width: 1025px) {
   .Entry {
     width: 30em;
+    height: 9em;
+    grid-template-columns: 10em 1fr;
   }
   .Entry__Info h2 {
     font-size: 1.2em;
+  }
+  .Entry__Info h3 {
+    font-size: 0.7em;
   }
   .Entry__Text {
     width: 23em;
@@ -111,15 +116,21 @@
 
 @media (max-width: 1025px) {
   .Entry {
-    width: 62vw;
-    min-width: 26em;
+    width: 100%;
+    max-width: 30em;
+    min-width: 15em;
+    height: 6em;
+    grid-template-columns: 6em 1fr;
+  }
+  .Entry__Info h3 {
+    font-size: 0.5em;
   }
   .Entry__Info h2 {
-    font-size: 0.9rem;
+    font-size: 0.8rem;
   }
   .Entry__Text {
     width: 95%;
-    font-size: 0.6em;
+    font-size: 0.5rem;
     line-height: 1.2em;
   }
 }

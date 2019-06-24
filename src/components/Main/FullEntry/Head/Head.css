@@ -11,7 +11,7 @@
 .Entry__Head .Input__Title {
   position: absolute;
   font-family: "Baloo", cursive;
-
+  white-space: nowrap;
   line-height: 0em;
   color: var(--w);
   margin-top: 0.5em;
@@ -89,6 +89,7 @@
 @media (min-width: 1025px) {
   .Entry__Head .Input__Title {
     font-size: 3.5em;
+    margin-top: 0.5em;
   }
   .Entry__Head__Date__Container {
     top: 7em;
@@ -98,7 +99,8 @@
 
 @media (max-width: 1025px) {
   .Entry__Head .Input__Title {
-    font-size: 2.5em;
+    font-size: 1.9em;
+    margin-top:1.2em
   }
   .Entry__Head__Date__Container {
     top: 5em;
