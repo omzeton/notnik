@@ -1,12 +1,8 @@
 <template>
     <div class="home-list">
-        <div class="home-list__header">
-            <h2 class="home-list__header-text">My entries</h2>
-        </div>
-        <div class="home-list__divider" />
         <div class="home-list__entry-list">
             <div class="home-list__wrapper">
-                <MiniEntry v-for="entry in entries" :key="entry._id" :name="entry.title" />
+                <MiniEntry v-for="entry in entries" :key="entry._id" :data="entry" />
             </div>
         </div>
     </div>
@@ -39,7 +35,6 @@ export default {
     background-repeat: repeat;
     background-size: 15em;
     background-position: auto;
-    padding: 32px 64px;
     box-sizing: border-box;
     &__header {
         width: 100%;
@@ -59,7 +54,7 @@ export default {
     }
     &__entry-list {
         width: 100%;
-        height: calc(100% - 150px);
+        height: 100%;
         overflow-y: hidden;
         overflow-x: scroll;
     }
@@ -67,9 +62,12 @@ export default {
         height: 100%;
         width: auto;
         display: grid;
-        grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
-        grid-template-rows: repeat(auto-fill, minmax(140px, 1fr));
+        grid-template-rows: repeat(auto-fill, minmax(252px, 252px));
+        grid-column-gap: 24px;
+        grid-row-gap: 0px;
         grid-auto-flow: column;
+        margin-left: 32px;
+        margin-top: 32px;
     }
 }
 </style>

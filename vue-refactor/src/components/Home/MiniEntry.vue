@@ -4,7 +4,10 @@
             <img src="/assets/img.jpg" />
         </div>
         <div class="mini-card__description">
-            <p class="mini-card__header">{{ name }}</p>
+            <div class="mini-card__delete" @click="deleteEntry" />
+            <h2 class="mini-card__title">{{ data.title }}</h2>
+            <h3 class="mini-card__date">{{ data.date }}</h3>
+            <div class="mini-card__body">{{ entryBody }}</div>
         </div>
     </div>
 </template>
@@ -12,14 +15,23 @@
 <script>
 export default {
     props: {
-        name: {
-            type: [String],
-            default: '',
+        data: {
+            type: [Object],
+            default: () => {},
+        },
+    },
+    computed: {
+        entryBody() {
+            const appendix = this.data.body.length <= 61 ? '' : '...';
+            return this.data.body.slice(0, 61) + appendix;
         },
     },
     methods: {
         openEntry() {
-            this.$store.dispatch('OPEN_OLD_ENTRY');
+            this.$store.dispatch('OPEN_OLD_ENTRY', { id: this.data._id });
+        },
+        deleteEntry() {
+            console.log('test');
         },
     },
 };
@@ -27,32 +39,67 @@ export default {
 
 <style lang="scss">
 .mini-card {
-    width: 200px;
-    height: 100px;
+    width: 480px;
+    height: 200px;
     overflow: hidden;
-    background-color: $bla2;
-    border-radius: 6px;
+    background-color: $bla1;
+    border-radius: 3px;
     display: flex;
-    margin: 0 32px;
     cursor: pointer;
+    box-shadow: 0 0 40px -20px rgba(0, 0, 0, 1);
+    transition: background-color 0.3s ease-out;
+    &:hover {
+        background-color: $bla2;
+    }
     &__image {
-        width: 80px;
+        width: 160px;
         height: 100%;
         overflow: hidden;
+        position: relative;
+        &:before {
+            content: '';
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            left: 0;
+            top: 0;
+            background-color: #000;
+            opacity: 0.5;
+            mix-blend-mode: color;
+            transition: opacity 0.2s linear;
+        }
         img {
             object-fit: cover;
             width: 100%;
             height: 100%;
         }
     }
+
     &__description {
-        width: 120px;
+        width: 100%;
         display: flex;
-        align-items: center;
-        justify-content: center;
-    }
-    &__header {
+        align-items: flex-start;
+        flex-direction: column;
+        box-sizing: border-box;
+        padding: 16px;
         color: $w;
+    }
+    &__title {
+        color: $w;
+        font-family: $bold;
+        font-size: 20px;
+        outline: none;
+        white-space: nowrap;
+    }
+    &__date {
+        margin-top: -10px;
+        margin-bottom: 32px;
+        font-family: $light;
+        color: $w2;
+        font-size: 12px;
+    }
+    &__body {
+        font-family: $light;
     }
 }
 </style>
