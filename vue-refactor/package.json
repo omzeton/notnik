@@ -3,14 +3,19 @@
     "version": "0.1.0",
     "private": true,
     "scripts": {
-        "dev": "vue-cli-service serve",
+        "dev:fe": "vue-cli-service serve",
+        "dev:be": "nodemon ./node/main.js",
         "build": "vue-cli-service build",
         "lint": "vue-cli-service lint"
     },
     "dependencies": {
         "axios": "^0.21.0",
+        "body-parser": "^1.19.0",
         "core-js": "^3.6.5",
         "es6-promise": "^4.2.8",
+        "express": "^4.17.1",
+        "express-validator": "^6.7.0",
+        "mongoose": "^5.11.2",
         "vue": "^2.6.11",
         "vue-router": "^3.4.8",
         "vuex": "^3.5.1"
@@ -23,6 +28,7 @@
         "eslint": "^6.7.2",
         "eslint-plugin-vue": "^6.2.2",
         "node-sass": "^4.14.1",
+        "nodemon": "^2.0.6",
         "sass-loader": "^10.0.4",
         "vue-template-compiler": "^2.6.11"
     },
