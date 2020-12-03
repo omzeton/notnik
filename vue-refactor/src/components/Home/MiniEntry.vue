@@ -4,7 +4,6 @@
             <img src="/assets/img.jpg" />
         </div>
         <div class="mini-card__description">
-            <div class="mini-card__delete" @click="deleteEntry" />
             <h2 class="mini-card__title">{{ data.title }}</h2>
             <h3 class="mini-card__date">{{ data.date }}</h3>
             <div class="mini-card__body">{{ entryBody }}</div>
@@ -29,9 +28,6 @@ export default {
     methods: {
         openEntry() {
             this.$store.dispatch('OPEN_OLD_ENTRY', { id: this.data._id });
-        },
-        deleteEntry() {
-            console.log('test');
         },
     },
 };
