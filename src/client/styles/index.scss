@@ -1,0 +1,21 @@
+@import "reset";
+
+@import url("https://fonts.googleapis.com/css?family=Lato:700&display=swap");
+@font-face {
+    font-family: "Gordita";
+    font-style: normal;
+    font-weight: bold;
+    font-display: swap;
+    src: url("@/fonts/gordita.woff") format("woff");
+}
+
+.bold {
+    font-family: "Gordita";
+    font-size: 24px;
+    color: darkblue;
+}
+.light {
+    font-family: "Lato";
+    font-size: 12px;
+    color: blue;
+}
