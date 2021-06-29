@@ -1,4 +1,5 @@
-const { body } = require("express-validator");
+import { body } from "express-validator";
+import user from "../models/user";
 
 const bodyValidator = [
     body("title")
@@ -17,7 +18,7 @@ const signupValidator = [
         .isEmail()
         .withMessage("Please enter a valid email.")
         .custom((value, { req }) => {
-            return User.findOne({ email: value }).then(userDoc => {
+            return user.findOne({ email: value }).then((userDoc: any) => {
                 if (userDoc) {
                     return Promise.reject("E-Mail address already exists!");
                 }
@@ -37,7 +38,4 @@ const signupValidator = [
         }),
 ];
 
-module.exports = {
-    bodyValidator,
-    signupValidator,
-};
+export { bodyValidator, signupValidator };

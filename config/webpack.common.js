@@ -4,6 +4,7 @@ const { CleanWebpackPlugin } = require("clean-webpack-plugin");
 const CopyWebpackPlugin = require("copy-webpack-plugin");
 const VueLoaderPlugin = require("vue-loader/lib/plugin");
 require("babel-polyfill");
+require("dotenv").config();
 
 module.exports = {
     entry: ["babel-polyfill", "./src/client/index.js"],
@@ -19,6 +20,11 @@ module.exports = {
                 type: "asset",
             },
             {
+                test: /\.ts$/,
+                loader: "ts-loader",
+                exclude: /node_modules/,
+            },
+            {
                 test: /\.js$/,
                 exclude: /node_modules/,
                 use: {
@@ -32,7 +38,7 @@ module.exports = {
         ],
     },
     resolve: {
-        extensions: ["*", ".js", ".vue", ".md"],
+        extensions: ["*", ".js", ".ts", ".vue"],
         alias: {
             "@": path.resolve(__dirname, "../src/client"),
             "@assets": path.resolve(__dirname, "../src/client/assets"),
@@ -41,6 +47,9 @@ module.exports = {
         },
     },
     plugins: [
+        new webpack.DefinePlugin({
+            "process.env.MONGO_USER": JSON.stringify(process.env.MONGO_USER),
+        }),
         new CleanWebpackPlugin(),
         new CopyWebpackPlugin({
             patterns: [
@@ -52,9 +61,9 @@ module.exports = {
                 },
             ],
         }),
+        new VueLoaderPlugin(),
         new webpack.ProvidePlugin({
             process: "process/browser",
         }),
-        new VueLoaderPlugin(),
     ],
 };

@@ -1,15 +1,22 @@
-const fs = require("fs");
-const { validationResult } = require("express-validator");
-const bcrypt = require("bcryptjs");
-const User = require("../models/user");
-const jwt = require("jsonwebtoken");
-const { thirtyDayCookie } = require("../utils/consts");
+import fs from "fs";
+import { validationResult } from "express-validator";
+import { Request, Response, NextFunction } from "express";
+import bcrypt from "bcryptjs";
+import User from "../models/user";
+import jwt from "jsonwebtoken";
+import { thirtyDayCookie } from "../utils/consts";
 
-const signup = async (req, res, next) => {
+declare const process: {
+    env: {
+        TOKEN_SECRET: string;
+    };
+};
+
+const signup = async (req: Request, res: Response, next: NextFunction) => {
     try {
         const errors = validationResult(req);
         if (!errors.isEmpty()) {
-            const error = new Error("Validation failed.");
+            const error: any = new Error("Validation failed.");
             error.statusCode = 422;
             error.data = errors.array();
             throw error;
@@ -43,20 +50,20 @@ const signup = async (req, res, next) => {
     }
 };
 
-const login = async (req, res, next) => {
+const login = async (req: Request, res: Response, next: NextFunction) => {
     try {
         const { email, password } = req.body;
 
         const user = await User.findOne({ email: email });
         if (!user) {
-            const error = new Error("A user with this email could not be found!");
+            const error: any = new Error("A user with this email could not be found!");
             error.statusCode = 401;
             throw error;
         }
 
         const match = await bcrypt.compare(password, user.password);
         if (!match) {
-            const error = new Error("Wrong password!");
+            const error: any = new Error("Wrong password!");
             error.statusCode = 401;
             throw error;
         }
@@ -75,7 +82,7 @@ const login = async (req, res, next) => {
     }
 };
 
-const deleteFile = filePath => {
+const deleteFile = (filePath: string) => {
     fs.unlink(filePath, err => {
         if (err) {
             throw err;
@@ -83,8 +90,4 @@ const deleteFile = filePath => {
     });
 };
 
-module.exports = {
-    signup,
-    login,
-    deleteFile,
-};
+export { signup, login, deleteFile };

@@ -1,9 +1,12 @@
-const mongoose = require("mongoose");
+import mongoose from "mongoose";
+import * as dotenv from "dotenv";
 
-const initServer = require("./initServer");
-const router = require("./routes");
+import initServer from "./initServer";
+import router from "./routes";
 
 const app = initServer(router);
+
+dotenv.config();
 
 mongoose
     .connect(`mongodb+srv://${process.env.MONGO_USER}:${process.env.MONGO_PASSWORD}@cluster0-p7rod.mongodb.net/${process.env.MONGO_DATABASE}?retryWrites=true`, {
@@ -13,7 +16,7 @@ mongoose
     })
     .then(() => {
         const port = process.env.PORT || 2828;
-        app.listen(port, () => console.log(`Listening on port ${port}`));
+        app.listen(port, () => console.log("\x1b[40m\x1b[7m", `Listening on port ${port}`));
     })
     .catch(err => {
         console.log(err);

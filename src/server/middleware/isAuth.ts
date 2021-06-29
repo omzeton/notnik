@@ -1,14 +1,23 @@
-const jwt = require("jsonwebtoken");
+import { Response, NextFunction } from "express";
+import * as dotenv from "dotenv";
+import jwt from "jsonwebtoken";
+dotenv.config();
 
-module.exports = (req, res, next) => {
+declare const process: {
+    env: {
+        TOKEN_SECRET: string;
+    };
+};
+
+export default (req: any, res: Response, next: NextFunction) => {
     const authHeader = req.get("Authorization");
     if (!authHeader) {
-        const error = new Error("Not authenticated");
+        const error: any = new Error("Not authenticated");
         error.statusCode = 401;
         throw error;
     }
     const token = authHeader.split(" ")[1];
-    let decodedToken;
+    let decodedToken: any;
     try {
         decodedToken = jwt.verify(token, process.env.TOKEN_SECRET);
     } catch (err) {
@@ -16,16 +25,10 @@ module.exports = (req, res, next) => {
         throw err;
     }
     if (!decodedToken) {
-        const error = new Error("Not authenticated");
+        const error: any = new Error("Not authenticated");
         error.statusCode = 401;
         throw error;
     }
     req.userId = decodedToken.userId;
-    // res.cookie("cookieForWicy", "28", {
-    //     maxAge: 60 * 60 * 1000,
-    //     httpOnly: true,
-    //     secure: true,
-    //     sameSite: true,
-    // });
     next();
 };

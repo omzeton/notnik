@@ -1,16 +1,17 @@
-const fs = require("fs");
-const path = require("path");
+import { APIError } from "./types";
+import fs from "fs";
+import path from "path";
 
-const express = require("express");
-const multer = require("multer");
-const { v4 } = require("uuid");
-const helmet = require("helmet");
-const morgan = require("morgan");
-const cors = require("cors");
-const compression = require("compression");
-const cookieParser = require("cookie-parser");
+import express, { Router, Request, Response, NextFunction } from "express";
+import multer from "multer";
+import { v4 } from "uuid";
+import helmet from "helmet";
+import morgan from "morgan";
+import cors from "cors";
+import compression from "compression";
+import cookieParser from "cookie-parser";
 
-module.exports = router => {
+export default (router: Router) => {
     const app = express();
     const isProduction = process.env.NODE_ENV === "production";
     const origin = { origin: isProduction ? false : "*" };
@@ -24,7 +25,7 @@ module.exports = router => {
         },
     });
 
-    const fileFilter = (req, file, cb) => {
+    const fileFilter = (req: Request, file: any, cb: any) => {
         if (file.mimetype === "image/png" || file.mimetype === "image/jpg" || file.mimetype === "image/gif" || file.mimetype === "image/jpeg") {
             cb(null, true);
         } else {
@@ -58,7 +59,7 @@ module.exports = router => {
         res.sendFile(path.join(__dirname, "../../dist/index.html"));
     });
 
-    app.use((error, req, res, next) => {
+    app.use((error: APIError, req: Request, res: Response, next: NextFunction) => {
         let newError;
         if (error.data) {
             newError = error.data[0];
