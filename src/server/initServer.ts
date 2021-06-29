@@ -1,15 +1,16 @@
-import { APIError } from "./types";
 import fs from "fs";
 import path from "path";
-
 import express, { Router, Request, Response, NextFunction } from "express";
-import multer from "multer";
+import { ValidationError } from "express-validator";
+import multer, { FileFilterCallback } from "multer";
 import { v4 } from "uuid";
 import helmet from "helmet";
 import morgan from "morgan";
 import cors from "cors";
 import compression from "compression";
 import cookieParser from "cookie-parser";
+
+import { APIError } from "./types";
 
 export default (router: Router) => {
     const app = express();
@@ -25,12 +26,9 @@ export default (router: Router) => {
         },
     });
 
-    const fileFilter = (req: Request, file: any, cb: any) => {
-        if (file.mimetype === "image/png" || file.mimetype === "image/jpg" || file.mimetype === "image/gif" || file.mimetype === "image/jpeg") {
-            cb(null, true);
-        } else {
-            cb(null, false);
-        }
+    const fileFilter = (req: Request, file: { mimetype: string }, cb: FileFilterCallback) => {
+        const acceptFile = file.mimetype === "image/png" || file.mimetype === "image/jpg" || file.mimetype === "image/gif" || file.mimetype === "image/jpeg";
+        cb(null, acceptFile);
     };
 
     const accessLogStream = fs.createWriteStream(path.join(__dirname, "access.log"), { flags: "a" });
@@ -60,13 +58,8 @@ export default (router: Router) => {
     });
 
     app.use((error: APIError, req: Request, res: Response, next: NextFunction) => {
-        let newError;
-        if (error.data) {
-            newError = error.data[0];
-        } else {
-            newError = error;
-        }
-        const status = newError.statusCode || 500;
+        const newError: ValidationError | APIError = error.data ? error.data[0] : error;
+        const status = 500;
         const message = newError.msg;
         res.status(status).json({ message: message });
     });

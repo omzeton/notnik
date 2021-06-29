@@ -2,20 +2,20 @@ import fs from "fs";
 import path from "path";
 import { Request, Response, NextFunction } from "express";
 import { validationResult } from "express-validator";
-import { APIError } from "./../types";
+import { APIError, EntryData, WithUserIDRequest } from "./../types";
 import Entry from "../models/entry";
 import User from "../models/user";
 import getCurrentDate from "../utils/date";
 
-const getEntries = (req: any, res: Response, next: NextFunction) => {
+const getEntries = (req: WithUserIDRequest, res: Response, next: NextFunction) => {
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
-        const error: any = new Error("Validation error - incorrect user id.");
+        const error: APIError = new Error("Validation error - incorrect user id.");
         error.statusCode = 422;
         throw error;
     }
     Entry.find({ uId: req.userId })
-        .then((entries: any) => {
+        .then((entries: EntryData[]) => {
             res.status(200).json({
                 message: "Entries fetched successfully!",
                 entries: entries,
@@ -32,7 +32,7 @@ const getEntries = (req: any, res: Response, next: NextFunction) => {
 const createEntry = async (req: Request, res: Response, next: NextFunction) => {
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
-        const error: any = new Error("Validation error - felonious submission data.");
+        const error: APIError = new Error("Validation error - felonious submission data.");
         error.statusCode = 422;
         throw error;
     }
@@ -73,7 +73,7 @@ const createEntry = async (req: Request, res: Response, next: NextFunction) => {
 const getEntry = (req: Request, res: Response, next: NextFunction) => {
     const entryId = req.params.entryId;
     Entry.findById(entryId)
-        .then((entry: any) => {
+        .then((entry: EntryData) => {
             res.status(200).json({
                 message: "Singular entry fetched successfully!",
                 entry: entry,
@@ -91,7 +91,7 @@ const updateEntry = async (req: Request, res: Response, next: NextFunction) => {
     const errors = validationResult(req);
     let imageUrl;
     if (!errors.isEmpty()) {
-        const error: any = new Error("Validation error - felonious submission data.");
+        const error: APIError = new Error("Validation error - felonious submission data.");
         error.statusCode = 422;
         throw error;
     }

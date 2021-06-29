@@ -2,9 +2,10 @@ import fs from "fs";
 import { validationResult } from "express-validator";
 import { Request, Response, NextFunction } from "express";
 import bcrypt from "bcryptjs";
-import User from "../models/user";
 import jwt from "jsonwebtoken";
+import User from "../models/user";
 import { thirtyDayCookie } from "../utils/consts";
+import { APIError } from "../types";
 
 declare const process: {
     env: {
@@ -16,7 +17,7 @@ const signup = async (req: Request, res: Response, next: NextFunction) => {
     try {
         const errors = validationResult(req);
         if (!errors.isEmpty()) {
-            const error: any = new Error("Validation failed.");
+            const error: APIError = new Error("Validation failed.");
             error.statusCode = 422;
             error.data = errors.array();
             throw error;
@@ -56,14 +57,14 @@ const login = async (req: Request, res: Response, next: NextFunction) => {
 
         const user = await User.findOne({ email: email });
         if (!user) {
-            const error: any = new Error("A user with this email could not be found!");
+            const error: APIError = new Error("A user with this email could not be found!");
             error.statusCode = 401;
             throw error;
         }
 
         const match = await bcrypt.compare(password, user.password);
         if (!match) {
-            const error: any = new Error("Wrong password!");
+            const error: APIError = new Error("Wrong password!");
             error.statusCode = 401;
             throw error;
         }

@@ -1,6 +1,7 @@
 import { Response, NextFunction } from "express";
 import * as dotenv from "dotenv";
-import jwt from "jsonwebtoken";
+import jwt, { JwtPayload } from "jsonwebtoken";
+import { WithUserIDRequest, APIError } from "../types";
 dotenv.config();
 
 declare const process: {
@@ -9,15 +10,15 @@ declare const process: {
     };
 };
 
-export default (req: any, res: Response, next: NextFunction) => {
+export default (req: WithUserIDRequest, res: Response, next: NextFunction) => {
     const authHeader = req.get("Authorization");
     if (!authHeader) {
-        const error: any = new Error("Not authenticated");
+        const error: APIError = new Error("Not authenticated");
         error.statusCode = 401;
         throw error;
     }
     const token = authHeader.split(" ")[1];
-    let decodedToken: any;
+    let decodedToken: string | JwtPayload;
     try {
         decodedToken = jwt.verify(token, process.env.TOKEN_SECRET);
     } catch (err) {
@@ -25,10 +26,10 @@ export default (req: any, res: Response, next: NextFunction) => {
         throw err;
     }
     if (!decodedToken) {
-        const error: any = new Error("Not authenticated");
+        const error: APIError = new Error("Not authenticated");
         error.statusCode = 401;
         throw error;
     }
-    req.userId = decodedToken.userId;
+    req.userId = typeof decodedToken === "string" ? decodedToken : decodedToken.userId;
     next();
 };

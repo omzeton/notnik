@@ -18,7 +18,7 @@ const signupValidator = [
         .isEmail()
         .withMessage("Please enter a valid email.")
         .custom((value, { req }) => {
-            return user.findOne({ email: value }).then((userDoc: any) => {
+            return user.findOne({ email: value }).then((userDoc: boolean) => {
                 if (userDoc) {
                     return Promise.reject("E-Mail address already exists!");
                 }
