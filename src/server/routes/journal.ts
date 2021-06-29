@@ -6,7 +6,7 @@ import { bodyValidator } from "../utils/validators";
 
 const router = express.Router();
 
-router.get("/entries", isAuth, getEntries);
+router.get("/entries", isAuth, getEntries as any);
 router.post("/entry", bodyValidator, isAuth, createEntry);
 router.get("/entry/:entryId", isAuth, getEntry);
 router.put("/entry/:entryId", bodyValidator, isAuth, updateEntry);

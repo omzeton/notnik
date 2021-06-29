@@ -1,4 +1,4 @@
-import { Response, NextFunction } from "express";
+import { Response, NextFunction, RequestHandler as Middleware } from "express";
 import * as dotenv from "dotenv";
 import jwt, { JwtPayload } from "jsonwebtoken";
 import { WithUserIDRequest, APIError } from "../types";
@@ -10,7 +10,7 @@ declare const process: {
     };
 };
 
-export default (req: WithUserIDRequest, res: Response, next: NextFunction) => {
+const isAuth: any = (req: WithUserIDRequest, res: Response, next: NextFunction) => {
     const authHeader = req.get("Authorization");
     if (!authHeader) {
         const error: APIError = new Error("Not authenticated");
@@ -33,3 +33,5 @@ export default (req: WithUserIDRequest, res: Response, next: NextFunction) => {
     req.userId = typeof decodedToken === "string" ? decodedToken : decodedToken.userId;
     next();
 };
+
+export default isAuth;
