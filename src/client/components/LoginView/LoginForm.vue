@@ -21,8 +21,8 @@ export default {
     data() {
         return {
             form: {
-                email: "",
-                password: "",
+                email: "test@test.com",
+                password: "testtest",
             },
         };
     },
@@ -34,6 +34,7 @@ export default {
         submitHandler(event) {
             event.preventDefault();
             // TODO: Validation with vee-validate
+            this.$store.dispatch("auth/LOGIN", { email: this.form.email, password: this.form.password });
         },
     },
 };

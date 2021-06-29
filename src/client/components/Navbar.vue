@@ -1,22 +1,37 @@
 <template>
-    <div class="navbar">
+    <div class="navbar" :class="{ 'navbar--inactive': !isAuthenticated }">
         <button class="navbar__button navbar__new" />
         <button class="navbar__button navbar__list" />
         <button class="navbar__button navbar__settings" />
     </div>
 </template>
 
+<script>
+export default {
+    computed: {
+        isAuthenticated() {
+            return this.$store.getters["auth/GET_IS_AUTHENTICATED"];
+        },
+    },
+};
+</script>
+
 <style lang="scss">
 .navbar {
     height: 100%;
+    width: 3em;
     background-color: $bla1;
-    position: relative;
-    width: 100%;
+    position: fixed;
+    left: 0;
+    top: 0;
     display: flex;
     align-items: center;
     justify-content: center;
     flex-direction: column;
     row-gap: 2em;
+    opacity: 1;
+    transition: opacity 0.5s ease-out;
+    z-index: 10;
     &__button {
         height: 3.5em;
         width: 100%;
@@ -54,6 +69,10 @@
         &:after {
             background-color: $blu;
         }
+    }
+    &--inactive {
+        pointer-events: none;
+        opacity: 0.2;
     }
 }
 </style>

@@ -23,6 +23,11 @@ export default {
 
 <style lang="scss">
 .list {
+    position: absolute;
+    width: calc(100% - 3em);
+    height: 100%;
+    right: 0;
+    top: 0;
     background-color: var(--bla3);
     background-image: url("@assets/christmas-dark.png");
     background-repeat: repeat;

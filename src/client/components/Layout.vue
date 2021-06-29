@@ -1,9 +1,9 @@
 <template>
     <div class="grid-layout">
         <Navbar />
-        <router-view />
-        <!-- <LoginView /> -->
-        <!-- <NoteList /> -->
+        <transition name="fade">
+            <router-view />
+        </transition>
     </div>
 </template>
 
@@ -28,7 +28,13 @@ export default {
     left: 0;
     width: 100vw;
     height: 100vh;
-    display: grid;
-    grid-template-columns: 3em 1fr;
+}
+.fade-enter-active,
+.fade-leave-active {
+    transition: opacity 0.5s;
+}
+.fade-enter,
+.fade-leave-to {
+    opacity: 0;
 }
 </style>

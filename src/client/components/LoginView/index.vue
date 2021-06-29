@@ -16,6 +16,11 @@ export default {
 
 <style lang="scss">
 .homescreen {
+    position: absolute;
+    width: calc(100% - 3em);
+    height: 100%;
+    right: 0;
+    top: 0;
     background-color: $bla3;
     background-repeat: no-repeat;
     background-size: cover;

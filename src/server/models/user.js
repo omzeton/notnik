@@ -17,16 +17,6 @@ const userSchema = new Schema({
             required: true,
         },
     ],
-    settings: {
-        fontSize: {
-            type: String,
-            required: true,
-        },
-        menuPosition: {
-            type: String,
-            required: true,
-        },
-    },
 });
 
 module.exports = mongoose.model("User", userSchema);

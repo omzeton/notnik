@@ -21,7 +21,6 @@ module.exports = (req, res, next) => {
         throw error;
     }
     req.userId = decodedToken.userId;
-    console.log(res.cookies);
     // res.cookie("cookieForWicy", "28", {
     //     maxAge: 60 * 60 * 1000,
     //     httpOnly: true,

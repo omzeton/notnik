@@ -3,35 +3,9 @@ const path = require("path");
 const { validationResult } = require("express-validator");
 const Entry = require("../models/entry");
 const User = require("../models/user");
+const getCurrentDate = require("../utils/date");
 
-function getCurrentDate() {
-    let today = new Date();
-    let dd = today.getDate();
-    let mm = today.getMonth() + 1;
-    let minutes = today.getMinutes();
-    let hours = today.getHours();
-    let yyyy = today.getFullYear();
-    let date;
-
-    if (dd < 10) {
-        dd = "0" + dd;
-    }
-    if (mm < 10) {
-        mm = "0" + mm;
-    }
-    if (hours < 10) {
-        hours = "0" + hours;
-    }
-    if (minutes < 10) {
-        minutes = "0" + minutes;
-    }
-
-    date = yyyy + "-" + mm + "-" + dd + " - " + hours + ":" + minutes;
-
-    return date;
-}
-
-exports.getEntries = (req, res, next) => {
+const getEntries = (req, res, next) => {
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
         const error = new Error("Validation error - incorrect user id.");
@@ -53,7 +27,7 @@ exports.getEntries = (req, res, next) => {
         });
 };
 
-exports.createEntry = async (req, res, next) => {
+const createEntry = async (req, res, next) => {
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
         const error = new Error("Validation error - felonious submission data.");
@@ -94,7 +68,7 @@ exports.createEntry = async (req, res, next) => {
     }
 };
 
-exports.getEntry = (req, res, next) => {
+const getEntry = (req, res, next) => {
     const entryId = req.params.entryId;
     Entry.findById(entryId)
         .then(entry => {
@@ -111,7 +85,7 @@ exports.getEntry = (req, res, next) => {
         });
 };
 
-exports.updateEntry = async (req, res, next) => {
+const updateEntry = async (req, res, next) => {
     const errors = validationResult(req);
     let imageUrl;
     if (!errors.isEmpty()) {
@@ -151,7 +125,7 @@ exports.updateEntry = async (req, res, next) => {
     }
 };
 
-exports.deleteEntry = async (req, res, next) => {
+const deleteEntry = async (req, res, next) => {
     const entryId = req.params.entryId;
     try {
         const entry = await Entry.findById(entryId);
@@ -173,39 +147,15 @@ exports.deleteEntry = async (req, res, next) => {
     }
 };
 
-exports.postFontSize = async (req, res, next) => {
-    try {
-        const newFontSize = req.body.newFontSize;
-        const userId = req.body.userId;
-        const user = await User.findById(userId);
-        user.settings.fontSize = newFontSize;
-        await user.save();
-        res.status(200).json({ message: "Font size updated successfully!" });
-    } catch (err) {
-        if (!err.statusCode) {
-            err.statusCode = 500;
-        }
-        next(err);
-    }
-};
-
-exports.postMenuPosition = async (req, res, next) => {
-    try {
-        const newMenuPos = req.body.newMenuPosition;
-        const userId = req.body.userId;
-        const user = await User.findById(userId);
-        user.settings.menuPosition = newMenuPos;
-        await user.save();
-        res.status(200).json({ message: "Menu position updated successfully!" });
-    } catch (err) {
-        if (!err.statusCode) {
-            err.statusCode = 500;
-        }
-        next(err);
-    }
-};
-
 const clearImage = filePath => {
     filePath = path.join(__dirname, "..", filePath);
     fs.unlink(filePath, err => console.log(err));
+};
+
+module.exports = {
+    getEntries,
+    createEntry,
+    getEntry,
+    updateEntry,
+    deleteEntry,
 };

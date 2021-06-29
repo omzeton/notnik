@@ -9,7 +9,6 @@ const actions = {
         try {
             setTimeout(async () => {
                 const { token } = rootState.auth;
-                console.log(rootState);
                 const res = await axios.get("journal/entries", {
                     headers: {
                         Authorization: "Bearer " + token,
