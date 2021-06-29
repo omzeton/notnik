@@ -40,7 +40,7 @@ app.use(morgan("combined", { stream: accessLogStream }));
 
 app.options("*", cors());
 app.use(bodyParser.json());
-app.use(multer({ storage: fileStorage, fileFilter: fileFilter }).single("imgUrl"));
+app.use(multer({ storage: fileStorage, fileFilter }).single("imgUrl"));
 app.use("/images", express.static(path.join(__dirname, "images")));
 
 app.use((req, res, next) => {
