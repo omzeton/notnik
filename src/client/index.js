@@ -3,7 +3,7 @@ import VueRouter from "vue-router";
 import axios from "axios";
 
 // axios.defaults.baseURL = "https://notnik-api.herokuapp.com/";
-axios.defaults.baseURL = "http://localhost:3000/api/";
+axios.defaults.baseURL = "http://localhost:2828/api/";
 
 import store from "@/store";
 import router from "@/routes";
