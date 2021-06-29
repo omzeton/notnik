@@ -1,8 +1,9 @@
 <template>
     <div class="grid-layout">
         <Navbar />
+        <router-view />
         <!-- <LoginView /> -->
-        <NoteList />
+        <!-- <NoteList /> -->
     </div>
 </template>
 
