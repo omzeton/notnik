@@ -9,6 +9,7 @@ const bodyParser = require("body-parser");
 const path = require("path");
 const helmet = require("helmet");
 const morgan = require("morgan");
+const cors = require("cors");
 
 const journalRoutes = require("./routes/journal.js");
 const authRoutes = require("./routes/auth.js");
@@ -37,6 +38,7 @@ const accessLogStream = fs.createWriteStream(path.join(__dirname, "access.log"),
 app.use(helmet());
 app.use(morgan("combined", { stream: accessLogStream }));
 
+app.options("*", cors());
 app.use(bodyParser.json());
 app.use(multer({ storage: fileStorage, fileFilter: fileFilter }).single("imgUrl"));
 app.use("/images", express.static(path.join(__dirname, "images")));

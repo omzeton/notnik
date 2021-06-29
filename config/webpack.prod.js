@@ -1,8 +1,12 @@
+const path = require("path");
 const webpack = require("webpack");
 const { merge } = require("webpack-merge");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const CssMinimizerPlugin = require("css-minimizer-webpack-plugin");
+const dotenv = require("dotenv").config({
+    path: path.join(__dirname, ".env.production"),
+});
 
 const commonConfig = require("./webpack.common.js");
 
@@ -15,7 +19,18 @@ module.exports = merge(commonConfig, {
             // Styles
             {
                 test: /\.(s[ac]|c)ss$/i,
-                use: [MiniCssExtractPlugin.loader, "css-loader", "postcss-loader", "sass-loader"],
+                use: [
+                    "vue-style-loader",
+                    MiniCssExtractPlugin.loader,
+                    "css-loader",
+                    "postcss-loader",
+                    {
+                        loader: "sass-loader",
+                        options: {
+                            additionalData: path.join(__dirname, "../src/client/styles/_variables.scss"),
+                        },
+                    },
+                ],
             },
         ],
     },
@@ -32,6 +47,9 @@ module.exports = merge(commonConfig, {
         }),
         new webpack.SourceMapDevToolPlugin({
             exclude: ["/node_modules/"],
+        }),
+        new webpack.DefinePlugin({
+            "process.env": dotenv.parsed,
         }),
     ],
     performance: {

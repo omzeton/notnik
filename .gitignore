@@ -5,3 +5,5 @@ mongodb.password
 access.log
 src/server/images
 src/client/_good_ol_react
+config/.env.development
+config/.env.production

@@ -3,9 +3,10 @@ const webpack = require("webpack");
 const { CleanWebpackPlugin } = require("clean-webpack-plugin");
 const CopyWebpackPlugin = require("copy-webpack-plugin");
 const VueLoaderPlugin = require("vue-loader/lib/plugin");
+require("babel-polyfill");
 
 module.exports = {
-    entry: ["./src/client/index.js"],
+    entry: ["babel-polyfill", "./src/client/index.js"],
     output: {
         path: path.resolve(__dirname, "/dist"),
         filename: "bundle.js",
@@ -34,6 +35,7 @@ module.exports = {
         extensions: ["*", ".js", ".vue", ".md"],
         alias: {
             "@": path.resolve(__dirname, "../src/client"),
+            "@assets": path.resolve(__dirname, "../src/client/assets"),
             path: "path-browserify",
             stream: "stream-browserify",
         },
