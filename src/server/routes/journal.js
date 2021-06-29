@@ -6,10 +6,7 @@ const isAuth = require("../middleware/is-auth");
 
 const router = express.Router();
 
-// GET /journal/entries
 router.get("/entries", isAuth, journalController.getEntries);
-
-// POST /journal/entry
 router.post(
     "/entry",
     [
@@ -26,9 +23,7 @@ router.post(
     isAuth,
     journalController.createEntry
 );
-
 router.get("/entry/:entryId", isAuth, journalController.getEntry);
-
 router.put(
     "/entry/:entryId",
     [
@@ -45,11 +40,8 @@ router.put(
     isAuth,
     journalController.updateEntry
 );
-
 router.delete("/entry/:entryId", isAuth, journalController.deleteEntry);
-
 router.post("/font-size", journalController.postFontSize);
-
 router.post("/menu-position", journalController.postMenuPosition);
 
 module.exports = router;

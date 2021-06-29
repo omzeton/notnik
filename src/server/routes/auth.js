@@ -1,5 +1,6 @@
 const express = require("express");
 const { body } = require("express-validator");
+
 const User = require("../models/user");
 const authController = require("../controllers/auth");
 const isAuth = require("../middleware/is-auth");
@@ -34,9 +35,7 @@ router.put(
     ],
     authController.signup
 );
-
 router.post("/login", authController.login);
-
 router.put(
     "/password-change",
     [
@@ -56,7 +55,6 @@ router.put(
     isAuth,
     authController.changePassword
 );
-
 router.post("/terminate", isAuth, authController.deleteAccount);
 
 module.exports = router;
