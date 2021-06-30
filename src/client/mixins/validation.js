@@ -1,3 +1,5 @@
+const MIN_LENGTH = 5;
+
 export default {
     data() {
         return {
@@ -16,14 +18,14 @@ export default {
             });
         },
         validateEmail(input) {
-            if (!input.length || !input.split("").includes("@") || input.length <= 3) this.errors.push("Invalid email.");
+            if (!input.length || !input.split("").includes("@") || input.length <= MIN_LENGTH) this.errors.push("Invalid email.");
         },
         validatePassword(input) {
-            if (!input.length || input.length <= 3) this.errors.push("Invalid password.");
+            if (!input.length || input.length <= MIN_LENGTH) this.errors.push("Invalid password.");
         },
         validateTwoPasswords(inputA, inputB) {
-            if (!inputA.length || inputA.length <= 3) this.errors.push("Invalid first password.");
-            if (!inputB.length || inputB.length <= 3) this.errors.push("Invalid second password.");
+            if (!inputA.length || inputA.length <= MIN_LENGTH) this.errors.push("Invalid first password.");
+            if (!inputB.length || inputB.length <= MIN_LENGTH) this.errors.push("Invalid second password.");
             if (inputA !== inputB) this.errors.push("Passwords don't match eachother.");
         },
         resetErrors() {

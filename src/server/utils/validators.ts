@@ -1,5 +1,6 @@
 import { body } from "express-validator";
-import user from "../models/user";
+import bcrypt from "bcryptjs";
+import User from "../models/user";
 
 const bodyValidator = [
     body("title")
@@ -13,16 +14,31 @@ const bodyValidator = [
         .isLength({ min: 1 }),
 ];
 
+const loginValidator = [
+    body("email")
+        .isEmail()
+        .custom(async email => {
+            const user = await User.findOne({ email });
+            if (!user) return Promise.reject();
+        })
+        .normalizeEmail(),
+    body("password")
+        .trim()
+        .isLength({ min: 5 })
+        .custom(async (password, { req }) => {
+            const user = await User.findOne({ email: req.body.email });
+            const match = await bcrypt.compare(password, user.password);
+            if (!match) return Promise.reject();
+        }),
+];
+
 const signupValidator = [
     body("email")
         .isEmail()
-        .withMessage("Please enter a valid email.")
-        .custom((value, { req }) => {
-            return user.findOne({ email: value }).then((userDoc: boolean) => {
-                if (userDoc) {
-                    return Promise.reject("E-Mail address already exists!");
-                }
-            });
+        .withMessage("Invalid email.")
+        .custom(async email => {
+            const user = User.findOne({ email });
+            if (user) return Promise.reject("Account linked with this mail already exists.");
         })
         .normalizeEmail(),
     body("password", "Password must be 5+ chars long.")
@@ -31,11 +47,8 @@ const signupValidator = [
     body("repeatPassword", "Password must be 5+ chars long.")
         .trim()
         .custom((value, { req }) => {
-            if (value !== req.body.password) {
-                throw new Error("Passwords don't match");
-            }
-            return true;
+            if (value !== req.body.password) throw new Error("Passwords don't match");
         }),
 ];
 
-export { bodyValidator, signupValidator };
+export { bodyValidator, loginValidator, signupValidator };

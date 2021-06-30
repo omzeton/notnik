@@ -15,60 +15,46 @@ declare const process: {
 
 const signup = async (req: Request, res: Response, next: NextFunction) => {
     try {
+        // express-validator validation
         const errors = validationResult(req);
         if (!errors.isEmpty()) {
             const error: APIError = new Error("Validation failed.");
             error.statusCode = 422;
-            error.data = errors.array();
+            error.msg = errors.array()[0].msg;
             throw error;
         }
+
+        // If validation succeeded create new user
         const { email, password } = req.body;
         const hashedPw = await bcrypt.hash(password, 12);
-        const user = new User({
-            email: email,
-            password: hashedPw,
-            posts: [],
-        });
-        const result = await user.save();
-        const token = jwt.sign(
-            {
-                email: result.email,
-                userId: result._id.toString(),
-            },
-            process.env.TOKEN_SECRET,
-            { expiresIn: "1d" }
-        );
-        res.status(201).json({
-            message: "New user created",
-            userId: result._id.toString(),
-            token: token,
-        });
-    } catch (err) {
-        if (!err.statusCode) {
-            err.statusCode = 500;
-        }
-        next(err);
+        const newUser = new User({ email: email, password: hashedPw, posts: [] });
+        const result = await newUser.save();
+
+        // Create new session token with user id
+        const token = jwt.sign({ email: result.email, userId: result._id.toString() }, process.env.TOKEN_SECRET, { expiresIn: "1d" });
+        res.status(201).json({ userId: result._id.toString(), token });
+    } catch ({ statusCode, msg }) {
+        next({ statusCode, msg });
     }
 };
 
 const login = async (req: Request, res: Response, next: NextFunction) => {
     try {
-        const { email, password } = req.body;
+        // express-validator validation
+        const errors = validationResult(req);
+        if (!errors.isEmpty()) throw new Error();
 
-        // See if user with email from input exists in DB
-        const user = await User.findOne({ email: email });
+        // User validation was already done but check if user exists just in case
+        const { email } = req.body;
+        const user = await User.findOne({ email });
         if (!user) throw new Error(`Couldn't find user ${email}`);
 
-        // See if password for this user matches with one from input
-        const match = await bcrypt.compare(password, user.password);
-        if (!match) throw new Error(`Wrong password for this user (${email})`);
-
-        // If yes return session web token
-        const token = jwt.sign({ email: user.email, userId: user._id.toString() }, process.env.TOKEN_SECRET, { expiresIn: "1d" });
+        // If validation passes create new
+        const token = jwt.sign({ email, userId: user._id.toString() }, process.env.TOKEN_SECRET, { expiresIn: "1d" });
         res.cookie("userAccessToken", token, thirtyDayCookie)
             .status(200)
             .json({ userId: user._id.toString() });
-    } catch (error) {
+    } catch {
         next({ statusCode: 401, msg: "Invalid email or password" });
     }
 };

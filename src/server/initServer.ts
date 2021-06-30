@@ -59,8 +59,7 @@ export default (router: Router) => {
 
     app.use((error: APIError, req: Request, res: Response, next: NextFunction) => {
         const status = error.statusCode || 500;
-        const message = error.msg;
-        res.status(status).json({ message });
+        res.status(status).json({ message: error.msg });
     });
 
     return app;
