@@ -12,7 +12,6 @@ const state = {
 const actions = {
     async LOGIN({ dispatch }, { email, password }) {
         try {
-            dispatch("SET_LOADING_STATE", true);
             console.log("Sending request...");
             const res = await axios.post("auth/login", { email, password }, { headers: { "Content-Type": "application/json" } });
             console.log("Response: ", res);

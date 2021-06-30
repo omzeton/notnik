@@ -61,7 +61,7 @@ export default {
     &__list {
         background-image: url("@assets/list.svg");
         &:after {
-            background-color: $rd;
+            background-color: $or2;
         }
     }
     &__settings {

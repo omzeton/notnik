@@ -1,7 +1,6 @@
 import Vue from "vue";
 import VueRouter from "vue-router";
 import axios from "axios";
-import { ValidationObserver, ValidationProvider } from "vee-validate";
 
 // axios.defaults.baseURL = "https://notnik-api.herokuapp.com/";
 axios.defaults.baseURL = "http://localhost:2828/api/";
@@ -18,8 +17,6 @@ if (process.env.NODE_ENV !== "production") {
 }
 
 Vue.use(VueRouter);
-Vue.component("ValidationProvider", ValidationProvider);
-Vue.component("ValidationObserver", ValidationObserver);
 
 new Vue({
     el: "#root",

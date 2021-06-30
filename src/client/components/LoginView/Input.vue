@@ -1,13 +1,16 @@
 <template>
-    <input class="form-input" :placeholder="placeholder" ref="input" :value="value" :type="type" @input="updateValue()" />
+    <input class="form-input" :placeholder="placeholder" ref="input" :value="value" :type="type" @input="updateValue()" @focus="emitFocus" />
 </template>
 
 <script>
 export default {
-    props: ["placeholder", "value", "type"],
+    props: ["placeholder", "value", "type", "rules"],
     methods: {
         updateValue() {
             this.$emit("input", this.$refs.input.value);
+        },
+        emitFocus() {
+            this.$emit("focus", true);
         },
     },
 };
@@ -23,6 +26,7 @@ export default {
     border-bottom: 1px solid $w;
     color: $w2;
     font-family: "Montserrat", sans-serif;
+    box-sizing: border-box;
     &:focus {
         outline: none;
         border-bottom: 1px solid $rd;

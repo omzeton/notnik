@@ -29,7 +29,8 @@ module.exports = merge(commonConfig, {
                                 $bla2: #353531;
                                 $bla3: #2c2c2a;
                                 $bla4: #464643;
-                                $rd: #ec4e20;
+                                $err: #ec4e20;
+                                $rd: #2176AE;
                                 $g: #3fc577;
                                 $blu: #00a6ed;
                                 $or: #ff9505;

@@ -1,7 +1,9 @@
 <template>
     <div class="form-panel">
-        <LoginForm :toggleFormType="toggleFormType" v-if="isLoginForm" />
-        <RegistrationForm :toggleFormType="toggleFormType" v-else />
+        <transition name="fade">
+            <LoginForm :toggleFormType="toggleFormType" v-if="isLoginForm" />
+            <RegistrationForm :toggleFormType="toggleFormType" v-else />
+        </transition>
     </div>
 </template>
 
@@ -38,5 +40,27 @@ export default {
     box-shadow: 0 0 50px 0 $bla1;
     border-radius: 0.5em;
     width: 25em;
+}
+.errors {
+    position: absolute;
+    top: calc(100% + 2em);
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: $err;
+    border-radius: 0.5em;
+    box-shadow: 0 0 30px -10px $err;
+    box-sizing: border-box;
+    padding: 1em;
+    color: $w;
+    font-family: "Montserrat", sans-serif;
+    font-size: 0.9rem;
+    &__header {
+        display: block;
+        margin-bottom: 0.8em;
+        margin-right: 2em;
+    }
+    &__subheader {
+        display: block;
+    }
 }
 </style>
