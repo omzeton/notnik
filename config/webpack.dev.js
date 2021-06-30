@@ -6,6 +6,7 @@ const webpack = require("webpack");
 const dotenv = require("dotenv").config({
     path: path.join(__dirname, ".env.development"),
 });
+const vars = require("./scssVars");
 
 const commonConfig = require("./webpack.common");
 
@@ -24,20 +25,7 @@ module.exports = merge(commonConfig, {
                     {
                         loader: "sass-loader",
                         options: {
-                            additionalData: `
-                                $bla1: #222220;
-                                $bla2: #353531;
-                                $bla3: #2c2c2a;
-                                $bla4: #464643;
-                                $err: #ec4e20;
-                                $rd: #2176AE;
-                                $g: #3fc577;
-                                $blu: #00a6ed;
-                                $or: #ff9505;
-                                $or2: #ffb627;
-                                $w: #f9f9f9;
-                                $w2: #b2b2b2;
-                            `,
+                            additionalData: vars,
                         },
                     },
                 ],
@@ -46,7 +34,6 @@ module.exports = merge(commonConfig, {
     },
     devServer: {
         historyApiFallback: true,
-        contentBase: "../src",
         proxy: {
             "/api": "http://localhost:2828",
         },
