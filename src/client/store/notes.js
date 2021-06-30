@@ -7,13 +7,8 @@ const state = {
 const actions = {
     async FETCH_ALL_NOTES({ rootState, dispatch }) {
         try {
-            const res = await axios.get("journal/entries", {
-                headers: {
-                    Authorization: "Bearer ",
-                },
-            });
-            if (res.status === 401) throw new Error("Unauthorized");
-            if (res.status !== 200 && res.status !== 201) throw new Error("Failed to get all entries");
+            const res = await axios.get("journal/entries");
+            if (res.status !== 200 && res.status !== 201) throw new Error("Server error");
             dispatch("UPDATE_NOTES", res.data.entries);
         } catch (err) {
             throw err;

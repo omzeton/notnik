@@ -2,31 +2,20 @@ import fs from "fs";
 import path from "path";
 import { Request, Response, NextFunction } from "express";
 import { validationResult } from "express-validator";
-import { APIError, EntryData, WithUserIDRequest } from "./../types";
+import { APIError, EntryData } from "./../types";
 import Entry from "../models/entry";
 import User from "../models/user";
 import getCurrentDate from "../utils/date";
 
-const getEntries = (req: WithUserIDRequest, res: Response, next: NextFunction) => {
-    const errors = validationResult(req);
-    if (!errors.isEmpty()) {
-        const error: APIError = new Error("Validation error - incorrect user id.");
-        error.statusCode = 422;
-        throw error;
+const getEntries = async (req: Request, res: Response, next: NextFunction) => {
+    try {
+        const uId: string = res.locals.userId;
+        const entries = await Entry.find({ uId });
+        if (!entries) throw new Error("Error when fetching entries.");
+        res.status(200).json({ entries });
+    } catch {
+        next({ statusCode: 500, msg: "Error when fetching entries." });
     }
-    Entry.find({ uId: req.userId })
-        .then((entries: EntryData[]) => {
-            res.status(200).json({
-                message: "Entries fetched successfully!",
-                entries: entries,
-            });
-        })
-        .catch((err: APIError) => {
-            if (!err.statusCode) {
-                err.statusCode = 500;
-            }
-            next(err);
-        });
 };
 
 const createEntry = async (req: Request, res: Response, next: NextFunction) => {

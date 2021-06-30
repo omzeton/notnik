@@ -1,7 +1,7 @@
-import { Response, NextFunction, RequestHandler as Middleware } from "express";
+import { Response, NextFunction, Request } from "express";
 import * as dotenv from "dotenv";
-import jwt, { JwtPayload } from "jsonwebtoken";
-import { WithUserIDRequest, APIError } from "../types";
+import jwt from "jsonwebtoken";
+import { APIError } from "../types";
 dotenv.config();
 
 declare const process: {
@@ -10,28 +10,20 @@ declare const process: {
     };
 };
 
-const isAuth: any = (req: WithUserIDRequest, res: Response, next: NextFunction) => {
-    const authHeader = req.get("Authorization");
-    if (!authHeader) {
-        const error: APIError = new Error("Not authenticated");
-        error.statusCode = 401;
-        throw error;
-    }
-    const token = authHeader.split(" ")[1];
-    let decodedToken: string | JwtPayload;
+const isAuth = async (req: Request, res: Response, next: NextFunction) => {
     try {
-        decodedToken = jwt.verify(token, process.env.TOKEN_SECRET);
-    } catch (err) {
-        err.statusCode = 500;
-        throw err;
+        let userToken: any = jwt.verify(req.cookies.userAccessToken, process.env.TOKEN_SECRET);
+        if (!userToken) {
+            const error: APIError = new Error("User token invalid or expired.");
+            error.statusCode = 401;
+            error.msg = "User token invalid or expired.";
+            throw error;
+        }
+        res.locals.userId = userToken.userId;
+        next();
+    } catch ({ statusCode, msg }) {
+        next({ statusCode, msg });
     }
-    if (!decodedToken) {
-        const error: APIError = new Error("Not authenticated");
-        error.statusCode = 401;
-        throw error;
-    }
-    req.userId = typeof decodedToken === "string" ? decodedToken : decodedToken.userId;
-    next();
 };
 
 export default isAuth;

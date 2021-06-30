@@ -23,7 +23,3 @@ export interface EntryData {
     imgUrl: string;
     uId: mongoose.Schema;
 }
-
-export interface WithUserIDRequest extends Request {
-    userId: string;
-}
