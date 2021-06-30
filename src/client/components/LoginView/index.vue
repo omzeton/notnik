@@ -1,15 +1,18 @@
 <template>
     <div class="homescreen">
+        <Sign />
         <FormPanel />
     </div>
 </template>
 
 <script>
 import FormPanel from "./FormPanel";
+import Sign from "./Sign";
 
 export default {
     components: {
         FormPanel,
+        Sign,
     },
 };
 </script>
