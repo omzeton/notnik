@@ -12,18 +12,18 @@ import LoginForm from "./LoginForm";
 import RegistrationForm from "./RegistrationForm";
 
 export default {
-    data() {
-        return {
-            isLoginForm: true,
-        };
-    },
     components: {
         LoginForm,
         RegistrationForm,
     },
     methods: {
         toggleFormType() {
-            this.isLoginForm = !this.isLoginForm;
+            this.$store.dispatch("ui/TOGGLE_FORM_VIEW");
+        },
+    },
+    computed: {
+        isLoginForm() {
+            return this.$store.getters["ui/GET_FORM_VIEW"];
         },
     },
 };

@@ -37,18 +37,13 @@ const signupValidator = [
         .isEmail()
         .withMessage("Invalid email.")
         .custom(async email => {
-            const user = User.findOne({ email });
+            const user = await User.findOne({ email });
             if (user) return Promise.reject("Account linked with this mail already exists.");
         })
         .normalizeEmail(),
     body("password", "Password must be 5+ chars long.")
         .trim()
         .isLength({ min: 5 }),
-    body("repeatPassword", "Password must be 5+ chars long.")
-        .trim()
-        .custom((value, { req }) => {
-            if (value !== req.body.password) throw new Error("Passwords don't match");
-        }),
 ];
 
 export { bodyValidator, loginValidator, signupValidator };

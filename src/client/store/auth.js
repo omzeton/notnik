@@ -13,7 +13,6 @@ const actions = {
     async LOGIN({ dispatch }, { email, password }) {
         try {
             const res = await axios.post("auth/login", { email, password }, { headers: { "Content-Type": "application/json" } });
-            if (res.status === 422) throw new Error("Validation error.");
             if (res.status !== 200 && res.status !== 201) throw new Error("Unable to authenticate user.");
             delayed(() => {
                 dispatch("SAVE_RESPONSE_DATA", res.data);
@@ -29,9 +28,9 @@ const actions = {
     async REGISTER({ dispatch }, { email, password }) {
         try {
             const res = await axios.put("auth/signup", { email, password }, { headers: { "Content-Type": "application/json" } });
-            if (res.status === 422) throw new Error("Validation error.");
             if (res.status !== 200 && res.status !== 201) throw new Error("Unable to authenticate user.");
             delayed(() => {
+                dispatch("ui/TOGGLE_FORM_VIEW", null, { root: true });
                 dispatch("SET_LOADING_STATE", false);
             });
         } catch (err) {
