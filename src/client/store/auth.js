@@ -5,7 +5,6 @@ import { delayed } from "@/utils";
 
 const state = {
     isAuthenticated: false,
-    isLoading: false,
     serverError: "",
 };
 
@@ -16,11 +15,11 @@ const actions = {
             if (res.status !== 200 && res.status !== 201) throw new Error("Unable to authenticate user.");
             delayed(() => {
                 dispatch("SAVE_RESPONSE_DATA", res.data);
-                dispatch("SET_LOADING_STATE", false);
+                dispatch("ui/SET_LOADING_STATE", false, { root: true });
                 router.push("/list");
             });
         } catch (err) {
-            dispatch("SET_LOADING_STATE", false);
+            dispatch("ui/SET_LOADING_STATE", false, { root: true });
             dispatch("SET_SERVER_ERROR", err.response.data.message);
             throw err;
         }
@@ -31,19 +30,16 @@ const actions = {
             if (res.status !== 200 && res.status !== 201) throw new Error("Unable to authenticate user.");
             delayed(() => {
                 dispatch("ui/TOGGLE_FORM_VIEW", null, { root: true });
-                dispatch("SET_LOADING_STATE", false);
+                dispatch("ui/SET_LOADING_STATE", false, { root: true });
             });
         } catch (err) {
-            dispatch("SET_LOADING_STATE", false);
+            dispatch("ui/SET_LOADING_STATE", false, { root: true });
             dispatch("SET_SERVER_ERROR", err.response.data.message);
             throw err;
         }
     },
     SAVE_RESPONSE_DATA({ commit }, payload) {
         commit("updateUserData", payload);
-    },
-    SET_LOADING_STATE({ commit }, payload) {
-        commit("updateIsLoading", payload);
     },
     SET_SERVER_ERROR({ commit }, payload) {
         commit("setServerError", payload);
@@ -55,13 +51,9 @@ const actions = {
 
 const getters = {
     GET_IS_AUTHENTICATED: state => state.isAuthenticated,
-    GET_IS_LOADING: state => state.isLoading,
 };
 
 const mutations = {
-    updateIsLoading(state, payload) {
-        state.isLoading = payload;
-    },
     updateUserData(state, { userId }) {
         state.isAuthenticated = true;
         state.userId = userId;

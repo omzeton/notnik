@@ -45,14 +45,14 @@ export default {
     methods: {
         submitHandler(event) {
             event.preventDefault();
-            this.$store.dispatch("auth/SET_LOADING_STATE", true);
+            this.$store.dispatch("ui/SET_LOADING_STATE", true, { root: true });
             const { email, password, repeatPassword } = this.form;
             this.validate({ email, password: [password, repeatPassword] });
             if (!this.errors.length) {
                 this.$store.dispatch("auth/REGISTER", { email, password });
                 return;
             }
-            this.$store.dispatch("auth/SET_LOADING_STATE", false);
+            this.$store.dispatch("ui/SET_LOADING_STATE", false, { root: true });
         },
     },
 };

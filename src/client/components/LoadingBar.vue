@@ -30,7 +30,7 @@
 export default {
     computed: {
         isLoading() {
-            return this.$store.getters["auth/GET_IS_LOADING"];
+            return this.$store.getters["ui/GET_IS_LOADING"];
         },
     },
 };
