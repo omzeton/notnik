@@ -6,7 +6,7 @@ import { delayed } from "@/utils";
 const state = {
     isAuthenticated: false,
     isLoading: false,
-    serverErrors: [],
+    serverError: "",
 };
 
 const actions = {
@@ -15,7 +15,6 @@ const actions = {
             const res = await axios.post("auth/login", { email, password }, { headers: { "Content-Type": "application/json" } });
             if (res.status === 422) throw new Error("Validation error.");
             if (res.status !== 200 && res.status !== 201) throw new Error("Unable to authenticate user.");
-            console.log(res);
             delayed(() => {
                 dispatch("SAVE_RESPONSE_DATA", res.data);
                 dispatch("SET_LOADING_STATE", false);
@@ -23,6 +22,7 @@ const actions = {
             });
         } catch (err) {
             dispatch("SET_LOADING_STATE", false);
+            dispatch("SET_SERVER_ERROR", err.response.data.errMessage);
             throw err;
         }
     },
@@ -33,18 +33,17 @@ const actions = {
     SET_LOADING_STATE({ commit }, payload) {
         commit("updateIsLoading", payload);
     },
-    SET_ERROR({ commit }, payload) {
-        commit("setError", payload);
+    SET_SERVER_ERROR({ commit }, payload) {
+        commit("setServerError", payload);
+    },
+    RESET_SERVER_ERROR({ commit }) {
+        commit("resetServerError");
     },
 };
 
 const getters = {
-    GET_IS_AUTHENTICATED(state) {
-        return state.isAuthenticated;
-    },
-    GET_IS_LOADING(state) {
-        return state.isLoading;
-    },
+    GET_IS_AUTHENTICATED: state => state.isAuthenticated,
+    GET_IS_LOADING: state => state.isLoading,
 };
 
 const mutations = {
@@ -55,11 +54,11 @@ const mutations = {
         state.isAuthenticated = true;
         state.userId = userId;
     },
-    setError(state, payload) {
-        state.serverErrors.push(payload);
+    setServerError(state, payload) {
+        state.serverError = payload;
     },
-    resetErrors(state) {
-        state.serverErrors = [];
+    resetServerError(state) {
+        state.serverError = [];
     },
 };
 

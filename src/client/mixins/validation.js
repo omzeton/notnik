@@ -33,4 +33,9 @@ export default {
             return string[0].toUpperCase() + string.slice(1, string.length);
         },
     },
+    watch: {
+        "$store.state.auth.serverError"() {
+            this.errors.push(this.$store.state.auth.serverError);
+        },
+    },
 };

@@ -59,6 +59,8 @@ const login = async (req: Request, res: Response, next: NextFunction) => {
         if (!user) {
             const error: APIError = new Error("A user with this email could not be found!");
             error.statusCode = 401;
+            res.status(401).json({ errMessage: "Invalid email or password" });
+            next(error);
             throw error;
         }
 
@@ -66,6 +68,8 @@ const login = async (req: Request, res: Response, next: NextFunction) => {
         if (!match) {
             const error: APIError = new Error("Wrong password!");
             error.statusCode = 401;
+            res.status(401).json({ errMessage: "Invalid email or password" });
+            next(error);
             throw error;
         }
 
@@ -75,11 +79,11 @@ const login = async (req: Request, res: Response, next: NextFunction) => {
         res.status(200).json({
             userId: user._id.toString(),
         });
-    } catch (err) {
-        if (!err.statusCode) {
-            err.statusCode = 500;
+    } catch (error) {
+        if (!error.statusCode) {
+            error.statusCode = 500;
         }
-        next(err);
+        next(error);
     }
 };
 
