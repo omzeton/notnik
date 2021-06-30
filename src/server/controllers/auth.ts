@@ -51,9 +51,8 @@ const login = async (req: Request, res: Response, next: NextFunction) => {
 
         // If validation passes create new
         const token = jwt.sign({ email, userId: user._id.toString() }, process.env.TOKEN_SECRET, { expiresIn: "1d" });
-        res.cookie("userAccessToken", token, thirtyDayCookie)
-            .status(200)
-            .json({ userId: user._id.toString() });
+        res.cookie("userAccessToken", token, thirtyDayCookie);
+        res.status(200).json({ userId: user._id.toString() });
     } catch {
         next({ statusCode: 401, msg: "Invalid email or password" });
     }

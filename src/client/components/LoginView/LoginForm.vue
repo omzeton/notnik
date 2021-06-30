@@ -29,8 +29,8 @@ export default {
     data() {
         return {
             form: {
-                email: "test234@test.com",
-                password: "123123123",
+                email: "",
+                password: "",
             },
         };
     },
