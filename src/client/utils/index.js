@@ -1,5 +1,3 @@
-const delayed = cb => {
-    setTimeout(() => cb(), 2000);
-};
+const sleep = time => new Promise(resolve => setTimeout(resolve, time));
 
-export { delayed };
+export { sleep };

@@ -1,7 +1,7 @@
 import axios from "axios";
 import router from "@/routes";
 
-import { delayed } from "@/utils";
+import { sleep } from "@/utils";
 
 const state = {
     isAuthenticated: false,
@@ -13,11 +13,10 @@ const actions = {
         try {
             const res = await axios.post("auth/login", { email, password }, { headers: { "Content-Type": "application/json" } });
             if (res.status !== 200 && res.status !== 201) throw new Error("Unable to authenticate user.");
-            delayed(() => {
-                dispatch("SAVE_RESPONSE_DATA", res.data);
-                dispatch("ui/SET_LOADING_STATE", false, { root: true });
-                router.push("/list");
-            });
+            await sleep(2000);
+            dispatch("SAVE_RESPONSE_DATA", res.data);
+            dispatch("ui/SET_LOADING_STATE", false, { root: true });
+            router.push("/list");
         } catch (err) {
             dispatch("ui/SET_LOADING_STATE", false, { root: true });
             dispatch("SET_SERVER_ERROR", err.response.data.message);
@@ -28,10 +27,9 @@ const actions = {
         try {
             const res = await axios.put("auth/signup", { email, password }, { headers: { "Content-Type": "application/json" } });
             if (res.status !== 200 && res.status !== 201) throw new Error("Unable to authenticate user.");
-            delayed(() => {
-                dispatch("ui/TOGGLE_FORM_VIEW", null, { root: true });
-                dispatch("ui/SET_LOADING_STATE", false, { root: true });
-            });
+            await sleep(2000);
+            dispatch("ui/TOGGLE_FORM_VIEW", null, { root: true });
+            dispatch("ui/SET_LOADING_STATE", false, { root: true });
         } catch (err) {
             dispatch("ui/SET_LOADING_STATE", false, { root: true });
             dispatch("SET_SERVER_ERROR", err.response.data.message);
