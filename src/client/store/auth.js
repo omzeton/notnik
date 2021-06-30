@@ -22,11 +22,24 @@ const actions = {
             });
         } catch (err) {
             dispatch("SET_LOADING_STATE", false);
-            dispatch("SET_SERVER_ERROR", err.response.data.errMessage);
+            dispatch("SET_SERVER_ERROR", err.response.data.message);
             throw err;
         }
     },
-    async REGISTER({ dispatch }, { email, password }) {},
+    async REGISTER({ dispatch }, { email, password }) {
+        try {
+            const res = await axios.put("auth/signup", { email, password }, { headers: { "Content-Type": "application/json" } });
+            if (res.status === 422) throw new Error("Validation error.");
+            if (res.status !== 200 && res.status !== 201) throw new Error("Unable to authenticate user.");
+            delayed(() => {
+                dispatch("SET_LOADING_STATE", false);
+            });
+        } catch (err) {
+            dispatch("SET_LOADING_STATE", false);
+            dispatch("SET_SERVER_ERROR", err.response.data.message);
+            throw err;
+        }
+    },
     SAVE_RESPONSE_DATA({ commit }, payload) {
         commit("updateUserData", payload);
     },

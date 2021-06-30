@@ -58,10 +58,9 @@ export default (router: Router) => {
     });
 
     app.use((error: APIError, req: Request, res: Response, next: NextFunction) => {
-        const newError: ValidationError | APIError = error.data ? error.data[0] : error;
-        const status = 500;
-        const message = newError.msg;
-        res.status(status).json({ message: message });
+        const status = error.statusCode || 500;
+        const message = error.msg;
+        res.status(status).json({ message });
     });
 
     return app;

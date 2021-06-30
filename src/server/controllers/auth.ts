@@ -55,35 +55,21 @@ const login = async (req: Request, res: Response, next: NextFunction) => {
     try {
         const { email, password } = req.body;
 
+        // See if user with email from input exists in DB
         const user = await User.findOne({ email: email });
-        if (!user) {
-            const error: APIError = new Error("A user with this email could not be found!");
-            error.statusCode = 401;
-            res.status(401).json({ errMessage: "Invalid email or password" });
-            next(error);
-            throw error;
-        }
+        if (!user) throw new Error(`Couldn't find user ${email}`);
 
+        // See if password for this user matches with one from input
         const match = await bcrypt.compare(password, user.password);
-        if (!match) {
-            const error: APIError = new Error("Wrong password!");
-            error.statusCode = 401;
-            res.status(401).json({ errMessage: "Invalid email or password" });
-            next(error);
-            throw error;
-        }
+        if (!match) throw new Error(`Wrong password for this user (${email})`);
 
+        // If yes return session web token
         const token = jwt.sign({ email: user.email, userId: user._id.toString() }, process.env.TOKEN_SECRET, { expiresIn: "1d" });
-
-        res.cookie("userAccessToken", token, thirtyDayCookie);
-        res.status(200).json({
-            userId: user._id.toString(),
-        });
+        res.cookie("userAccessToken", token, thirtyDayCookie)
+            .status(200)
+            .json({ userId: user._id.toString() });
     } catch (error) {
-        if (!error.statusCode) {
-            error.statusCode = 500;
-        }
-        next(error);
+        next({ statusCode: 401, msg: "Invalid email or password" });
     }
 };
 

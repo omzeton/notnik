@@ -51,11 +51,6 @@ export default {
             this.$store.dispatch("auth/SET_LOADING_STATE", false);
         },
     },
-    computed: {
-        serverErrors() {
-            return this.$store.getters["auth/GET_SERVER_ERROR"];
-        },
-    },
 };
 </script>
 
