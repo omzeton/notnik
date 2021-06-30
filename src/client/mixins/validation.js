@@ -5,25 +5,32 @@ export default {
         };
     },
     methods: {
+        validate(obj) {
+            Object.entries(obj).forEach(([key, value]) => {
+                if (typeof value === "object") {
+                    this.validateTwoPasswords(...value);
+                    return;
+                }
+                const method = this.capitalize(key);
+                this[`validate${method}`](value);
+            });
+        },
         validateEmail(input) {
-            const errors = [];
-            if (!input.length || !input.split("").includes("@") || input.length <= 3) errors.push("Invalid email.");
-            return errors;
+            if (!input.length || !input.split("").includes("@") || input.length <= 3) this.errors.push("Invalid email.");
         },
         validatePassword(input) {
-            const errors = [];
-            if (!input.length || input.length <= 3) errors.push("Invalid password.");
-            return errors;
+            if (!input.length || input.length <= 3) this.errors.push("Invalid password.");
         },
         validateTwoPasswords(inputA, inputB) {
-            const errors = [];
-            if (!inputA.length || inputA.length <= 3) errors.push("First password invalid.");
-            if (!inputB.length || inputB.length <= 3) errors.push("Second password invalid.");
-            if (inputA !== inputB) errors.push("Passwords don't match eachother.");
-            return errors;
+            if (!inputA.length || inputA.length <= 3) this.errors.push("Invalid first password.");
+            if (!inputB.length || inputB.length <= 3) this.errors.push("Invalid second password.");
+            if (inputA !== inputB) this.errors.push("Passwords don't match eachother.");
         },
         resetErrors() {
             this.errors = [];
+        },
+        capitalize(string) {
+            return string[0].toUpperCase() + string.slice(1, string.length);
         },
     },
 };

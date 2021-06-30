@@ -61,6 +61,7 @@ export default {
     }
     &__subheader {
         display: block;
+        white-space: nowrap;
     }
 }
 </style>

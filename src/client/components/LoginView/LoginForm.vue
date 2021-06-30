@@ -43,8 +43,7 @@ export default {
             event.preventDefault();
             this.$store.dispatch("auth/SET_LOADING_STATE", true);
             const { email, password } = this.form;
-            this.errors.push(this.validateEmail(email)[0]);
-            this.errors.push(this.validatePassword(password)[0]);
+            this.validate({ email, password });
             if (!this.errors.length) {
                 this.$store.dispatch("auth/LOGIN", { email, password });
                 return;

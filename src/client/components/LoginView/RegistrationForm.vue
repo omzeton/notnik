@@ -47,8 +47,7 @@ export default {
             event.preventDefault();
             this.$store.dispatch("auth/SET_LOADING_STATE", true);
             const { email, password, repeatPassword } = this.form;
-            this.errors.push(this.validateEmail(email)[0]);
-            this.errors.push(this.validateTwoPasswords(password, repeatPassword)[0]);
+            this.validate({ email, password: [password, repeatPassword] });
             if (!this.errors.length) {
                 // this.$store.dispatch("auth/LOGIN", { email, password });
                 // REGISTER NEW USER
