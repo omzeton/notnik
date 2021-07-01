@@ -4,20 +4,47 @@
             <h2 class="full-entry__title">
                 {{ activeNote.title }}
             </h2>
-            <p class="full-entry__body">
-                {{ activeNote.body }}
-            </p>
+            <div v-if="markdownMode" class="full-entry__markdown-wrapper">
+                <vue-markdown :source="activeNote.body" />
+            </div>
+            <div v-else class="full-entry__codemirror-wrapper">
+                <textarea ref="codemirror" v-model="activeNote.body"></textarea>
+            </div>
         </div>
     </div>
 </template>
 
 <script>
+import VueMarkdown from "vue-markdown";
+import * as CodeMirror from "codemirror";
+import "codemirror/lib/codemirror.css";
+import "codemirror/theme/dracula.css";
+
 export default {
+    data() {
+        return {
+            code: "<ul><li>\nItem 1</li><li>\nItem 2</li><li>\nItem 3</li></ul>",
+        };
+    },
+    components: {
+        VueMarkdown,
+    },
     computed: {
         activeNote() {
             const allNotes = this.$store.getters["notes/GET_NOTES"];
             return allNotes.find(note => note._id === this.$route.params.id);
         },
+        markdownMode() {
+            return this.$store.getters["ui/GET_IS_MARKDOWN_MODE"];
+        },
+    },
+    mounted() {
+        setTimeout(() => {
+            CodeMirror.fromTextArea(this.$refs.codemirror, {
+                lineNumbers: true,
+                theme: "dracula",
+            });
+        }, 1000);
     },
 };
 </script>
@@ -68,7 +95,7 @@ export default {
         background: $bla2;
     }
     &__wrapper {
-        width: 100%;
+        position: relative;
         height: fit-content;
         box-sizing: border-box;
         display: flex;
@@ -81,13 +108,21 @@ export default {
         margin-bottom: 1em;
         line-height: 5rem;
     }
-    &__body {
+    &__markdown-wrapper {
         color: $w2;
         font-family: "Montserrat", sans-serif;
-        font-weight: 400;
         font-size: 1rem;
         line-height: 3rem;
         padding-bottom: 20em;
+    }
+    &__codemirror-wrapper {
+        width: 100%;
+        max-width: 100%;
+        background-color: rebeccapurple;
+        textarea {
+            width: 100%;
+            height: 200px;
+        }
     }
 }
 </style>
