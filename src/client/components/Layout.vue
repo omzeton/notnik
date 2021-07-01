@@ -7,6 +7,7 @@
         <transition name="fade">
             <router-view />
         </transition>
+        <StatusBar v-if="isAuthenticated" />
     </div>
 </template>
 
@@ -15,6 +16,7 @@ import Navbar from "./Navbar";
 import SettingsModal from "@/components/Authorized/SettingsModal/SettingsModal";
 import LoginView from "./LoginView";
 import NoteList from "./Authorized/ListView/NoteList";
+import StatusBar from "@/components/StatusBar";
 
 export default {
     components: {
@@ -22,10 +24,14 @@ export default {
         LoginView,
         NoteList,
         SettingsModal,
+        StatusBar,
     },
     computed: {
         settingsModalOpen() {
             return this.$store.getters["ui/GET_SETTINGS_MODAL_IS_OPEN"];
+        },
+        isAuthenticated() {
+            return this.$store.getters["auth/GET_IS_AUTHENTICATED"];
         },
     },
 };

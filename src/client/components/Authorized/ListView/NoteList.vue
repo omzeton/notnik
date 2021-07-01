@@ -1,19 +1,16 @@
 <template>
     <div class="list">
         <Grid />
-        <StatusBar />
     </div>
 </template>
 
 <script>
 import Note from "./Note";
-import StatusBar from "./StatusBar";
 import Grid from "./Grid";
 
 export default {
     components: {
         Note,
-        StatusBar,
         Grid,
     },
     mounted() {

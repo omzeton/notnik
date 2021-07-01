@@ -22,6 +22,7 @@ const actions = {
 const getters = {
     GET_NOTES: state => state.notes,
     GET_NOTES_LENGTH: state => state.notes.length,
+    GET_NOTE_WITH_ID: (state, id) => state.find(note => note._id === id),
 };
 
 const mutations = {
