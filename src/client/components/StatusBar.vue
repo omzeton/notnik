@@ -64,6 +64,7 @@ export default {
         position: absolute;
         top: 50%;
         left: 1em;
+        font-size: 0.67rem;
         transform: translateY(-50%);
     }
     &__hour {

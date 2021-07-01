@@ -71,6 +71,7 @@ export default {
         color: $w;
         font-size: 0.8rem;
         font-family: "Montserrat", sans-serif;
+        font-weight: 700;
         width: 80%;
         top: 80%;
         text-align: center;
