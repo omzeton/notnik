@@ -12,7 +12,7 @@ declare const process: {
 
 const isAuth = async (req: Request, res: Response, next: NextFunction) => {
     try {
-        let userToken: any = jwt.verify(req.cookies.userAccessToken, process.env.TOKEN_SECRET);
+        const userToken: any = jwt.verify(req.cookies.userAccessToken, process.env.TOKEN_SECRET);
         if (!userToken) {
             const error: APIError = new Error("User token invalid or expired.");
             error.statusCode = 401;

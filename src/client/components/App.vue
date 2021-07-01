@@ -14,5 +14,8 @@ export default {
         Layout,
         LoadingBar,
     },
+    mounted() {
+        this.$store.dispatch("auth/CHECK_AUTH_STATUS");
+    },
 };
 </script>

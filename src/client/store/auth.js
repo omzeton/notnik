@@ -14,7 +14,7 @@ const actions = {
             const res = await axios.post("auth/login", { email, password }, { headers: { "Content-Type": "application/json" } });
             if (res.status !== 200 && res.status !== 201) throw new Error("Unable to authenticate user.");
             await sleep(2000);
-            dispatch("SAVE_RESPONSE_DATA", res.data);
+            dispatch("SAVE_USER_AUTH_STATUS", true);
             dispatch("ui/SET_LOADING_STATE", false, { root: true });
             router.push("/list");
         } catch (err) {
@@ -36,8 +36,19 @@ const actions = {
             throw err;
         }
     },
-    SAVE_RESPONSE_DATA({ commit }, payload) {
-        commit("updateUserData", payload);
+    async CHECK_AUTH_STATUS({ dispatch }) {
+        try {
+            const res = await axios.get("auth/authenticate");
+            if (res.status !== 200 && res.status !== 201) throw new Error("Unable to check authentication state.");
+            dispatch("SAVE_USER_AUTH_STATUS", res.data.tokenIsValid);
+            router.push("/list");
+        } catch (err) {
+            dispatch("SET_SERVER_ERROR", err.response.data.message);
+            throw err;
+        }
+    },
+    SAVE_USER_AUTH_STATUS({ commit }, payload) {
+        commit("updateUserAuthStatus", payload);
     },
     SET_SERVER_ERROR({ commit }, payload) {
         commit("setServerError", payload);
@@ -52,9 +63,8 @@ const getters = {
 };
 
 const mutations = {
-    updateUserData(state, { userId }) {
-        state.isAuthenticated = true;
-        state.userId = userId;
+    updateUserAuthStatus(state, payload) {
+        state.isAuthenticated = payload;
     },
     setServerError(state, payload) {
         state.serverError = payload;
