@@ -2,6 +2,9 @@
     <div class="grid-layout">
         <Navbar />
         <transition name="fade">
+            <SettingsModal v-if="settingsModalOpen" />
+        </transition>
+        <transition name="fade">
             <router-view />
         </transition>
     </div>
@@ -9,6 +12,7 @@
 
 <script>
 import Navbar from "./Navbar";
+import SettingsModal from "@/components/Authorized/SettingsModal/SettingsModal";
 import LoginView from "./LoginView";
 import NoteList from "./Authorized/ListView/NoteList";
 
@@ -17,6 +21,12 @@ export default {
         Navbar,
         LoginView,
         NoteList,
+        SettingsModal,
+    },
+    computed: {
+        settingsModalOpen() {
+            return this.$store.getters["ui/GET_SETTINGS_MODAL_IS_OPEN"];
+        },
     },
 };
 </script>
