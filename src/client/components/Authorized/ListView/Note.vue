@@ -53,9 +53,10 @@ export default {
     align-items: center;
     color: $bla4;
     &:hover {
-        svg {
-            opacity: 0.9;
-        }
+        color: $bla2;
+    }
+    &:active {
+        color: $bla3;
     }
     svg {
         width: 60%;
