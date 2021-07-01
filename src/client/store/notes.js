@@ -21,6 +21,7 @@ const actions = {
 
 const getters = {
     GET_NOTES: state => state.notes,
+    GET_NOTES_LENGTH: state => state.notes.length,
 };
 
 const mutations = {

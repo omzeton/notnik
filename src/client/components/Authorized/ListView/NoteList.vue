@@ -1,14 +1,18 @@
 <template>
     <div class="list">
         <Note v-for="note in notes" :key="note._id" :body="note.body" :date="note.date" :imgUrl="note.imgUrl" :title="note.title" :uId="note.uId" :id="note._id" />
+        <StatusBar />
     </div>
 </template>
 
 <script>
 import Note from "./Note";
+import StatusBar from "./StatusBar";
+
 export default {
     components: {
         Note,
+        StatusBar,
     },
     mounted() {
         this.$store.dispatch("notes/FETCH_ALL_NOTES");
