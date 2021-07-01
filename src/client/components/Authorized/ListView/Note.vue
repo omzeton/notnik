@@ -1,10 +1,10 @@
 <template>
-    <div class="grid-cell">
+    <router-link :to="`notnik/note/${id}`" class="grid-cell" @click="makeSelection">
         <div class="entry">
             <FileIcon />
             <p class="entry__title">{{ title }}</p>
         </div>
-    </div>
+    </router-link>
 </template>
 
 <script>
@@ -31,6 +31,11 @@ export default {
             } else {
                 return this.body;
             }
+        },
+    },
+    methods: {
+        makeSelection() {
+            console.log("test");
         },
     },
 };

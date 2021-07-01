@@ -16,7 +16,7 @@ const actions = {
             await sleep(2000);
             dispatch("SAVE_USER_AUTH_STATUS", true);
             dispatch("ui/SET_LOADING_STATE", false, { root: true });
-            router.push("/list");
+            router.push("/notnik");
         } catch (err) {
             dispatch("ui/SET_LOADING_STATE", false, { root: true });
             dispatch("SET_SERVER_ERROR", err.response.data.message);
@@ -41,7 +41,7 @@ const actions = {
             const res = await axios.get("auth/authenticate");
             if (res.status !== 200 && res.status !== 201) throw new Error("Unable to check authentication state.");
             dispatch("SAVE_USER_AUTH_STATUS", res.data.tokenIsValid);
-            router.push("/list");
+            router.push("/notnik");
         } catch (err) {
             dispatch("SET_SERVER_ERROR", err.response.data.message);
             throw err;

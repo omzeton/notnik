@@ -1,7 +1,7 @@
 <template>
     <div class="navbar" :class="{ 'navbar--inactive': !isAuthenticated }">
         <button class="navbar__button navbar__new" />
-        <button class="navbar__button navbar__list" />
+        <router-link to="/notnik" tag="button" class="navbar__button navbar__list" />
         <button class="navbar__button navbar__settings" @click="settings" />
     </div>
 </template>

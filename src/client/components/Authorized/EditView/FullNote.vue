@@ -14,6 +14,9 @@ export default {
         Body,
         Header,
     },
+    mounted() {
+        console.log(this.$route.params.id);
+    },
 };
 </script>
 

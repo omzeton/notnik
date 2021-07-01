@@ -12,11 +12,11 @@ const routes = [
         component: LoginView,
     },
     {
-        path: "/list",
+        path: "/notnik",
         component: NoteList,
     },
     {
-        path: "/:id",
+        path: "/notnik/note/:id",
         component: FullNote,
     },
 ];
@@ -28,7 +28,7 @@ router.beforeEach((to, from, next) => {
     if (!isAuthenticated && to.path !== "/") {
         next("/");
     } else if (isAuthenticated && to.path === "/") {
-        next("/list");
+        next("/notnik");
     } else {
         next();
     }
