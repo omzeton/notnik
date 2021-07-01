@@ -1,21 +1,18 @@
 <template>
     <div class="full-entry">
-        <Body />
-        <Header />
+        <p class="full-entry__p">
+            {{ activeNote.body }}
+        </p>
     </div>
 </template>
 
 <script>
-import Body from "./Body";
-import Header from "./Header";
-
 export default {
-    components: {
-        Body,
-        Header,
-    },
-    mounted() {
-        console.log(this.$route.params.id);
+    computed: {
+        activeNote() {
+            const allNotes = this.$store.getters["notes/GET_NOTES"];
+            return allNotes.find(note => note._id === this.$route.params.id);
+        },
     },
 };
 </script>
@@ -27,5 +24,8 @@ export default {
     box-sizing: border-box;
     display: grid;
     grid-template-rows: 11em 1fr;
+    &__p {
+        color: $w;
+    }
 }
 </style>
