@@ -4,21 +4,32 @@
             <p>Entries: {{ amountOfEntries }}</p>
         </div>
         <div>&nbsp;</div>
-        <div class="status-bar__user">
-            <p>testtest@test.com</p>
-        </div>
         <div class="status-bar__timer">
-            <p>01.07.2021 21:53:29</p>
+            <p class="status-bar__date">{{ date[0] }}</p>
+            <p class="status-bar__hour">{{ date[1] }}</p>
         </div>
     </div>
 </template>
 
 <script>
+import { getCurrentDate } from "@/utils";
+
 export default {
+    data() {
+        return {
+            date: ["", ""],
+        };
+    },
     computed: {
         amountOfEntries() {
             return this.$store.getters["notes/GET_NOTES_LENGTH"];
         },
+    },
+    mounted() {
+        this.date = getCurrentDate();
+        setInterval(() => {
+            this.date = getCurrentDate();
+        }, 1000);
     },
 };
 </script>
@@ -32,20 +43,34 @@ export default {
     width: calc(100% - 3em);
     height: 1.5em;
     display: grid;
-    grid-template-columns: 5% 78% 1fr 1fr;
+    grid-template-columns: 4em 1fr 9em;
     box-sizing: border-box;
-    &__user,
     &__counts,
     &__timer {
+        font-family: "Montserrat", sans-serif;
+        font-size: 0.7rem;
+        color: $w2;
+        white-space: nowrap;
+    }
+    &__counts {
         display: flex;
         align-items: center;
         justify-content: center;
-        p {
-            font-family: "Montserrat", sans-serif;
-            font-size: 0.7rem;
-            color: $w2;
-            white-space: nowrap;
-        }
+    }
+    &__timer {
+        position: relative;
+    }
+    &__date {
+        position: absolute;
+        top: 50%;
+        left: 1em;
+        transform: translateY(-50%);
+    }
+    &__hour {
+        position: absolute;
+        top: 50%;
+        right: 1em;
+        transform: translateY(-50%);
     }
 }
 </style>
