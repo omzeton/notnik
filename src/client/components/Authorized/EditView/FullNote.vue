@@ -50,6 +50,23 @@ export default {
     @media screen and (min-width: 2200px) {
         padding: 9em 25em;
     }
+    &::-webkit-scrollbar {
+        height: 1em;
+        width: 1em;
+    }
+
+    &::-webkit-scrollbar-track {
+        background: $bla1;
+    }
+    &::-webkit-scrollbar-thumb {
+        background: $bla3;
+    }
+    &::-webkit-scrollbar-thumb:hover {
+        background: $bla4;
+    }
+    &::-webkit-scrollbar-thumb:active {
+        background: $bla2;
+    }
     &__wrapper {
         width: 100%;
         height: fit-content;
