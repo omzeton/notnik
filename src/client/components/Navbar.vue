@@ -2,7 +2,7 @@
     <div class="navbar" :class="{ 'navbar--inactive': !isAuthenticated }">
         <button class="navbar__button navbar__new" />
         <button class="navbar__button navbar__list" />
-        <button class="navbar__button navbar__settings" />
+        <button class="navbar__button navbar__settings" @click="settings" />
     </div>
 </template>
 
@@ -11,6 +11,11 @@ export default {
     computed: {
         isAuthenticated() {
             return this.$store.getters["auth/GET_IS_AUTHENTICATED"];
+        },
+    },
+    methods: {
+        settings() {
+            this.$store.dispatch("ui/TOGGLE_SETTINGS_MODAL");
         },
     },
 };

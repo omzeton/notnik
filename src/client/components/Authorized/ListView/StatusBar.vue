@@ -38,7 +38,7 @@ export default {
 .status-bar {
     position: fixed;
     bottom: 0;
-    left: 3em;
+    right: 0;
     background-color: $bla3;
     width: calc(100% - 3em);
     height: 1.5em;
