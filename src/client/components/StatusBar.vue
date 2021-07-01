@@ -3,7 +3,13 @@
         <div class="status-bar__counts">
             <p>Entries: {{ amountOfEntries }}</p>
         </div>
-        <div>&nbsp;</div>
+        <div v-if="isInEditMode" class="status-bar__view-mode" @click="toggleViewModes">
+            <transition name="fade">
+                <PencilIcon v-if="markdownMode" />
+                <TextIcon v-else />
+            </transition>
+        </div>
+        <div v-else>&nbsp;</div>
         <div class="status-bar__timer">
             <p class="status-bar__date">{{ date[0] }}</p>
             <p class="status-bar__hour">{{ date[1] }}</p>
@@ -12,9 +18,15 @@
 </template>
 
 <script>
+import TextIcon from "@/components/Icons/TextIcon";
+import PencilIcon from "@/components/Icons/PencilIcon";
 import { getCurrentDate } from "@/utils";
 
 export default {
+    components: {
+        TextIcon,
+        PencilIcon,
+    },
     data() {
         return {
             date: ["", ""],
@@ -23,6 +35,17 @@ export default {
     computed: {
         amountOfEntries() {
             return this.$store.getters["notes/GET_NOTES_LENGTH"];
+        },
+        markdownMode() {
+            return this.$store.getters["ui/GET_IS_MARKDOWN_MODE"];
+        },
+        isInEditMode() {
+            return !!this.$route.params.id;
+        },
+    },
+    methods: {
+        toggleViewModes() {
+            this.$store.dispatch("ui/TOGGLE_MARKDOWN_MODE");
         },
     },
     mounted() {
@@ -56,6 +79,19 @@ export default {
         display: flex;
         align-items: center;
         justify-content: center;
+    }
+    &__view-mode {
+        overflow: hidden;
+        display: flex;
+        color: $w;
+        position: relative;
+        svg {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            height: 60%;
+        }
     }
     &__timer {
         position: relative;
