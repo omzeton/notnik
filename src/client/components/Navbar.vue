@@ -1,10 +1,10 @@
 <template>
     <div class="navbar" :class="{ 'navbar--inactive': !isAuthenticated }">
-        <button class="navbar__button navbar__new" />
+        <button class="navbar__button navbar__new" aria-label="Create new note" />
         <router-link custom to="/notnik" v-slot="{ navigate }">
-            <button class="navbar__button navbar__list" @click="navigate" />
+            <button class="navbar__button navbar__list" @click="navigate" aria-label="Go to all notes" />
         </router-link>
-        <button class="navbar__button navbar__settings" @click="settings" />
+        <button class="navbar__button navbar__settings" @click="settings" aria-label="Settigs" />
     </div>
 </template>
 

@@ -40,6 +40,9 @@ module.exports = merge(commonConfig, {
         hot: true,
         port: 8080,
     },
+    optimization: {
+        runtimeChunk: "single",
+    },
     plugins: [
         new MiniCssExtractPlugin(),
         new HtmlWebpackPlugin({

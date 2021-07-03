@@ -39,12 +39,16 @@ const actions = {
     async CHECK_AUTH_STATUS({ dispatch }) {
         try {
             const res = await axios.get("auth/authenticate");
-            if (res.status !== 200 && res.status !== 201) throw new Error("Unable to check authentication state.");
+            if (res.status !== 200 && res.status !== 201) throw new Error();
             dispatch("SAVE_USER_AUTH_STATUS", res.data.tokenIsValid);
-            router.push("/notnik");
+            if (res.data.tokenIsValid) router.push("/notnik");
         } catch (err) {
+            console.log("%cSession token expired or not found. Login to authenticate.", "color: #ec4e20;");
             throw err;
         }
+    },
+    ROUTE_GUARD({ state }) {
+        if (!state.isAuthenticated) router.push("/");
     },
     SAVE_USER_AUTH_STATUS({ commit }, payload) {
         commit("updateUserAuthStatus", payload);
