@@ -7,10 +7,13 @@ require("babel-polyfill");
 require("dotenv").config();
 
 module.exports = {
-    entry: ["babel-polyfill", "./src/client/index.js"],
+    entry: {
+        main: "./src/client/index.js",
+        serviceWorker: "./src/client/serviceWorker.js",
+    },
     output: {
         path: path.resolve(__dirname, "/dist"),
-        filename: "bundle.js",
+        filename: "[name].js",
         publicPath: "/",
     },
     module: {

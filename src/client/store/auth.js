@@ -43,7 +43,6 @@ const actions = {
             dispatch("SAVE_USER_AUTH_STATUS", res.data.tokenIsValid);
             router.push("/notnik");
         } catch (err) {
-            dispatch("SET_SERVER_ERROR", err.response.data.message);
             throw err;
         }
     },

@@ -9,6 +9,13 @@ import router from "@/routes";
 import App from "@/components/App.vue";
 import "@/styles/index.scss";
 
+if ("serviceWorker" in navigator) {
+    navigator.serviceWorker
+        .register("./serviceWorker.js")
+        .then(registrationObj => console.log("%cservice worker registered!", "color: green;", registrationObj))
+        .catch(err => console.log("%cservice worker NOT registered", "color: red;", err));
+}
+
 if (process.env.NODE_ENV !== "production") {
     Vue.config.debug = true;
     Vue.config.devtools = true;
