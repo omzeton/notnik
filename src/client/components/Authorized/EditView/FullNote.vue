@@ -8,7 +8,7 @@
                 <vue-markdown :source="activeNote.body" />
             </div>
             <div v-else class="full-entry__codemirror-wrapper">
-                <textarea ref="codemirror" v-model="activeNote.body"></textarea>
+                <textarea v-if="!codemirrorActive" ref="codemirror" v-model="activeNote.body"></textarea>
             </div>
         </div>
     </div>
@@ -18,12 +18,11 @@
 import VueMarkdown from "vue-markdown";
 import * as CodeMirror from "codemirror";
 import "codemirror/lib/codemirror.css";
-import "codemirror/theme/dracula.css";
 
 export default {
     data() {
         return {
-            code: "<ul><li>\nItem 1</li><li>\nItem 2</li><li>\nItem 3</li></ul>",
+            codemirrorActive: false,
         };
     },
     components: {
@@ -39,12 +38,13 @@ export default {
         },
     },
     mounted() {
-        setTimeout(() => {
+        if (!this.codemirrorActive) {
             CodeMirror.fromTextArea(this.$refs.codemirror, {
-                lineNumbers: true,
                 theme: "dracula",
+                lineWrapping: true,
             });
-        }, 1000);
+            this.codemirrorActive = true;
+        }
     },
 };
 </script>
@@ -119,10 +119,6 @@ export default {
         width: 100%;
         max-width: 100%;
         background-color: rebeccapurple;
-        textarea {
-            width: 100%;
-            height: 200px;
-        }
     }
 }
 </style>
