@@ -1,4 +1,3 @@
-import { Request } from "express";
 import { ValidationError } from "express-validator";
 import mongoose from "mongoose";
 
@@ -22,4 +21,17 @@ export interface EntryData {
     date: string;
     imgUrl: string;
     uId: mongoose.Schema;
+}
+
+export interface Entry {
+    title: string;
+    body: string;
+    date: string;
+    id: string;
+}
+
+export interface User {
+    email: string;
+    password: string;
+    entries: Array<Entry>;
 }

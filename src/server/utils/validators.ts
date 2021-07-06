@@ -27,6 +27,7 @@ const loginValidator = [
         .isLength({ min: 5 })
         .custom(async (password, { req }) => {
             const user = await User.findOne({ email: req.body.email });
+            if (!user) return Promise.reject();
             const match = await bcrypt.compare(password, user.password);
             if (!match) return Promise.reject();
         }),

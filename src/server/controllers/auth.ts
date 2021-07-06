@@ -1,9 +1,9 @@
-import fs from "fs";
 import { validationResult } from "express-validator";
 import { Request, Response, NextFunction } from "express";
 import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
-import User from "../models/user";
+
+import UserSchema from "../models/user";
 import { accessCookie } from "../utils/consts";
 import { APIError } from "../types";
 
@@ -27,7 +27,7 @@ const signup = async (req: Request, res: Response, next: NextFunction) => {
         // If validation succeeded create new user
         const { email, password } = req.body;
         const hashedPw = await bcrypt.hash(password, 12);
-        const newUser = new User({ email: email, password: hashedPw, posts: [] });
+        const newUser = new UserSchema({ email: email, password: hashedPw, entries: [] });
         const result = await newUser.save();
 
         // Create new session token with user id
@@ -46,7 +46,7 @@ const login = async (req: Request, res: Response, next: NextFunction) => {
 
         // User validation was already done but check if user exists just in case
         const { email } = req.body;
-        const user = await User.findOne({ email });
+        const user = await UserSchema.findOne({ email });
         if (!user) throw new Error(`Couldn't find user ${email}`);
 
         // If validation passes create new
