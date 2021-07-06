@@ -1,5 +1,5 @@
 <template>
-    <router-link :to="`notnik/note/${id}`" class="grid-cell" @click="makeSelection">
+    <router-link :to="`notnik/note/${id}`" class="grid-cell" v-on:click.native="makeSelection">
         <div class="entry">
             <FileIcon />
             <p class="entry__title">{{ title }}</p>
@@ -35,7 +35,7 @@ export default {
     },
     methods: {
         makeSelection() {
-            console.log("test");
+            this.$store.dispatch("notes/SET_ACTIVE_NOTE_ID", this.id);
         },
     },
 };

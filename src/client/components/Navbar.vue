@@ -1,6 +1,6 @@
 <template>
     <div class="navbar" :class="{ 'navbar--inactive': !isAuthenticated }">
-        <button class="navbar__button navbar__new" aria-label="Create new note" />
+        <button class="navbar__button navbar__new" @click="createNewNote" aria-label="Create new note" />
         <router-link custom to="/notnik" v-slot="{ navigate }">
             <button class="navbar__button navbar__list" @click="navigate" aria-label="Go to all notes" />
         </router-link>
@@ -18,6 +18,9 @@ export default {
     methods: {
         settings() {
             this.$store.dispatch("ui/TOGGLE_SETTINGS_MODAL");
+        },
+        createNewNote() {
+            this.$store.dispatch('notes/CREATE_NEW_NOTE');
         },
     },
 };

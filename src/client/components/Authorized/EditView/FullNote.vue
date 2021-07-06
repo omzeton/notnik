@@ -1,5 +1,5 @@
 <template>
-    <div class="full-entry">
+    <div class="full-entry" v-if="activeNote">
         <div class="full-entry__wrapper">
             <h2 class="full-entry__title">
                 {{ activeNote.title }}
@@ -8,7 +8,7 @@
                 <vue-markdown :source="activeNote.body" />
             </div>
             <div v-else class="full-entry__codemirror-wrapper">
-                <textarea v-if="!codemirrorActive" ref="codemirror" v-model="activeNote.body"></textarea>
+                <textarea v-if="!codemirrorActive && !markdownMode" ref="codemirror" v-model="activeNote.body"></textarea>
             </div>
         </div>
     </div>
@@ -30,6 +30,7 @@ export default {
     },
     computed: {
         activeNote() {
+            if (this.$route.query.new) return { title: 'New note', body: '' }
             const allNotes = this.$store.getters["notes/GET_NOTES"];
             return allNotes.find(note => note._id === this.$route.params.id);
         },
@@ -38,10 +39,13 @@ export default {
         },
     },
     mounted() {
-        if (!this.codemirrorActive) {
+        if (!this.codemirrorActive && !this.markdownMode) {
             CodeMirror.fromTextArea(this.$refs.codemirror, {
                 theme: "dracula",
                 lineWrapping: true,
+            }).on("change", cm => {
+                const body = cm.getValue();
+                this.$store.dispatch("notes/UPDATE_ACTIVE_NOTE", { body, title: this.activeNote.title });
             });
             this.codemirrorActive = true;
         }

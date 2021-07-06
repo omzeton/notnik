@@ -12,7 +12,8 @@ export default {
         Note,
     },
     mounted() {
-        this.$store.dispatch("notes/FETCH_ALL_NOTES");
+        const notesAreFetched = this.$store.getters["notes/GET_NOTES_ARE_FETCHED"];
+        if (!notesAreFetched) this.$store.dispatch("notes/FETCH_ALL_NOTES");
     },
     computed: {
         notes() {

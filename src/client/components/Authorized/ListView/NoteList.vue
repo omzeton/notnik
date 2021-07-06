@@ -13,13 +13,13 @@ export default {
         Note,
         Grid,
     },
-    mounted() {
-        this.$store.dispatch("notes/FETCH_ALL_NOTES");
-    },
     computed: {
         notes() {
             return this.$store.getters["notes/GET_NOTES"];
         },
+    },
+    mounted() {
+        this.$store.dispatch("notes/SET_ACTIVE_NOTE_ID", "");
     },
 };
 </script>

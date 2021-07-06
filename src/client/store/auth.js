@@ -1,6 +1,6 @@
 import axios from "axios";
-import router from "@/routes";
 
+import router from "@/routes";
 import { sleep } from "@/utils";
 
 const state = {
@@ -41,7 +41,7 @@ const actions = {
             const res = await axios.get("auth/authenticate");
             if (res.status !== 200 && res.status !== 201) throw new Error();
             dispatch("SAVE_USER_AUTH_STATUS", res.data.tokenIsValid);
-            if (res.data.tokenIsValid) router.push("/notnik");
+            if (res.data.tokenIsValid && router.history.current.path !== "/notnik") router.push("/notnik");
         } catch (err) {
             console.log("%cSession token expired or not found. Login to authenticate.", "color: #ec4e20;");
             throw err;
