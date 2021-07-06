@@ -21,14 +21,21 @@ const actions = {
             throw err;
         }
     },
-    CREATE_NEW_NOTE() {
-        const newNoteId = uuidv4();
-        router.push({ path: `/notnik/note/${newNoteId}`, query: { new: true } });
+    async CREATE_NEW_NOTE({ dispatch }) {
+        try {
+            const newNoteId = uuidv4();
+            const res = await axios.post("journal/new");
+            if (res.status !== 200 && res.status !== 201) throw new Error("Couldn't create new entry");
+            dispatch("UPDATE_NOTES", res.data.entries);
+            router.push({ path: `/notnik/note/${newNoteId}`, query: { new: true } });
+        } catch (err) {
+            throw err;
+        }
     },
     async SYNC_CHANGES() {
         try {
             dispatch("ui/SET_LOADING_STATE", { active: true, message: "Syncing changes" }, { root: true });
-            const res = await axios.post("auth/login", { email, password }, { headers: { "Content-Type": "application/json" } });
+            const res = await axios.post("journal", null, { headers: { "Content-Type": "application/json" } });
             if (res.status !== 200 && res.status !== 201) throw new Error("Unable to sync changes with db.");
             dispatch("ui/SET_LOADING_STATE", { active: false, message: "" }, { root: true });
         } catch (err) {

@@ -1,7 +1,6 @@
 import fs from "fs";
 import path from "path";
 import express, { Router, Request, Response, NextFunction } from "express";
-import { ValidationError } from "express-validator";
 import multer, { FileFilterCallback } from "multer";
 import { v4 } from "uuid";
 import helmet from "helmet";

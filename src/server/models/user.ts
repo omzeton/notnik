@@ -11,11 +11,7 @@ const entrySchema = new Schema<Entry>({
         required: true,
     },
     date: {
-        type: String,
-        required: true,
-    },
-    id: {
-        type: String,
+        type: Number,
         required: true,
     },
 });

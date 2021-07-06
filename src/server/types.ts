@@ -26,8 +26,7 @@ export interface EntryData {
 export interface Entry {
     title: string;
     body: string;
-    date: string;
-    id: string;
+    date: number;
 }
 
 export interface User {

@@ -9,9 +9,6 @@ const bodyValidator = [
     body("body")
         .trim()
         .isLength({ min: 1 }),
-    body("uId")
-        .trim()
-        .isLength({ min: 1 }),
 ];
 
 const loginValidator = [

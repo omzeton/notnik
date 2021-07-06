@@ -1,4 +1,5 @@
 import { Request, Response, NextFunction } from "express";
+
 import User from "../models/user";
 
 const getEntries = async (req: Request, res: Response, next: NextFunction) => {
@@ -14,13 +15,29 @@ const getEntries = async (req: Request, res: Response, next: NextFunction) => {
     }
 };
 
-const syncEntries = async (req: Request, res: Response, next: NextFunction) => {
+const addNewEntry = async (req: Request, res: Response, next: NextFunction) => {
     try {
         const uId: string = res.locals.userId;
         const user = await User.findById(uId);
+        if (!user) throw new Error("Could not connect to the user");
+
+        user.entries.push({
+            title: "New note",
+            body: "New note",
+            date: +new Date(),
+        });
+        user.save(function(err) {
+            if (err) {
+                console.log(err);
+                return;
+            }
+            res.status(200).json({ entries: user.entries });
+        });
     } catch {
-        next({ statusCode: 500, msg: "Error when syncing entries with user" });
+        next({ statusCode: 500, msg: "Error when creating new entry" });
     }
 };
 
-export { getEntries, syncEntries };
+const updateEntry = async (req: Request, res: Response, next: NextFunction) => {};
+
+export { getEntries, addNewEntry, updateEntry };
