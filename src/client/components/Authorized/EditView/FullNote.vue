@@ -1,51 +1,31 @@
 <template>
-    <div class="full-entry" v-if="activeNote">
+    <div class="full-entry">
         <div class="full-entry__wrapper">
-            <div v-if="markdownMode" class="full-entry__markdown-wrapper">
-                <vue-markdown :source="activeNote.body" />
-            </div>
-            <div v-else class="full-entry__codemirror-wrapper">
-                <textarea v-if="!codemirrorActive && !markdownMode" ref="codemirror" v-model="activeNote.body"></textarea>
-            </div>
+            <Markdown v-if="markdownMode" :body="noteBody" />
+            <Codemirror v-else :body="noteBody" />
         </div>
     </div>
 </template>
 
 <script>
-import VueMarkdown from "vue-markdown";
-import * as CodeMirror from "codemirror";
-import "codemirror/lib/codemirror.css";
+import Codemirror from "./Codemirror";
+import Markdown from "./Markdown";
 
 export default {
-    data() {
-        return {
-            codemirrorActive: false,
-        };
-    },
     components: {
-        VueMarkdown,
+        Codemirror,
+        Markdown,
     },
     computed: {
-        activeNote() {
-            if (this.$route.query.new) return { body: "" };
+        noteBody() {
+            if (this.$route.query.new) return "";
             const allNotes = this.$store.getters["notes/GET_NOTES"];
-            return allNotes.find(note => note._id === this.$route.params.id);
+            const activeNote = allNotes.find(note => note._id === this.$route.params.id);
+            return activeNote.body;
         },
         markdownMode() {
             return this.$store.getters["ui/GET_IS_MARKDOWN_MODE"];
         },
-    },
-    mounted() {
-        if (!this.codemirrorActive && !this.markdownMode) {
-            CodeMirror.fromTextArea(this.$refs.codemirror, {
-                theme: "dracula",
-                lineWrapping: true,
-            }).on("change", cm => {
-                const body = cm.getValue();
-                this.$store.dispatch("notes/UPDATE_ACTIVE_NOTE", { body });
-            });
-            this.codemirrorActive = true;
-        }
     },
 };
 </script>
