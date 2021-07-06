@@ -28,8 +28,8 @@ const actions = {
             const { entries } = res.data;
             dispatch("UPDATE_NOTES", entries);
             const newId = entries[entries.length - 1]._id;
-            router.push({ path: `/notnik/note/${newId}`, query: { new: true } });
             dispatch("SET_ACTIVE_NOTE_ID", newId);
+            router.push({ path: `/notnik/note/${newId}`, query: { new: true } });
         } catch (err) {
             throw err;
         }
