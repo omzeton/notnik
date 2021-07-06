@@ -32,15 +32,13 @@ const actions = {
             throw err;
         }
     },
-    async SYNC_CHANGES() {
+    async SYNC_CHANGES({ state }) {
         try {
-            dispatch("ui/SET_LOADING_STATE", { active: true, message: "Syncing changes" }, { root: true });
-            const res = await axios.post("journal", null, { headers: { "Content-Type": "application/json" } });
-            if (res.status !== 200 && res.status !== 201) throw new Error("Unable to sync changes with db.");
-            dispatch("ui/SET_LOADING_STATE", { active: false, message: "" }, { root: true });
+            const activeNote = state.notes.find(note => note._id === state.activeNoteId);
+            const res = await axios.post("journal/sync", { entry: activeNote }, { headers: { "Content-Type": "application/json" } });
+            console.log({ res });
+            if (res.status !== 200 && res.status !== 201) throw new Error("Couldn't sync entry changes");
         } catch (err) {
-            dispatch("ui/SET_LOADING_STATE", { active: false, message: "" }, { root: true });
-            dispatch("SET_SERVER_ERROR", err.response.data.message);
             throw err;
         }
     },

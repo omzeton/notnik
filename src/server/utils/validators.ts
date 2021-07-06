@@ -2,15 +2,6 @@ import { body } from "express-validator";
 import bcrypt from "bcryptjs";
 import User from "../models/user";
 
-const bodyValidator = [
-    body("title")
-        .trim()
-        .isLength({ min: 1 }),
-    body("body")
-        .trim()
-        .isLength({ min: 1 }),
-];
-
 const loginValidator = [
     body("email")
         .isEmail()
@@ -44,4 +35,4 @@ const signupValidator = [
         .isLength({ min: 5 }),
 ];
 
-export { bodyValidator, loginValidator, signupValidator };
+export { loginValidator, signupValidator };

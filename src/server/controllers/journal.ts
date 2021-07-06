@@ -26,7 +26,7 @@ const addNewEntry = async (req: Request, res: Response, next: NextFunction) => {
             body: "New note",
             date: +new Date(),
         });
-        user.save(function(err) {
+        user.save(err => {
             if (err) {
                 console.log(err);
                 return;
@@ -38,6 +38,33 @@ const addNewEntry = async (req: Request, res: Response, next: NextFunction) => {
     }
 };
 
-const updateEntry = async (req: Request, res: Response, next: NextFunction) => {};
+const syncEntry = async (req: Request, res: Response, next: NextFunction) => {
+    try {
+        const uId: string = res.locals.userId;
+        const user = await User.findById(uId);
+        if (!user) throw new Error("Could not connect to the user");
 
-export { getEntries, addNewEntry, updateEntry };
+        const updatedEntry = req.body.entry;
+
+        await user.entries.map(entry => {
+            if (entry._id!.toString() === updatedEntry._id) {
+                entry.body = updatedEntry.body;
+                entry.date = updatedEntry.date;
+                entry.title = updatedEntry.title;
+            }
+            return entry;
+        });
+
+        user.save(err => {
+            if (err) {
+                console.log(err);
+                return;
+            }
+            res.status(200).json({ entries: user.entries });
+        });
+    } catch {
+        next({ statusCode: 500, msg: "Error when updating entry" });
+    }
+};
+
+export { getEntries, addNewEntry, syncEntry };
