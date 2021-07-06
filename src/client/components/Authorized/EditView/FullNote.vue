@@ -30,7 +30,7 @@ export default {
     },
     computed: {
         activeNote() {
-            if (this.$route.query.new) return { title: 'New note', body: '' }
+            if (this.$route.query.new) return { title: "New note", body: "" };
             const allNotes = this.$store.getters["notes/GET_NOTES"];
             return allNotes.find(note => note._id === this.$route.params.id);
         },

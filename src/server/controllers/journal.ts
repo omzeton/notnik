@@ -18,6 +18,15 @@ const getEntries = async (req: Request, res: Response, next: NextFunction) => {
     }
 };
 
+const syncEntries = async (req: Request, res: Response, next: NextFunction) => {
+    try {
+        const uId: string = res.locals.userId;
+        const user: typeof User = await User.findById(uId);
+    } catch {
+        next({ statusCode: 500, msg: "Error when syncing entries with user" });
+    }
+};
+
 const createEntry = async (req: Request, res: Response, next: NextFunction) => {
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
@@ -76,71 +85,4 @@ const getEntry = (req: Request, res: Response, next: NextFunction) => {
         });
 };
 
-const updateEntry = async (req: Request, res: Response, next: NextFunction) => {
-    const errors = validationResult(req);
-    let imageUrl;
-    if (!errors.isEmpty()) {
-        const error: APIError = new Error("Validation error - felonious submission data.");
-        error.statusCode = 422;
-        throw error;
-    }
-    try {
-        if (req.file) {
-            imageUrl = req.file.path.replace("\\", "/");
-        }
-        const title = req.body.title;
-        const body = req.body.body;
-        const date = req.body.date;
-        const uId = req.body.uId;
-        const entryId = req.params.entryId;
-        const entry = await Entry.findById(entryId);
-        if (imageUrl && entry.imgUrl !== imageUrl) {
-            clearImage(entry.imgUrl);
-        }
-        entry.title = title;
-        entry.body = body;
-        entry.date = date;
-        if (imageUrl) {
-            entry.imgUrl = imageUrl;
-        }
-        entry.uId = uId;
-        await entry.save();
-        res.status(201).json({
-            message: "Entry updated successfully!",
-        });
-    } catch (err) {
-        if (!err.statusCode) {
-            err.statusCode = 500;
-        }
-        next(err);
-    }
-};
-
-const deleteEntry = async (req: Request, res: Response, next: NextFunction) => {
-    const entryId = req.params.entryId;
-    try {
-        const entry = await Entry.findById(entryId);
-        const userId = entry.uId;
-        const imgUrl = entry.imgUrl;
-        await Entry.findByIdAndDelete(entryId);
-        await User.findByIdAndUpdate({ _id: userId }, { $pullAll: { posts: [entryId] } });
-        if (imgUrl !== "noimage") {
-            clearImage(imgUrl);
-        }
-        res.status(201).json({
-            message: "Entry successfully deleted!",
-        });
-    } catch (err) {
-        if (!err.statusCode) {
-            err.statusCode = 500;
-        }
-        next(err);
-    }
-};
-
-const clearImage = (filePath: string) => {
-    filePath = path.join(__dirname, "..", filePath);
-    fs.unlink(filePath, err => console.log(err));
-};
-
-export { getEntries, createEntry, getEntry, updateEntry, deleteEntry };
+export { getEntries, syncEntries };

@@ -15,10 +15,10 @@ const actions = {
             if (res.status !== 200 && res.status !== 201) throw new Error("Unable to authenticate user.");
             await sleep(2000);
             dispatch("SAVE_USER_AUTH_STATUS", true);
-            dispatch("ui/SET_LOADING_STATE", false, { root: true });
+            dispatch("ui/SET_LOADING_STATE", { active: false, message: "" }, { root: true });
             router.push("/notnik");
         } catch (err) {
-            dispatch("ui/SET_LOADING_STATE", false, { root: true });
+            dispatch("ui/SET_LOADING_STATE", { active: false, message: "" }, { root: true });
             dispatch("SET_SERVER_ERROR", err.response.data.message);
             throw err;
         }
@@ -29,9 +29,9 @@ const actions = {
             if (res.status !== 200 && res.status !== 201) throw new Error("Unable to authenticate user.");
             await sleep(2000);
             dispatch("ui/TOGGLE_FORM_VIEW", null, { root: true });
-            dispatch("ui/SET_LOADING_STATE", false, { root: true });
+            dispatch("ui/SET_LOADING_STATE", { active: false, message: "" }, { root: true });
         } catch (err) {
-            dispatch("ui/SET_LOADING_STATE", false, { root: true });
+            dispatch("ui/SET_LOADING_STATE", { active: false, message: "" }, { root: true });
             dispatch("SET_SERVER_ERROR", err.response.data.message);
             throw err;
         }

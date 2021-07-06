@@ -45,14 +45,14 @@ export default {
     methods: {
         submitHandler(event) {
             event.preventDefault();
-            this.$store.dispatch("ui/SET_LOADING_STATE", true, { root: true });
+            this.$store.dispatch("ui/SET_LOADING_STATE", { active: true, message: "Saving new user" }, { root: true });
             const { email, password, repeatPassword } = this.form;
             this.validate({ email, password: [password, repeatPassword] });
             if (!this.errors.length) {
                 this.$store.dispatch("auth/REGISTER", { email, password });
                 return;
             }
-            this.$store.dispatch("ui/SET_LOADING_STATE", false, { root: true });
+            this.$store.dispatch("ui/SET_LOADING_STATE", { active: false, message: "" }, { root: true });
         },
     },
 };

@@ -1,6 +1,6 @@
 <template>
     <div class="loader" :class="{ 'loader--visible': isLoading }">
-        <h2>Loading</h2>
+        <h2>{{ message }}</h2>
         <svg
             class="loader__svg"
             version="1.1"
@@ -31,6 +31,9 @@ export default {
     computed: {
         isLoading() {
             return this.$store.getters["ui/GET_IS_LOADING"];
+        },
+        message() {
+            return this.$store.getters["ui/GET_LOADING_MESSAGE"];
         },
     },
 };

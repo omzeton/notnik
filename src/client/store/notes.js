@@ -1,5 +1,5 @@
 import axios from "axios";
-import { v4 as uuidv4 } from 'uuid';
+import { v4 as uuidv4 } from "uuid";
 
 import router from "@/routes";
 
@@ -24,6 +24,18 @@ const actions = {
     CREATE_NEW_NOTE() {
         const newNoteId = uuidv4();
         router.push({ path: `/notnik/note/${newNoteId}`, query: { new: true } });
+    },
+    async SYNC_CHANGES() {
+        try {
+            dispatch("ui/SET_LOADING_STATE", { active: true, message: "Syncing changes" }, { root: true });
+            const res = await axios.post("auth/login", { email, password }, { headers: { "Content-Type": "application/json" } });
+            if (res.status !== 200 && res.status !== 201) throw new Error("Unable to sync changes with db.");
+            dispatch("ui/SET_LOADING_STATE", { active: false, message: "" }, { root: true });
+        } catch (err) {
+            dispatch("ui/SET_LOADING_STATE", { active: false, message: "" }, { root: true });
+            dispatch("SET_SERVER_ERROR", err.response.data.message);
+            throw err;
+        }
     },
     SET_ACTIVE_NOTE_ID({ commit }, id) {
         commit("setActiveNoteId", id);
