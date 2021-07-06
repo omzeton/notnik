@@ -47,6 +47,18 @@ const actions = {
             throw err;
         }
     },
+    async LOG_OUT({ dispatch }) {
+        try {
+            dispatch("ui/SET_LOADING_STATE", { active: true, message: "Logging out" }, { root: true });
+            const res = await axios.post("auth/logout");
+            if (res.status !== 200 && res.status !== 201) throw new Error("Unable to logout.");
+            await sleep(1000);
+            window.location.replace("/");
+        } catch (err) {
+            dispatch("ui/SET_LOADING_STATE", { active: false, message: "" }, { root: true });
+            throw err;
+        }
+    },
     ROUTE_GUARD({ state }) {
         if (!state.isAuthenticated) router.push("/");
     },

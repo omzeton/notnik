@@ -3,6 +3,7 @@
         <button class="navbar__button navbar__new" @click="createNewNote" aria-label="Create new note" />
         <button class="navbar__button navbar__list" @click="navigateToListView" aria-label="Go to all notes" />
         <button class="navbar__button navbar__settings" @click="settings" aria-label="Settigs" />
+        <button class="navbar__button navbar__logout" @click="logout" aria-label="Log out" />
     </div>
 </template>
 
@@ -20,12 +21,15 @@ export default {
         createNewNote() {
             this.$store.dispatch("notes/CREATE_NEW_NOTE");
         },
-        async navigateToListView() {
+        navigateToListView() {
             if (this.$route.path !== "/notnik") {
                 this.$router.push("/notnik");
             } else {
                 this.$store.dispatch("notes/SYNC_CHANGES");
             }
+        },
+        logout() {
+            this.$store.dispatch("auth/LOG_OUT");
         },
     },
 };
@@ -85,9 +89,21 @@ export default {
             background-color: $blu;
         }
     }
+    &__logout {
+        background-color: $bla1;
+        background-image: url("@assets/logout.svg");
+        background-position: center center;
+        position: absolute;
+        bottom: 0;
+    }
     &--inactive {
         pointer-events: none;
         opacity: 0.2;
+        .navbar__logout {
+            display: none;
+            opacity: 0;
+            visibility: hidden;
+        }
     }
 }
 </style>

@@ -71,12 +71,9 @@ const authenticate = async (req: Request, res: Response, next: NextFunction) => 
     }
 };
 
-const deleteFile = (filePath: string) => {
-    fs.unlink(filePath, err => {
-        if (err) {
-            throw err;
-        }
-    });
+const logout = async (req: Request, res: Response, next: NextFunction) => {
+    res.clearCookie("userAccessToken");
+    res.status(200).send({ message: "Logged out" });
 };
 
-export { signup, login, authenticate, deleteFile };
+export { signup, login, logout, authenticate };
