@@ -86,13 +86,6 @@ export default {
         display: flex;
         flex-direction: column;
     }
-    &__title {
-        color: $w;
-        font-family: "Baloo", cursive;
-        font-size: 5rem;
-        margin-bottom: 1em;
-        line-height: 5rem;
-    }
     &__markdown-wrapper {
         color: $w2;
         font-family: "Montserrat", sans-serif;
@@ -103,7 +96,6 @@ export default {
     &__codemirror-wrapper {
         width: 100%;
         max-width: 100%;
-        background-color: rebeccapurple;
     }
 }
 </style>
