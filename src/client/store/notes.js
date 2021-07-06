@@ -45,8 +45,8 @@ const actions = {
     SET_ACTIVE_NOTE_ID({ commit }, id) {
         commit("setActiveNoteId", id);
     },
-    UPDATE_ACTIVE_NOTE({ commit }, { body, title }) {
-        commit("updateActiveNote", { body, title });
+    UPDATE_ACTIVE_NOTE({ commit }, { body }) {
+        commit("updateActiveNote", { body });
     },
     UPDATE_NOTES({ commit }, notes) {
         commit("updateNotes", notes);
@@ -66,11 +66,10 @@ const mutations = {
     updateNotes(state, payload) {
         state.notes = payload;
     },
-    updateActiveNote(state, { body, title }) {
+    updateActiveNote(state, { body }) {
         state.notes = state.notes.map(note => {
             if (note._id === state.activeNoteId) {
                 note.body = body;
-                note.title = title;
             }
             return note;
         });

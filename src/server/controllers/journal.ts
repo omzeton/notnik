@@ -22,7 +22,6 @@ const addNewEntry = async (req: Request, res: Response, next: NextFunction) => {
         if (!user) throw new Error("Could not connect to the user");
 
         user.entries.push({
-            title: "New note",
             body: "New note",
             date: +new Date(),
         });
@@ -50,7 +49,6 @@ const syncEntry = async (req: Request, res: Response, next: NextFunction) => {
             if (entry._id!.toString() === updatedEntry._id) {
                 entry.body = updatedEntry.body;
                 entry.date = updatedEntry.date;
-                entry.title = updatedEntry.title;
             }
             return entry;
         });

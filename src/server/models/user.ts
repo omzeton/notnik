@@ -2,10 +2,6 @@ import { Schema, model } from "mongoose";
 import { Entry, User } from "../types";
 
 const entrySchema = new Schema<Entry>({
-    title: {
-        type: String,
-        required: true,
-    },
     body: {
         type: String,
         required: true,

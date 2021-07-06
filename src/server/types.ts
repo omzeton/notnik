@@ -1,5 +1,4 @@
 import { ValidationError } from "express-validator";
-import mongoose from "mongoose";
 
 export interface APIError extends Error {
     data?: ValidationError[];
@@ -15,16 +14,7 @@ export interface APIError extends Error {
 
 export type multerCallback = (error: Error | null, result: boolean) => void;
 
-export interface EntryData {
-    title: string;
-    body: string;
-    date: string;
-    imgUrl: string;
-    uId: mongoose.Schema;
-}
-
 export interface Entry {
-    title: string;
     body: string;
     date: number;
     _id?: number;

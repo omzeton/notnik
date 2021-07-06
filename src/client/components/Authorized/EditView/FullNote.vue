@@ -1,9 +1,6 @@
 <template>
     <div class="full-entry" v-if="activeNote">
         <div class="full-entry__wrapper">
-            <h2 class="full-entry__title">
-                {{ activeNote.title }}
-            </h2>
             <div v-if="markdownMode" class="full-entry__markdown-wrapper">
                 <vue-markdown :source="activeNote.body" />
             </div>
@@ -54,6 +51,10 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+[contenteditable] {
+    outline: 0px solid transparent;
+}
+
 .full-entry {
     position: absolute;
     width: calc(100% - 3em);

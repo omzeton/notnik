@@ -2,7 +2,7 @@
     <router-link :to="`notnik/note/${id}`" class="grid-cell" v-on:click.native="makeSelection">
         <div class="entry">
             <FileIcon />
-            <p class="entry__title">{{ title }}</p>
+            <p class="entry__title">{{ shortBody }}</p>
         </div>
     </router-link>
 </template>
@@ -16,18 +16,9 @@ export default {
         FileIcon,
     },
     computed: {
-        year() {
-            return this.date.split("-")[0];
-        },
-        month() {
-            return this.date.split("-")[1];
-        },
-        day() {
-            return this.date.split("-")[2];
-        },
         shortBody() {
-            if (this.body.length > 100) {
-                return this.body.slice(0, 125) + "...";
+            if (this.body.length > 10) {
+                return this.body.slice(0, 10) + "...";
             } else {
                 return this.body;
             }
