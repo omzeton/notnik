@@ -1,4 +1,5 @@
 .CodeMirror {
+    width: auto;
     &::-webkit-scrollbar {
         height: 1em;
         width: 1em;
@@ -23,12 +24,12 @@
     border: none;
     box-sizing: border-box;
     padding: 2em;
-    height: calc(100vh - 40em);
+    height: calc(100vh - 10em);
     @media screen and (min-width: 900px) {
-        height: calc(100vh - 30em);
+        height: calc(100vh - 15em);
     }
     @media screen and (min-width: 1200px) {
-        height: calc(100vh - 35em);
+        height: calc(100vh - 20em);
     }
 }
 .CodeMirror-gutters {
