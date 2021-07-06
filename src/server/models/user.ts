@@ -1,7 +1,18 @@
-import mongoose from "mongoose";
-const Schema = mongoose.Schema;
+import { Schema, model } from "mongoose";
+import { Entry, User } from "../types";
 
-const userSchema = new Schema({
+const entrySchema = new Schema<Entry>({
+    body: {
+        type: String,
+        required: true,
+    },
+    date: {
+        type: Number,
+        required: true,
+    },
+});
+
+const userSchema = new Schema<User>({
     email: {
         type: String,
         required: true,
@@ -10,13 +21,7 @@ const userSchema = new Schema({
         type: String,
         required: true,
     },
-    posts: [
-        {
-            type: Schema.Types.ObjectId,
-            ref: "Post",
-            required: true,
-        },
-    ],
+    entries: [entrySchema],
 });
 
-export default mongoose.model("User", userSchema);
+export default model<User>("User", userSchema);

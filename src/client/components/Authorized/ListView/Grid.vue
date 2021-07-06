@@ -1,6 +1,6 @@
 <template>
     <div class="note-grid">
-        <Note v-for="note in notes" :key="note._id" :body="note.body" :date="note.date" :imgUrl="note.imgUrl" :title="note.title" :uId="note.uId" :id="note._id" />
+        <Note v-for="note in notes" :key="note._id" :body="note.body" :date="note.date" :uId="note.uId" :id="note._id" />
     </div>
 </template>
 

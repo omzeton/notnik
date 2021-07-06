@@ -2,18 +2,6 @@ import { body } from "express-validator";
 import bcrypt from "bcryptjs";
 import User from "../models/user";
 
-const bodyValidator = [
-    body("title")
-        .trim()
-        .isLength({ min: 1 }),
-    body("body")
-        .trim()
-        .isLength({ min: 1 }),
-    body("uId")
-        .trim()
-        .isLength({ min: 1 }),
-];
-
 const loginValidator = [
     body("email")
         .isEmail()
@@ -27,6 +15,7 @@ const loginValidator = [
         .isLength({ min: 5 })
         .custom(async (password, { req }) => {
             const user = await User.findOne({ email: req.body.email });
+            if (!user) return Promise.reject();
             const match = await bcrypt.compare(password, user.password);
             if (!match) return Promise.reject();
         }),
@@ -46,4 +35,4 @@ const signupValidator = [
         .isLength({ min: 5 }),
 ];
 
-export { bodyValidator, loginValidator, signupValidator };
+export { loginValidator, signupValidator };

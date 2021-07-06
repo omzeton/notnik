@@ -21,27 +21,33 @@ const actions = {
             throw err;
         }
     },
-    CREATE_NEW_NOTE() {
-        const newNoteId = uuidv4();
-        router.push({ path: `/notnik/note/${newNoteId}`, query: { new: true } });
-    },
-    async SYNC_CHANGES() {
+    async CREATE_NEW_NOTE({ dispatch }) {
         try {
-            dispatch("ui/SET_LOADING_STATE", { active: true, message: "Syncing changes" }, { root: true });
-            const res = await axios.post("auth/login", { email, password }, { headers: { "Content-Type": "application/json" } });
-            if (res.status !== 200 && res.status !== 201) throw new Error("Unable to sync changes with db.");
-            dispatch("ui/SET_LOADING_STATE", { active: false, message: "" }, { root: true });
+            const res = await axios.post("journal/new");
+            if (res.status !== 200 && res.status !== 201) throw new Error("Couldn't create new entry");
+            const { entries } = res.data;
+            dispatch("UPDATE_NOTES", entries);
+            const newId = entries[entries.length - 1]._id;
+            dispatch("SET_ACTIVE_NOTE_ID", newId);
+            router.push({ path: `/notnik/note/${newId}`, query: { new: true } });
         } catch (err) {
-            dispatch("ui/SET_LOADING_STATE", { active: false, message: "" }, { root: true });
-            dispatch("SET_SERVER_ERROR", err.response.data.message);
+            throw err;
+        }
+    },
+    async SYNC_CHANGES({ state }) {
+        try {
+            const activeNote = state.notes.find(note => note._id === state.activeNoteId);
+            const res = await axios.post("journal/sync", { entry: activeNote }, { headers: { "Content-Type": "application/json" } });
+            if (res.status !== 200 && res.status !== 201) throw new Error("Couldn't sync entry changes");
+        } catch (err) {
             throw err;
         }
     },
     SET_ACTIVE_NOTE_ID({ commit }, id) {
         commit("setActiveNoteId", id);
     },
-    UPDATE_ACTIVE_NOTE({ commit }, { body, title }) {
-        commit("updateActiveNote", { body, title });
+    UPDATE_ACTIVE_NOTE({ commit }, { body }) {
+        commit("updateActiveNote", { body });
     },
     UPDATE_NOTES({ commit }, notes) {
         commit("updateNotes", notes);
@@ -61,11 +67,10 @@ const mutations = {
     updateNotes(state, payload) {
         state.notes = payload;
     },
-    updateActiveNote(state, { body, title }) {
+    updateActiveNote(state, { body }) {
         state.notes = state.notes.map(note => {
             if (note._id === state.activeNoteId) {
                 note.body = body;
-                note.title = title;
             }
             return note;
         });
