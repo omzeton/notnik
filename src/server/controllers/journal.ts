@@ -10,8 +10,9 @@ const getEntries = async (req: Request, res: Response, next: NextFunction) => {
         const entries = user.entries;
         if (!entries) throw new Error("Error when fetching entries.");
         res.status(200).json({ entries });
-    } catch {
+    } catch (err) {
         next({ statusCode: 500, msg: "Error when fetching entries." });
+        throw err;
     }
 };
 
@@ -21,7 +22,7 @@ const addNewEntry = async (req: Request, res: Response, next: NextFunction) => {
         const user = await User.findById(uId);
         if (!user) throw new Error("Could not connect to the user");
 
-        user.entries.push({
+        await user.entries.push({
             body: "New note",
             date: +new Date(),
         });
@@ -32,8 +33,9 @@ const addNewEntry = async (req: Request, res: Response, next: NextFunction) => {
             }
             res.status(200).json({ entries: user.entries });
         });
-    } catch {
+    } catch (err) {
         next({ statusCode: 500, msg: "Error when creating new entry" });
+        throw err;
     }
 };
 
@@ -44,7 +46,6 @@ const syncEntry = async (req: Request, res: Response, next: NextFunction) => {
         if (!user) throw new Error("Could not connect to the user");
 
         const updatedEntry = req.body.entry;
-
         await user.entries.map(entry => {
             if (entry._id!.toString() === updatedEntry._id) {
                 entry.body = updatedEntry.body;
@@ -60,8 +61,9 @@ const syncEntry = async (req: Request, res: Response, next: NextFunction) => {
             }
             res.status(200).json({ entries: user.entries });
         });
-    } catch {
+    } catch (err) {
         next({ statusCode: 500, msg: "Error when updating entry" });
+        throw err;
     }
 };
 

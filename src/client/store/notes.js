@@ -23,11 +23,13 @@ const actions = {
     },
     async CREATE_NEW_NOTE({ dispatch }) {
         try {
-            const newNoteId = uuidv4();
             const res = await axios.post("journal/new");
             if (res.status !== 200 && res.status !== 201) throw new Error("Couldn't create new entry");
-            dispatch("UPDATE_NOTES", res.data.entries);
-            router.push({ path: `/notnik/note/${newNoteId}`, query: { new: true } });
+            const { entries } = res.data;
+            dispatch("UPDATE_NOTES", entries);
+            const newId = entries[entries.length - 1]._id;
+            router.push({ path: `/notnik/note/${newId}`, query: { new: true } });
+            dispatch("SET_ACTIVE_NOTE_ID", newId);
         } catch (err) {
             throw err;
         }
@@ -36,7 +38,6 @@ const actions = {
         try {
             const activeNote = state.notes.find(note => note._id === state.activeNoteId);
             const res = await axios.post("journal/sync", { entry: activeNote }, { headers: { "Content-Type": "application/json" } });
-            console.log({ res });
             if (res.status !== 200 && res.status !== 201) throw new Error("Couldn't sync entry changes");
         } catch (err) {
             throw err;

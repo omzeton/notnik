@@ -27,7 +27,7 @@ export default {
     },
     computed: {
         activeNote() {
-            if (this.$route.query.new) return { title: "New note", body: "" };
+            if (this.$route.query.new) return { body: "" };
             const allNotes = this.$store.getters["notes/GET_NOTES"];
             return allNotes.find(note => note._id === this.$route.params.id);
         },
@@ -42,7 +42,7 @@ export default {
                 lineWrapping: true,
             }).on("change", cm => {
                 const body = cm.getValue();
-                this.$store.dispatch("notes/UPDATE_ACTIVE_NOTE", { body, title: this.activeNote.title });
+                this.$store.dispatch("notes/UPDATE_ACTIVE_NOTE", { body });
             });
             this.codemirrorActive = true;
         }
