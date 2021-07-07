@@ -38,7 +38,7 @@ const actions = {
     },
     async CHECK_AUTH_STATUS({ dispatch }) {
         try {
-            const res = await axios.get("auth/authenticate");
+            const res = await axios.get("auth/authenticate", { headers: { "Content-Type": "application/json" } });
             if (res.status !== 200 && res.status !== 201) throw new Error();
             dispatch("SAVE_USER_AUTH_STATUS", res.data.tokenIsValid);
             if (res.data.tokenIsValid && router.history.current.path !== "/notnik") router.push("/notnik");
@@ -50,7 +50,7 @@ const actions = {
     async LOG_OUT({ dispatch }) {
         try {
             dispatch("ui/SET_LOADING_STATE", { active: true, message: "Logging out" }, { root: true });
-            const res = await axios.post("auth/logout");
+            const res = await axios.post("auth/logout", null, { headers: { "Content-Type": "application/json" } });
             if (res.status !== 200 && res.status !== 201) throw new Error("Unable to logout.");
             await sleep(1000);
             window.location.replace("/");

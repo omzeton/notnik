@@ -12,7 +12,7 @@ module.exports = {
         serviceWorker: "./src/client/serviceWorker.js",
     },
     output: {
-        path: path.resolve(__dirname, "dist/"),
+        path: path.resolve(__dirname, "../dist/"),
         filename: "[name].js",
         publicPath: "/",
     },

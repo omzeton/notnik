@@ -22,7 +22,6 @@ module.exports = merge(commonConfig, {
                 test: /\.(s[ac]|c)ss$/i,
                 use: [
                     "vue-style-loader",
-                    MiniCssExtractPlugin.loader,
                     "css-loader",
                     "postcss-loader",
                     {
@@ -53,11 +52,6 @@ module.exports = merge(commonConfig, {
             "process.env": dotenv.parsed,
         }),
     ],
-    performance: {
-        hints: "warning",
-        maxEntrypointSize: 512000,
-        maxAssetSize: 512000,
-    },
     optimization: {
         minimizer: [new CssMinimizerPlugin(), "..."],
         runtimeChunk: "multiple",

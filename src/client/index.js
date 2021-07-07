@@ -2,7 +2,7 @@ import Vue from "vue";
 import VueRouter from "vue-router";
 import axios from "axios";
 
-axios.defaults.baseURL = "http://localhost:8080/api/";
+axios.defaults.baseURL = window.location.origin + "/api/";
 
 import store from "@/store";
 import router from "@/routes";
