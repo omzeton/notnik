@@ -1,11 +1,11 @@
 {
     "scripts": {
-        "dev": "concurrently \"npm run server\" \"npm run client\"",
         "client": "cross-env NODE_ENV=development webpack serve --config config/webpack.dev.js",
         "server": "nodemon --config config/nodemon.config.json",
+        "dev": "concurrently \"npm run server\" \"npm run client\"",
         "build": "cross-env NODE_ENV=production webpack --config config/webpack.prod.js",
         "prod": "node -r ts-node/register/transpile-only src/server/index.ts",
-        "start": "npm run client"
+        "start": "npm run build && npm run prod"
     },
     "private": true,
     "dependencies": {
