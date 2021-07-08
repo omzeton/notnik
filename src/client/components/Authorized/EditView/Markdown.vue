@@ -6,6 +6,8 @@
 
 <script>
 import VueMarkdown from "vue-markdown";
+import Prism from "prismjs";
+import "prismjs/components/prism-javascript";
 
 export default {
     components: {
@@ -16,6 +18,9 @@ export default {
             type: String,
             default: "",
         },
+    },
+    mounted() {
+        Prism.highlightAll();
     },
 };
 </script>
