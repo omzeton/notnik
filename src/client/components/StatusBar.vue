@@ -20,7 +20,7 @@
 <script>
 import TextIcon from "@/components/Icons/TextIcon";
 import PencilIcon from "@/components/Icons/PencilIcon";
-import { getCurrentDate } from "@/utils";
+import { getClock } from "@/utils";
 
 export default {
     components: {
@@ -49,9 +49,9 @@ export default {
         },
     },
     mounted() {
-        this.date = getCurrentDate();
+        this.date = getClock();
         setInterval(() => {
-            this.date = getCurrentDate();
+            this.date = getClock();
         }, 1000);
     },
 };

@@ -4,6 +4,7 @@ const state = {
     loadingMessage: "",
     settingsModal: false,
     markdownMode: false,
+    notificationIsVisible: false,
 };
 
 const actions = {
@@ -19,6 +20,10 @@ const actions = {
     SET_LOADING_STATE({ commit }, { active, message }) {
         commit("updateIsLoading", { active, message });
     },
+    DISPLAY_NOTIFICATION({ commit }) {
+        commit("updateNotificationVisibility", true);
+        setTimeout(() => commit("updateNotificationVisibility", false), 2000);
+    },
 };
 
 const getters = {
@@ -27,6 +32,7 @@ const getters = {
     GET_LOADING_MESSAGE: state => state.loadingMessage,
     GET_SETTINGS_MODAL_IS_OPEN: state => state.settingsModal,
     GET_IS_MARKDOWN_MODE: state => state.markdownMode,
+    GET_NOTIFICATION_IS_VISIBLE: state => state.notificationIsVisible,
 };
 
 const mutations = {
@@ -42,6 +48,9 @@ const mutations = {
     },
     toggleMarkdownMode(state) {
         state.markdownMode = !state.markdownMode;
+    },
+    updateNotificationVisibility(state, payload) {
+        state.notificationIsVisible = payload;
     },
 };
 
