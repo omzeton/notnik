@@ -1,6 +1,6 @@
 <template>
     <div class="full-entry__markdown-wrapper">
-        <vue-markdown :source="body" />
+        <VueMarkdown :source="body" />
     </div>
 </template>
 

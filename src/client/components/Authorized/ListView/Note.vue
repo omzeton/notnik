@@ -1,27 +1,33 @@
 <template>
-    <router-link :to="`notnik/note/${id}`" class="grid-cell" v-on:click.native="makeSelection">
+    <router-link v-if="body && id" :to="`notnik/note/${id}`" class="grid-cell" v-on:click.native="makeSelection">
         <div class="entry">
             <FileIcon />
-            <p class="entry__title">{{ shortBody }}</p>
+            <p class="entry__title">{{ title }}</p>
         </div>
     </router-link>
 </template>
 
 <script>
 import FileIcon from "@/components/Icons/FileIcon.vue";
+import { getNoteTitle } from "@/utils";
 
 export default {
-    props: ["body", "date", "imgUrl", "title", "uId", "id"],
+    props: {
+        body: {
+            type: String,
+            required: true,
+        },
+        id: {
+            type: String,
+            required: true,
+        },
+    },
     components: {
         FileIcon,
     },
     computed: {
-        shortBody() {
-            if (this.body.length > 10) {
-                return this.body.slice(0, 10) + "...";
-            } else {
-                return this.body;
-            }
+        title() {
+            return getNoteTitle(this.body);
         },
     },
     methods: {

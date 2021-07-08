@@ -5,6 +5,20 @@
         width: 1em;
     }
 
+    line-height: 2rem;
+    background-color: $bla1 !important;
+    color: $w !important;
+    border: none;
+    box-sizing: border-box;
+    height: calc(100vh - 10em);
+    @media screen and (min-width: 900px) {
+        height: calc(100vh - 15em);
+    }
+    @media screen and (min-width: 1200px) {
+        height: calc(100vh - 20em);
+    }
+}
+.CodeMirror-vscrollbar {
     &::-webkit-scrollbar-track {
         background: $bla1;
     }
@@ -17,29 +31,12 @@
     &::-webkit-scrollbar-thumb:active {
         background: $bla2;
     }
-
-    line-height: 2rem;
-    background-color: $bla1 !important;
-    color: $w !important;
-    border: none;
-    box-sizing: border-box;
-    padding: 2em;
-    height: calc(100vh - 10em);
-    @media screen and (min-width: 900px) {
-        height: calc(100vh - 15em);
-    }
-    @media screen and (min-width: 1200px) {
-        height: calc(100vh - 20em);
-    }
 }
 .CodeMirror-gutters {
-    color: #282a36;
+    background-color: $bla3;
 }
 .CodeMirror-cursor {
     border-left: solid thin $w;
-}
-.CodeMirror-linenumber {
-    color: #6d8a88;
 }
 .CodeMirror-selected {
     background: $rd;

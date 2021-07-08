@@ -86,13 +86,6 @@ export default {
         display: flex;
         flex-direction: column;
     }
-    &__markdown-wrapper {
-        color: $w2;
-        font-family: "Montserrat", sans-serif;
-        font-size: 1rem;
-        line-height: 3rem;
-        padding-bottom: 20em;
-    }
     &__codemirror-wrapper {
         width: 100%;
         max-width: 100%;

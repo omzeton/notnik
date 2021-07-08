@@ -24,6 +24,7 @@ export default {
         if (!this.codemirrorActive) {
             CodeMirror.fromTextArea(this.$refs.codemirror, {
                 theme: "dracula",
+                lineNumbers: true,
                 lineWrapping: true,
             }).on("change", cm => {
                 const body = cm.getValue();
