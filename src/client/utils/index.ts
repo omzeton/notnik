@@ -13,6 +13,5 @@ export const getClock = (): string[] => {
 };
 export const getNoteTitle = (text: string) => {
     const noteText = text.trim().match(/[^#]{1,45}/);
-    console.log({ noteText });
-    return noteText ? noteText[0].trim().split(/\r?\n/)[0] : "Fresh note";
+    return noteText ? noteText[0].trim().split(/\r?\n/)[0] : "*empty_note*";
 };

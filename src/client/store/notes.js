@@ -1,5 +1,4 @@
 import axios from "axios";
-import { v4 as uuidv4 } from "uuid";
 
 import router from "@/routes";
 
@@ -34,12 +33,13 @@ const actions = {
             throw err;
         }
     },
-    async SYNC_CHANGES({ state, dispatch }) {
+    async SYNC_CHANGES({ state, dispatch }, { notification }) {
         try {
             const activeNote = state.notes.find(note => note._id === state.activeNoteId);
             const res = await axios.post("journal/sync", { entry: activeNote }, { headers: { "Content-Type": "application/json" } });
             if (res.status !== 200 && res.status !== 201) throw new Error("Couldn't sync entry changes");
-            dispatch("ui/DISPLAY_NOTIFICATION", null, { root: true });
+            console.log("%cSynced notes with database 🐱‍🐉", "color: #3fc577;");
+            if (notification) dispatch("ui/DISPLAY_NOTIFICATION", null, { root: true });
         } catch (err) {
             throw err;
         }

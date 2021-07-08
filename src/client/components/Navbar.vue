@@ -24,7 +24,7 @@ export default {
         navigateToListView() {
             if (this.$route.path !== "/notnik") {
                 this.$router.push("/notnik");
-                this.$store.dispatch("notes/SYNC_CHANGES");
+                this.$store.dispatch("notes/SYNC_CHANGES", { notification: true });
             }
         },
         logout() {
