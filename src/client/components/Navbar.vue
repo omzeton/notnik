@@ -19,7 +19,9 @@ export default {
             this.$store.dispatch("ui/TOGGLE_SETTINGS_MODAL");
         },
         createNewNote() {
-            this.$store.dispatch("notes/CREATE_NEW_NOTE");
+            if (this.$route.path === "/notnik") {
+                this.$store.dispatch("notes/CREATE_NEW_NOTE");
+            }
         },
         navigateToListView() {
             if (this.$route.path !== "/notnik") {
