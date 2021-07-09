@@ -7,7 +7,7 @@ import router from "@/routes";
 import App from "@/components/App.vue";
 import "@/styles/index.scss";
 
-axios.defaults.baseURL = window.location.origin + "/api/";
+axios.defaults.baseURL = window.location.origin + "/.netlify/functions/server/api";
 
 if (process.env.NODE_ENV !== "production") {
     Vue.config.debug = true;

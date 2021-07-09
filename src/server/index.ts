@@ -1,10 +1,7 @@
 import mongoose from "mongoose";
 import * as dotenv from "dotenv";
 
-import initServer from "./initServer";
-import router from "./routes";
-
-const app = initServer(router);
+import app, { handler } from "./initServer";
 
 dotenv.config();
 
@@ -16,6 +13,7 @@ mongoose
     })
     .then(() => {
         const port = process.env.PORT || 2828;
+        // @ts-ignore
         app.listen(port, () => console.log("\x1b[33m", `Listening on port ${port}`));
     })
     .catch(err => {
