@@ -22,7 +22,6 @@ export default {
     mounted() {
         document.addEventListener("keydown", this.sync);
         this.$store.dispatch("auth/CHECK_AUTH_STATUS");
-        console.log("MOUNTED!!");
     },
     beforeDestroy() {
         document.removeEventListener("keydown", this.sync);

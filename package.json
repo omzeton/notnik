@@ -1,13 +1,17 @@
 {
+    "name": "notnik",
+    "version": "2.2.0",
+    "description": "App for taking notes",
+    "author": "Adam Rolczyk",
+    "private": false,
+    "license": "MIT",
     "scripts": {
         "client": "cross-env NODE_ENV=development webpack serve --config config/webpack.dev.js",
-        "server": "nodemon --config config/nodemon.config.json",
-        "dev": "concurrently \"npm run server\" \"npm run client\"",
-        "build": "cross-env NODE_ENV=production webpack --config config/webpack.prod.js",
-        "prod": "node -r ts-node/register/transpile-only src/server/index.ts",
-        "start": "npm run build && npm run prod"
+        "server": "node -r ts-node/register/transpile-only src/server/index.ts",
+        "server:watch": "nodemon --config config/nodemon.config.json",
+        "dev": "concurrently \"npm run server:watch\" \"npm run client\"",
+        "build": "cross-env NODE_ENV=production webpack --config config/webpack.prod.js"
     },
-    "private": true,
     "dependencies": {
         "axios": "^0.21.1",
         "bcryptjs": "^2.4.3",

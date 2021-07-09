@@ -7,13 +7,10 @@ require("babel-polyfill");
 require("dotenv").config();
 
 module.exports = {
-    entry: {
-        main: "./src/client/index.js",
-        serviceWorker: "./src/client/serviceWorker.js",
-    },
+    entry: "./src/client/index.js",
     output: {
         path: path.resolve(__dirname, "../dist/"),
-        filename: "[name].js",
+        filename: "[name].[fullhash].bundle.js",
         publicPath: "/",
     },
     module: {
@@ -59,7 +56,7 @@ module.exports = {
                 {
                     from: path.resolve(__dirname, "../public"),
                     globOptions: {
-                        ignore: ["*.DS_Store", "favicon.ico", "template.html"],
+                        ignore: ["favicon.ico", "template.html"],
                     },
                 },
             ],

@@ -2,19 +2,12 @@ import Vue from "vue";
 import VueRouter from "vue-router";
 import axios from "axios";
 
-axios.defaults.baseURL = window.location.origin + "/api/";
-
 import store from "@/store";
 import router from "@/routes";
 import App from "@/components/App.vue";
 import "@/styles/index.scss";
 
-if ("serviceWorker" in navigator) {
-    navigator.serviceWorker
-        .register("./serviceWorker.js")
-        .then(registrationObj => console.log("%cservice worker registered!", "color: green;", registrationObj))
-        .catch(err => console.log("%cservice worker NOT registered", "color: red;", err));
-}
+axios.defaults.baseURL = window.location.origin + "/api/";
 
 if (process.env.NODE_ENV !== "production") {
     Vue.config.debug = true;

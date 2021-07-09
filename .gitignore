@@ -2,7 +2,5 @@ node_modules
 dist
 nodemon.json
 mongodb.password
-access.log
 src/server/images
-src/client/_good_ol_react
 .env
