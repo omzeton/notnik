@@ -1,10 +1,9 @@
-import serverless from "serverless-http";
 import path from "path";
 import helmet from "helmet";
 import cors from "cors";
 import compression from "compression";
 import cookieParser from "cookie-parser";
-import express, { Router, Request, Response, NextFunction } from "express";
+import express, { Request, Response, NextFunction } from "express";
 
 import router from "./routes";
 import { APIError } from "./types";
@@ -27,8 +26,7 @@ app.use((req: Request, res: Response, next: NextFunction) => {
 });
 
 app.use(express.static(path.join(__dirname, "../../dist/")));
-// app.use("/api", router);
-app.use("/.netlify/functions/server/api", router);
+app.use("/api", router);
 app.get("*", (req: Request, res: Response) => {
     res.sendFile(path.join(__dirname, "../../dist/index.html"));
 });
@@ -39,4 +37,3 @@ app.use((error: APIError, req: Request, res: Response, next: NextFunction) => {
 });
 
 export default app;
-export const handler = serverless(app);

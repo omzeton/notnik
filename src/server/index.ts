@@ -1,7 +1,7 @@
 import mongoose from "mongoose";
 import * as dotenv from "dotenv";
 
-import app, { handler } from "./initServer";
+import app from "./initServer";
 
 dotenv.config();
 
