@@ -1,13 +1,13 @@
 import VueRouter from "vue-router";
 
-import LoginView from "@/components/LoginView";
+import Splash from "@/components/Splash";
 import FullNote from "@/components/Authorized/EditView/FullNote";
 import NoteList from "@/components/Authorized/ListView/NoteList";
 
 const routes = [
     {
         path: "/",
-        component: LoginView,
+        component: Splash,
     },
     {
         path: "/notnik",

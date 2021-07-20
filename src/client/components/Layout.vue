@@ -14,14 +14,14 @@
 <script>
 import Navbar from "./Navbar";
 import SettingsModal from "@/components/Authorized/SettingsModal/SettingsModal";
-import LoginView from "./LoginView";
+import Splash from "./Splash";
 import NoteList from "./Authorized/ListView/NoteList";
 import StatusBar from "@/components/StatusBar";
 
 export default {
     components: {
         Navbar,
-        LoginView,
+        Splash,
         NoteList,
         SettingsModal,
         StatusBar,

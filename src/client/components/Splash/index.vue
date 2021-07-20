@@ -1,17 +1,17 @@
 <template>
     <div class="homescreen">
         <Sign />
-        <FormPanel />
+        <FormModal />
     </div>
 </template>
 
 <script>
-import FormPanel from "./FormPanel";
+import FormModal from "./FormModal";
 import Sign from "../Icons/Sign";
 
 export default {
     components: {
-        FormPanel,
+        FormModal,
         Sign,
     },
 };
