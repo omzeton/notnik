@@ -65,6 +65,11 @@ export default {
             this.$store.dispatch("ui/SET_LOADING_STATE", { active: false, message: "" }, { root: true });
         },
         toggleFormType() {
+            this.form = {
+                email: "",
+                password: "",
+                repeatPassword: "",
+            };
             this.$store.dispatch("ui/TOGGLE_FORM_VIEW");
         },
     },

@@ -20,7 +20,7 @@ export default {
 <style lang="scss">
 .homescreen {
     position: absolute;
-    width: calc(100% - 3em);
+    width: calc(100% - 2em);
     height: 100%;
     right: 0;
     top: 0;
@@ -29,5 +29,8 @@ export default {
     background-size: cover;
     background-position: center;
     background-image: url("@assets/notnik_splash.jpg");
+    @media (min-width: $md) {
+        width: calc(100% - 3em);
+    }
 }
 </style>

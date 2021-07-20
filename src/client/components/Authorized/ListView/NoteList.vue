@@ -27,7 +27,7 @@ export default {
 <style lang="scss">
 .list {
     position: absolute;
-    width: calc(100% - 3em);
+    width: calc(100% - 2em);
     height: 100%;
     right: 0;
     top: 0;
@@ -37,5 +37,8 @@ export default {
     background-size: 15em;
     box-sizing: border-box;
     padding: 1em 1em 2.5em 1em;
+    @media (min-width: $md) {
+        width: calc(100% - 3em);
+    }
 }
 </style>

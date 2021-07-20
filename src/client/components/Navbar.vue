@@ -39,7 +39,7 @@ export default {
 <style lang="scss">
 .navbar {
     height: 100%;
-    width: 3em;
+    width: 2em;
     background-color: $bla1;
     position: fixed;
     left: 0;
@@ -52,8 +52,11 @@ export default {
     opacity: 1;
     transition: opacity 0.5s ease-out;
     z-index: 10;
+    @media (min-width: $md) {
+        width: 3em;
+    }
     &__button {
-        height: 3.5em;
+        height: 2.5em;
         width: 100%;
         background-color: $bla2;
         background-repeat: no-repeat;
@@ -70,6 +73,9 @@ export default {
             top: 0;
             height: 100%;
             left: calc(100% - 0.2em);
+        }
+        @media (min-width: $md) {
+            height: 3.5em;
         }
     }
     &__new {

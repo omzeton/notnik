@@ -37,7 +37,7 @@ export default {
 
 .full-entry {
     position: absolute;
-    width: calc(100% - 3em);
+    width: calc(100% - 2em);
     height: calc(100vh - 1.5em);
     right: 0;
     top: 0;
@@ -46,7 +46,10 @@ export default {
     grid-template-rows: 11em 1fr;
     background-color: $bla2;
     overflow-x: hidden;
-    padding: 3em;
+    padding: 1em;
+    @media (min-width: $md) {
+        width: calc(100% - 3em);
+    }
     @media screen and (min-width: 900px) {
         padding: 6em;
     }
@@ -85,6 +88,7 @@ export default {
         box-sizing: border-box;
         display: flex;
         flex-direction: column;
+        width: 100%;
     }
     &__codemirror-wrapper {
         width: 100%;
