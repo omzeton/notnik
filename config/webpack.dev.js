@@ -6,7 +6,6 @@ const webpack = require("webpack");
 const dotenv = require("dotenv").config({
     path: path.join(__dirname, ".env.development"),
 });
-const vars = require("./scssVars");
 
 const commonConfig = require("./webpack.common");
 
@@ -25,7 +24,7 @@ module.exports = merge(commonConfig, {
                     {
                         loader: "sass-loader",
                         options: {
-                            additionalData: vars,
+                            additionalData: '@import "@/styles/_variables.scss";',
                         },
                     },
                 ],

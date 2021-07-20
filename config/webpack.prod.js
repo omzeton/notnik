@@ -7,7 +7,6 @@ const CssMinimizerPlugin = require("css-minimizer-webpack-plugin");
 const dotenv = require("dotenv").config({
     path: path.join(__dirname, ".env.production"),
 });
-const vars = require("./scssVars");
 
 const commonConfig = require("./webpack.common.js");
 
@@ -27,7 +26,7 @@ module.exports = merge(commonConfig, {
                     {
                         loader: "sass-loader",
                         options: {
-                            additionalData: vars,
+                            additionalData: '@import "@/styles/_variables.scss";',
                         },
                     },
                 ],
