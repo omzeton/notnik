@@ -15,13 +15,18 @@ export default {
     border-radius: 0.5em;
     border: 1px solid $w;
     box-sizing: border-box;
-    padding: 1em;
     color: $w;
     font-family: "Montserrat", sans-serif;
+    padding: 0.8em;
+    font-size: 0.6rem;
     cursor: pointer;
     &:hover {
         background-color: $w;
         color: $bla3;
+    }
+    @media (min-width: $md) {
+        padding: 1em;
+        font-size: 0.8rem;
     }
 }
 </style>

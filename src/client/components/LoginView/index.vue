@@ -7,7 +7,7 @@
 
 <script>
 import FormPanel from "./FormPanel";
-import Sign from "./Sign";
+import Sign from "../Icons/Sign";
 
 export default {
     components: {

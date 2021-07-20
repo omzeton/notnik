@@ -1,30 +1,15 @@
 <template>
     <div class="form-panel">
-        <transition name="fade">
-            <LoginForm :toggleFormType="toggleFormType" v-if="isLoginForm" />
-            <RegistrationForm :toggleFormType="toggleFormType" v-else />
-        </transition>
+        <Form />
     </div>
 </template>
 
 <script>
-import LoginForm from "./LoginForm";
-import RegistrationForm from "./RegistrationForm";
+import Form from "./Form";
 
 export default {
     components: {
-        LoginForm,
-        RegistrationForm,
-    },
-    methods: {
-        toggleFormType() {
-            this.$store.dispatch("ui/TOGGLE_FORM_VIEW");
-        },
-    },
-    computed: {
-        isLoginForm() {
-            return this.$store.getters["ui/GET_FORM_VIEW"];
-        },
+        Form,
     },
 };
 </script>
@@ -35,11 +20,15 @@ export default {
     left: 50%;
     top: 50%;
     transform: translate(-50%, -50%);
-    height: 30em;
+    height: 16em;
+    width: 14em;
     background-color: $bla3;
     box-shadow: 0 0 50px 0 $bla1;
     border-radius: 0.5em;
-    width: 25em;
+    @media (min-width: $md) {
+        width: 25em;
+        height: 30em;
+    }
 }
 .errors {
     position: absolute;

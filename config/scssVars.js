@@ -18,4 +18,10 @@ $or2: #ffb627;
 
 $primary: "Source Sans Pro", sans-serif;
 $code: "Roboto Mono", Monaco, courier, monospace;
+
+$md: 768px;
+$lg: 1024px;
+$xlg: 1280px;
+$xl: 1440px;
+$xl2: 1920px;
 `;
