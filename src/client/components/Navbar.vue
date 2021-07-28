@@ -3,6 +3,7 @@
         <button class="navbar__button navbar__new" @click="createNewNote" aria-label="Create new note" />
         <button class="navbar__button navbar__list" @click="navigateToListView" aria-label="Go to all notes" />
         <button class="navbar__button navbar__settings" @click="settings" aria-label="Settigs" />
+        <button class="navbar__button navbar__delete" :class="[isDeletingMode && 'navbar__delete--active']" @click="toggleDeletingMode" aria-label="Settigs" />
         <button class="navbar__button navbar__logout" @click="logout" aria-label="Log out" />
     </div>
 </template>
@@ -12,6 +13,9 @@ export default {
     computed: {
         isAuthenticated() {
             return this.$store.getters["auth/GET_IS_AUTHENTICATED"];
+        },
+        isDeletingMode() {
+            return this.$store.getters["ui/GET_IS_DELETING_MODE"];
         },
     },
     methods: {
@@ -31,6 +35,9 @@ export default {
         },
         logout() {
             this.$store.dispatch("auth/LOG_OUT");
+        },
+        toggleDeletingMode() {
+            this.$store.dispatch("ui/TOGGLE_DELETING_MODE");
         },
     },
 };
@@ -94,6 +101,16 @@ export default {
         background-image: url("@assets/settings.svg");
         &:after {
             background-color: $blu;
+        }
+    }
+    &__delete {
+        background-image: url("@assets/delete.svg");
+        transition: box-shadow 0.3s ease-out;
+        &:after {
+            background-color: $err;
+        }
+        &--active {
+            box-shadow: 0px 0px 35px 5px rgba(236, 78, 32, 0.5);
         }
     }
     &__logout {

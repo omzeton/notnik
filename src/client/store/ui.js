@@ -3,6 +3,7 @@ const state = {
     isLoading: false,
     loadingMessage: "",
     settingsModal: false,
+    deletingMode: false,
     markdownMode: false,
     notificationIsVisible: false,
 };
@@ -24,6 +25,9 @@ const actions = {
         commit("updateNotificationVisibility", true);
         setTimeout(() => commit("updateNotificationVisibility", false), 2000);
     },
+    TOGGLE_DELETING_MODE({ commit }) {
+        commit("toggleDeletingMode");
+    },
 };
 
 const getters = {
@@ -33,6 +37,7 @@ const getters = {
     GET_SETTINGS_MODAL_IS_OPEN: state => state.settingsModal,
     GET_IS_MARKDOWN_MODE: state => state.markdownMode,
     GET_NOTIFICATION_IS_VISIBLE: state => state.notificationIsVisible,
+    GET_IS_DELETING_MODE: state => state.deletingMode,
 };
 
 const mutations = {
@@ -48,6 +53,9 @@ const mutations = {
     },
     toggleMarkdownMode(state) {
         state.markdownMode = !state.markdownMode;
+    },
+    toggleDeletingMode(state) {
+        state.deletingMode = !state.deletingMode;
     },
     updateNotificationVisibility(state, payload) {
         state.notificationIsVisible = payload;

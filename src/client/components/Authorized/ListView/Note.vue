@@ -1,6 +1,6 @@
 <template>
     <router-link v-if="body && id" :to="`notnik/note/${id}`" class="grid-cell" v-on:click.native="makeSelection">
-        <div class="entry">
+        <div class="entry" :class="[isDeletingMode && 'entry--ready-to-delete']">
             <FileIcon />
             <p class="entry__title">{{ title }}</p>
         </div>
@@ -29,10 +29,15 @@ export default {
         title() {
             return getNoteTitle(this.body);
         },
+        isDeletingMode() {
+            return this.$store.getters["ui/GET_IS_DELETING_MODE"];
+        },
     },
     methods: {
         makeSelection() {
-            this.$store.dispatch("notes/SET_ACTIVE_NOTE_ID", this.id);
+            if (!isDeletingMode) {
+                this.$store.dispatch("notes/SET_ACTIVE_NOTE_ID", this.id);
+            }
         },
     },
 };
@@ -54,14 +59,36 @@ export default {
     justify-content: center;
     align-items: center;
     color: $bla4;
+    &::before {
+        content: "";
+        position: absolute;
+        left: 50%;
+        top: 45%;
+        transform: translate(-50%, -50%);
+        width: 2px;
+        height: 2px;
+        box-shadow: 0px 0px 30px 35px rgba(236, 78, 32, 1);
+        z-index: 0;
+        opacity: 0;
+        transition: opacity 0.3s ease-out;
+    }
     &:hover {
         color: $bla2;
     }
     &:active {
         color: $bla3;
     }
+    &--ready-to-delete {
+        &:hover {
+            color: #ed3902;
+        }
+        &::before {
+            opacity: 1;
+        }
+    }
     svg {
         width: 60%;
+        z-index: 10;
     }
     &__title {
         position: absolute;
