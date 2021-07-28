@@ -1,10 +1,10 @@
 <template>
-    <router-link v-if="body && id" :to="`notnik/note/${id}`" class="grid-cell" v-on:click.native="makeSelection">
+    <div v-if="body && id" class="grid-cell" @click="makeSelection">
         <div class="entry" :class="[isDeletingMode && 'entry--ready-to-delete']">
             <FileIcon />
             <p class="entry__title">{{ title }}</p>
         </div>
-    </router-link>
+    </div>
 </template>
 
 <script>
@@ -35,8 +35,11 @@ export default {
     },
     methods: {
         makeSelection() {
-            if (!isDeletingMode) {
-                this.$store.dispatch("notes/SET_ACTIVE_NOTE_ID", this.id);
+            if (!this.isDeletingMode) {
+                this.$router.push(`notnik/note/${this.id}`);
+                this.$store.dispatch("notes/SET_ACTIVE_NOTE_ID", { id: this.id });
+            } else {
+                this.$store.dispatch("notes/DELETE_NOTE", { id: this.id });
             }
         },
     },

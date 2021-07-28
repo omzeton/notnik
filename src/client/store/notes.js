@@ -27,7 +27,7 @@ const actions = {
             const { entries } = res.data;
             dispatch("UPDATE_NOTES", entries);
             const newId = entries[entries.length - 1]._id;
-            dispatch("SET_ACTIVE_NOTE_ID", newId);
+            dispatch("SET_ACTIVE_NOTE_ID", { id: newId });
             router.push({ path: `/notnik/note/${newId}`, query: { new: true } });
         } catch (err) {
             throw err;
@@ -43,6 +43,11 @@ const actions = {
         } catch (err) {
             throw err;
         }
+    },
+    async DELETE_NOTE({ state, commit }, { id }) {
+        commit("deleteNote", id);
+        console.log({ id, state });
+        // Remove note from database
     },
     SET_ACTIVE_NOTE_ID({ commit }, id) {
         commit("setActiveNoteId", id);
@@ -81,6 +86,9 @@ const mutations = {
     },
     notesAreFetched(state) {
         state.fetched = true;
+    },
+    deleteNote(state, id) {
+        state.notes = state.notes.filter(note => note._id !== id);
     },
 };
 

@@ -19,7 +19,7 @@ export default {
         },
     },
     mounted() {
-        this.$store.dispatch("notes/SET_ACTIVE_NOTE_ID", "");
+        this.$store.dispatch("notes/SET_ACTIVE_NOTE_ID", { id: "" });
     },
 };
 </script>
