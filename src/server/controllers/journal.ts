@@ -79,7 +79,6 @@ const deleteEntry = async (req: Request, res: Response, next: NextFunction) => {
                 console.log(err);
                 return;
             }
-            console.log({ entries: user.entries.length });
             res.status(200).json({ entries: user.entries });
         });
     } catch (err) {
