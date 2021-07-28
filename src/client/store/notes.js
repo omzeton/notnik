@@ -36,6 +36,7 @@ const actions = {
     async SYNC_CHANGES({ state, dispatch }, { notification }) {
         try {
             const activeNote = state.notes.find(note => note._id === state.activeNoteId);
+            if (!activeNote) throw new Error("No active entry found!");
             const res = await axios.post("journal/sync", { entry: activeNote }, { headers: { "Content-Type": "application/json" } });
             if (res.status !== 200 && res.status !== 201) throw new Error("Couldn't sync entry changes");
             console.log("%cSynced notes with database 🐱‍🐉", "color: #3fc577;");
@@ -44,12 +45,12 @@ const actions = {
             throw err;
         }
     },
-    async DELETE_NOTE({ state, commit }, { id }) {
+    async DELETE_NOTE({ commit }, { id }) {
         commit("deleteNote", id);
-        console.log({ id, state });
-        // Remove note from database
+        const res = await axios.post("journal/remove-entry", { id }, { headers: { "Content-Type": "application/json" } });
+        if (res.status !== 200 && res.status !== 201) throw new Error("Couldn't delete entry!");
     },
-    SET_ACTIVE_NOTE_ID({ commit }, id) {
+    SET_ACTIVE_NOTE_ID({ commit }, { id }) {
         commit("setActiveNoteId", id);
     },
     UPDATE_ACTIVE_NOTE({ commit }, { body }) {

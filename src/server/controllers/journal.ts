@@ -67,4 +67,25 @@ const syncEntry = async (req: Request, res: Response, next: NextFunction) => {
     }
 };
 
-export { getEntries, addNewEntry, syncEntry };
+const deleteEntry = async (req: Request, res: Response, next: NextFunction) => {
+    try {
+        if (!req.body.id) throw new Error("No ID was provided for deleted entry");
+        const uId: string = res.locals.userId;
+        const user = await User.findById(uId);
+        if (!user) throw new Error("Could not connect to the user");
+        user.entries = user.entries.filter(entry => entry._id!.toString() !== req.body.id);
+        user.save(err => {
+            if (err) {
+                console.log(err);
+                return;
+            }
+            console.log({ entries: user.entries.length });
+            res.status(200).json({ entries: user.entries });
+        });
+    } catch (err) {
+        next({ statusCode: 500, msg: "Couldn't delete entry from database" });
+        throw err;
+    }
+};
+
+export { getEntries, addNewEntry, syncEntry, deleteEntry };
