@@ -23,3 +23,14 @@ new Vue({
     store,
     render: h => h(App),
 });
+
+if ('serviceWorker' in navigator) {
+    window.addEventListener('load', async () => {
+        try {
+            await navigator.serviceWorker.register('serviceWorker.js');
+            console.log('Service Worker registered');
+        } catch(err) {
+            throw err;
+        }
+    })
+}
