@@ -9,7 +9,7 @@
         "client": "cross-env NODE_ENV=development webpack serve --config config/webpack.dev.js",
         "server": "node -r ts-node/register/transpile-only src/server/index.ts",
         "server:watch": "nodemon --config config/nodemon.config.json",
-        "dev": "concurrently \"yarn server:watch\" \"yarn client\"",
+        "start": "concurrently --raw \"yarn server:watch\" \"yarn client\"",
         "build": "cross-env NODE_ENV=production webpack --config config/webpack.prod.js"
     },
     "dependencies": {
