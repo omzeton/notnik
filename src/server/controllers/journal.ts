@@ -47,7 +47,7 @@ const syncEntry = async (req: Request, res: Response, next: NextFunction) => {
 
         const updatedEntry = req.body.entry;
         await user.entries.map(entry => {
-            if (entry._id!.toString() === updatedEntry._id) {
+            if (entry._id && entry._id.toString() === updatedEntry._id) {
                 entry.body = updatedEntry.body;
                 entry.date = updatedEntry.date;
             }
@@ -73,7 +73,11 @@ const deleteEntry = async (req: Request, res: Response, next: NextFunction) => {
         const uId: string = res.locals.userId;
         const user = await User.findById(uId);
         if (!user) throw new Error("Could not connect to the user");
-        user.entries = user.entries.filter(entry => entry._id!.toString() !== req.body.id);
+        user.entries = user.entries.filter(entry => {
+            if (entry._id) {
+                return entry._id.toString() !== req.body.id;
+            }
+        });
         user.save(err => {
             if (err) {
                 console.log(err);

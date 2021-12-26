@@ -11,39 +11,26 @@ const state = {
 const actions = {
     async FETCH_ALL_NOTES({ dispatch, state }) {
         if (state.fetched) return;
-        try {
-            const res = await axios.get("journal/entries");
-            if (res.status !== 200 && res.status !== 201) throw new Error("Server error");
-            dispatch("UPDATE_NOTES", res.data.entries);
-            dispatch("UPDATE_NOTES_ARE_FETCHED");
-        } catch (err) {
-            throw err;
-        }
+        const res = await axios.get("journal/entries");
+        if (res.status !== 200 && res.status !== 201) throw new Error("Server error");
+        dispatch("UPDATE_NOTES", res.data.entries);
+        dispatch("UPDATE_NOTES_ARE_FETCHED");
     },
     async CREATE_NEW_NOTE({ dispatch }) {
-        try {
-            const res = await axios.post("journal/new");
-            if (res.status !== 200 && res.status !== 201) throw new Error("Couldn't create new entry");
-            const { entries } = res.data;
-            dispatch("UPDATE_NOTES", entries);
-            const newId = entries[entries.length - 1]._id;
-            dispatch("SET_ACTIVE_NOTE_ID", { id: newId });
-            router.push({ path: `/notnik/note/${newId}`, query: { new: true } });
-        } catch (err) {
-            throw err;
-        }
+        const res = await axios.post("journal/new");
+        if (res.status !== 200 && res.status !== 201) throw new Error("Couldn't create new entry");
+        const { entries } = res.data;
+        dispatch("UPDATE_NOTES", entries);
+        const newId = entries[entries.length - 1]._id;
+        dispatch("SET_ACTIVE_NOTE_ID", { id: newId });
+        router.push({ path: `/notnik/note/${newId}`, query: { new: true } });
     },
     async SYNC_CHANGES({ state, dispatch }, { notification }) {
-        try {
-            const activeNote = state.notes.find(note => note._id === state.activeNoteId);
-            if (!activeNote) throw new Error("No active entry found!");
-            const res = await axios.post("journal/sync", { entry: activeNote }, { headers: { "Content-Type": "application/json" } });
-            if (res.status !== 200 && res.status !== 201) throw new Error("Couldn't sync entry changes");
-            console.log("%cSynced notes with database 🐱‍🐉", "color: #3fc577;");
-            if (notification) dispatch("ui/DISPLAY_NOTIFICATION", null, { root: true });
-        } catch (err) {
-            throw err;
-        }
+        const activeNote = state.notes.find(note => note._id === state.activeNoteId);
+        if (!activeNote) throw new Error("No active entry found!");
+        const res = await axios.post("journal/sync", { entry: activeNote }, { headers: { "Content-Type": "application/json" } });
+        if (res.status !== 200 && res.status !== 201) throw new Error("Couldn't sync entry changes");
+        if (notification) dispatch("ui/DISPLAY_NOTIFICATION", null, { root: true });
     },
     async DELETE_NOTE({ commit }, { id }) {
         commit("deleteNote", id);

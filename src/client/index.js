@@ -26,11 +26,6 @@ new Vue({
 
 if ('serviceWorker' in navigator) {
     window.addEventListener('load', async () => {
-        try {
-            await navigator.serviceWorker.register('serviceWorker.js');
-            console.log('Service Worker registered');
-        } catch(err) {
-            throw err;
-        }
+        await navigator.serviceWorker.register('serviceWorker.js');
     })
 }
