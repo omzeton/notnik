@@ -31,7 +31,7 @@ app.get("*", (req: Request, res: Response) => {
     res.sendFile(path.join(__dirname, "../../dist/index.html"));
 });
 
-app.use((error: APIError, req: Request, res: Response, next: NextFunction) => {
+app.use((error: APIError, req: Request, res: Response) => {
     const status = error.statusCode || 500;
     res.status(status).json({ message: error.msg });
 });

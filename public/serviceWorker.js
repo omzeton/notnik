@@ -1,4 +1,4 @@
-self.addEventListener('load', e => {
+self.addEventListener('load', () => {
   console.log('Service Worker installed');
 });
 

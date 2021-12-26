@@ -64,14 +64,14 @@ const authenticate = async (req: Request, res: Response, next: NextFunction) => 
             res.status(200).json({ tokenIsValid: false });
             return;
         }
-        const tokenExists: any = await jwt.verify(req.cookies.userAccessToken, process.env.TOKEN_SECRET);
+        const tokenExists = await jwt.verify(req.cookies.userAccessToken, process.env.TOKEN_SECRET);
         res.status(200).json({ tokenIsValid: !!tokenExists });
     } catch {
         next({ statusCode: 401, msg: "Unable to validate access token" });
     }
 };
 
-const logout = async (req: Request, res: Response, next: NextFunction) => {
+const logout = async (req: Request, res: Response) => {
     res.clearCookie("userAccessToken");
     res.status(200).send({ message: "Logged out" });
 };
