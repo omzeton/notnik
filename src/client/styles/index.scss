@@ -1,7 +1,7 @@
-@use "fonts";
-@use "variables";
-@use "codemirror";
-@use "markdown";
+@import "fonts";
+@import "variables";
+@import "codemirror";
+@import "markdown";
 
 ::selection {
   background-color: transparent;
