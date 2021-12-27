@@ -5,6 +5,7 @@
     "node": true,
     "es6": true
   },
+  "ignorePatterns": ["config/*", "public/*"],
   "parser": "@typescript-eslint/parser",
   "plugins": [
     "@typescript-eslint"
