@@ -4,28 +4,28 @@
 @import "markdown";
 
 ::selection {
-  background-color: transparent;
-  color: $rd;
+    background-color: transparent;
+    color: $rd;
 }
 
 body {
-  margin: 0;
-  padding: 0;
-  background-color: $bla1;
+    margin: 0;
+    padding: 0;
+    background-color: $bla1;
 }
 
 h2,
 p {
-  margin-block-start: 0;
-  margin-block-end: 0;
+    margin-block-start: 0;
+    margin-block-end: 0;
 }
 
 .fade-enter-active,
 .fade-leave-active {
-  transition: opacity 0.3s;
+    transition: opacity 0.3s;
 }
 
 .fade-enter,
 .fade-leave-to {
-  opacity: 0;
+    opacity: 0;
 }
