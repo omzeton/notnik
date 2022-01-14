@@ -104,7 +104,7 @@
     position: absolute;
     top: calc(100% + 2em);
     left: 50%;
-    transform: translateX(-50%);
+    transform: translateX(-50%) translateY(30px);
     background-color: $err;
     border-radius: $border-radius;
     box-shadow: 0 0 10px 0 $err;

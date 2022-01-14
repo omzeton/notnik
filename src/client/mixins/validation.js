@@ -4,6 +4,7 @@ export default {
     data() {
         return {
             errors: [],
+            errorTimeout: null,
         };
     },
     methods: {
@@ -38,6 +39,14 @@ export default {
     watch: {
         "$store.state.auth.serverError"() {
             this.errors.push(this.$store.state.auth.serverError);
+        },
+        errors() {
+            clearTimeout(this.errorTimeout);
+            if (this.errors.length) {
+                this.errorTimeout = setTimeout(() => {
+                    this.resetErrors();
+                }, 5000);
+            }
         },
     },
 };
