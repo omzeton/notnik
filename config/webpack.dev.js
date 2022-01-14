@@ -37,7 +37,7 @@ module.exports = merge(commonConfig, {
             "/api": "http://localhost:2828",
         },
         hot: true,
-        port: 8080,
+        port: 1234,
     },
     optimization: {
         runtimeChunk: "single",
