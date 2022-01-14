@@ -1,0 +1,23 @@
+@use '@/styles/variables' as *;
+
+%button {
+    background-color: transparent;
+    border-radius: $border-radius;
+    border: 1px solid $w;
+    box-sizing: border-box;
+    color: $w;
+    font-family: $primary;
+    padding: 0.8em;
+    font-size: 0.6rem;
+    cursor: pointer;
+    @media (min-width: $md) {
+        padding: 1em;
+        font-size: 0.9rem;
+    }
+    &:hover,
+    &:focus,
+    &.is-active {
+        background-color: $w;
+        color: $bla3;
+    }
+}
