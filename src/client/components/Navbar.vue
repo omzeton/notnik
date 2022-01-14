@@ -1,10 +1,10 @@
 <template>
     <nav class="navbar" :class="{ 'navbar--inactive': !isAuthenticated }">
-        <button class="navbar__button navbar__new" @click="createNewNote" aria-label="Create new note" />
-        <button class="navbar__button navbar__list" @click="navigateToListView" aria-label="Go to all notes" />
-        <button class="navbar__button navbar__settings" @click="settings" aria-label="Settigs" />
-        <button class="navbar__button navbar__delete" :class="[isDeletingMode && 'navbar__delete--active']" @click="toggleDeletingMode" aria-label="Settigs" />
-        <button class="navbar__button navbar__logout" @click="logout" aria-label="Log out" />
+        <button class="navbar__button navbar__button--new" @click="createNewNote" aria-label="Create new note" />
+        <button class="navbar__button navbar__button--grid" @click="navigateToGridView" aria-label="Go to all notes" />
+        <button class="navbar__button navbar__button--settings" @click="settings" aria-label="Settigs" />
+        <button class="navbar__button navbar__button--delete" :class="[isDeletingMode && 'navbar__delete--active']" @click="toggleDeletingMode" aria-label="Settigs" />
+        <button class="navbar__button navbar__button--logout" @click="logout" aria-label="Log out" />
     </nav>
 </template>
 
@@ -27,7 +27,7 @@ export default {
                 this.$store.dispatch("notes/CREATE_NEW_NOTE");
             }
         },
-        navigateToListView() {
+        navigateToGridView() {
             if (this.$route.path !== "/notnik") {
                 this.$router.push("/notnik");
                 this.$store.dispatch("notes/SYNC_CHANGES", { notification: true });
