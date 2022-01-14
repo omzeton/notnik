@@ -2,12 +2,10 @@ import Vue from "vue";
 import VueRouter from "vue-router";
 import axios from "axios";
 
-import store from "@/store";
-import router from "@/routes";
-import App from "@/components/App.vue";
-import "@/styles/index.scss";
-
-axios.defaults.baseURL = window.location.origin + "/api";
+import store from "./store";
+import router from "./routes";
+import App from "./components/App.vue";
+import "./styles/index.scss";
 
 if (process.env.NODE_ENV !== "production") {
     Vue.config.debug = true;
@@ -15,17 +13,12 @@ if (process.env.NODE_ENV !== "production") {
     Vue.config.performance = true;
 }
 
-Vue.use(VueRouter);
+axios.defaults.baseURL = window.location.origin + "/api";
 
+Vue.use(VueRouter);
 new Vue({
     el: "#root",
     router,
     store,
     render: h => h(App),
 });
-
-if ('serviceWorker' in navigator) {
-    window.addEventListener('load', async () => {
-        await navigator.serviceWorker.register('serviceWorker.js');
-    })
-}
