@@ -19,15 +19,15 @@ export default {
             });
         },
         validateEmail(input) {
-            if (!input.length || !input.split("").includes("@") || input.length <= MIN_LENGTH) this.errors.push("Invalid email.");
+            if (!input.length || !input.split("").includes("@") || input.length <= MIN_LENGTH) this.errors.push("Invalid email");
         },
         validatePassword(input) {
-            if (!input.length || input.length <= MIN_LENGTH) this.errors.push("Invalid password.");
+            if (!input.length || input.length <= MIN_LENGTH) this.errors.push("Invalid password");
         },
         validateTwoPasswords(inputA, inputB) {
-            if (!inputA.length || inputA.length <= MIN_LENGTH) this.errors.push("Invalid first password.");
-            if (!inputB.length || inputB.length <= MIN_LENGTH) this.errors.push("Invalid second password.");
-            if (inputA !== inputB) this.errors.push("Passwords don't match eachother.");
+            if (!inputA.length || inputA.length <= MIN_LENGTH) this.errors.push("Invalid first password");
+            if (!inputB.length || inputB.length <= MIN_LENGTH) this.errors.push("Invalid second password");
+            if (inputA !== inputB) this.errors.push("Passwords don't match eachother");
         },
         resetErrors() {
             this.errors = [];

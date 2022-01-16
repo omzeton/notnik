@@ -1,6 +1,11 @@
 <template>
     <div class="form">
-        <h2 class="form__heading">{{ isLoginForm ? "Sign in" : "Register" }}</h2>
+        <div class="form__heading">
+            <h2 class="form__title">{{ isLoginForm ? "Sign in" : "Register" }}</h2>
+            <transition name="fade">
+                <LoadingSpinner v-if="isLoading" />
+            </transition>
+        </div>
         <form class="form__container" @submit="submitHandler" novalidate>
             <Input placeholder="Email" type="email" v-model="form.email" @focus="resetErrors" />
             <Input v-if="isLoginForm" placeholder="Password" type="password" v-model="form.password" @focus="resetErrors" />
@@ -18,6 +23,7 @@
 <script>
 import Input from "./Input";
 import ValidationError from "./ValidationErrorTooltip";
+import LoadingSpinner from "../LoadingSpinner";
 
 import validation from "@/mixins/validation";
 
@@ -32,17 +38,19 @@ export default {
             },
             loginLinkContent: `Don't have an account? <span class="form__link--accent">Register</span> a new one.`,
             registerLinkContent: `Already have an account? <span class="form__link--accent">Log in</span>.`,
+            isLoading: false,
         };
     },
     components: {
         Input,
         ValidationError,
+        LoadingSpinner,
     },
     methods: {
         submitHandler(event) {
             event.preventDefault();
+            this.isLoading = true;
             this.resetErrors();
-            this.$store.dispatch("ui/SET_LOADING_STATE", { active: true, message: this.isLoginForm ? "Loading" : "Saving new user" }, { root: true });
             const { email, password, repeatPassword } = this.form;
             if (this.isLoginForm) {
                 this.validate({ email, password });
@@ -56,8 +64,9 @@ export default {
                     this.$store.dispatch("auth/REGISTER", { email, password });
                 }
                 return;
+            } else {
+                this.isLoading = false;
             }
-            this.$store.dispatch("ui/SET_LOADING_STATE", { active: false, message: "" }, { root: true });
         },
         toggleFormType() {
             this.form = {

@@ -1,8 +1,9 @@
-.swing-fade-enter-active,
-.swing-fade-leave-active {
-    transition: all 0.3s ease;
+.fade-enter-active,
+.fade-leave-active {
+    transition: all .3s ease;
 }
-.swing-fade-enter,
-.swing-fade-leave-to {
+
+.fade-enter,
+.fade-leave-to {
     opacity: 0;
 }

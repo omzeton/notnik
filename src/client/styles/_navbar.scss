@@ -31,6 +31,7 @@ $button-variants: (
     justify-content: center;
     flex-direction: column;
     gap: 1.8em;
+
     &__button {
         height: 2.5em;
         background: $bla2 no-repeat 40% 50%;
@@ -38,10 +39,12 @@ $button-variants: (
         cursor: pointer;
         border: none;
         position: relative;
+
         @media (min-width: $md) {
             height: 3.5em;
         }
-        &:after {
+
+        &::after {
             content: "";
             position: absolute;
             width: 0.2em;
@@ -52,16 +55,20 @@ $button-variants: (
 
         @each $key, $value in $button-variants {
             &--#{$key} {
+                /* stylelint-disable-next-line function-url-quotes */
                 background-image: url(map.get($value, image));
+
                 &::after {
                     background-color: map.get($value, color);
                 }
             }
         }
     }
+
     &--inactive {
         pointer-events: none;
         opacity: 0.2;
+
         #{$root}__button--logout {
             display: none;
             opacity: 0;
