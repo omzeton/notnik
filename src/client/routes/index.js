@@ -1,17 +1,17 @@
 import VueRouter from "vue-router";
 
-import Splash from "@/components/Splash";
-import FullNote from "@/components/Authorized/EditView/FullNote";
-import NoteList from "@/components/Authorized/ListView/NoteList";
+import FrontPage from "@/components/FrontPage";
+import FullNote from "@/components/EditView/FullNote";
+import NoteGrid from "@/components/NoteGrid";
 
 const routes = [
     {
         path: "/",
-        component: Splash,
+        component: FrontPage,
     },
     {
         path: "/notnik",
-        component: NoteList,
+        component: NoteGrid,
     },
     {
         path: "/notnik/note/:id",

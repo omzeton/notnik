@@ -1,11 +1,9 @@
-import { validationResult } from "express-validator";
 import { Request, Response, NextFunction } from "express";
 import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
 
 import UserSchema from "../models/user";
-import { accessCookie } from "../utils/consts";
-import { APIError } from "../types";
+import { accessCookie } from "../utils/cookie";
 
 declare const process: {
     env: {
@@ -15,22 +13,11 @@ declare const process: {
 
 const signup = async (req: Request, res: Response, next: NextFunction) => {
     try {
-        // express-validator validation
-        const errors = validationResult(req);
-        if (!errors.isEmpty()) {
-            const error: APIError = new Error("Validation failed.");
-            error.statusCode = 422;
-            error.msg = errors.array()[0].msg;
-            throw error;
-        }
-
-        // If validation succeeded create new user
         const { email, password } = req.body;
         const hashedPw = await bcrypt.hash(password, 12);
         const newUser = new UserSchema({ email: email, password: hashedPw, entries: [] });
         const result = await newUser.save();
 
-        // Create new session token with user id
         const token = jwt.sign({ email: result.email, userId: result._id.toString() }, process.env.TOKEN_SECRET, { expiresIn: "1d" });
         res.status(201).json({ userId: result._id.toString(), token });
     } catch ({ statusCode, msg }) {
@@ -40,17 +27,19 @@ const signup = async (req: Request, res: Response, next: NextFunction) => {
 
 const login = async (req: Request, res: Response, next: NextFunction) => {
     try {
-        // express-validator validation
-        const errors = validationResult(req);
-        if (!errors.isEmpty()) throw new Error();
+        const user = await UserSchema.findOne({ email: req.body.email });
+        if (!user) throw new Error(`Couldn't find user ${req.body.email}`);
 
-        // User validation was already done but check if user exists just in case
-        const { email } = req.body;
-        const user = await UserSchema.findOne({ email });
-        if (!user) throw new Error(`Couldn't find user ${email}`);
+        const token = jwt.sign(
+            {
+                email: req.body.email,
+                userId: user._id.toString(),
+            },
+            process.env.TOKEN_SECRET,
+            { expiresIn: "1d" }
+        );
+        if (!token) throw new Error("Retrieving token failed! Check env variables!");
 
-        // If validation passes create new
-        const token = jwt.sign({ email, userId: user._id.toString() }, process.env.TOKEN_SECRET, { expiresIn: "1d" });
         res.cookie("userAccessToken", token, accessCookie);
         res.status(200).json({ userId: user._id.toString() });
     } catch {

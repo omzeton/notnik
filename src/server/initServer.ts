@@ -1,22 +1,20 @@
-import path from "path";
-import helmet from "helmet";
+import express, { Request, Response, NextFunction } from "express";
 import cors from "cors";
+import helmet from "helmet";
 import compression from "compression";
 import cookieParser from "cookie-parser";
-import express, { Request, Response, NextFunction } from "express";
 
-import router from "./routes";
 import { APIError } from "./types";
+import router from "./routes";
 
 const app = express();
 
 app.use(cors());
+app.use(helmet());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
-app.use(helmet());
 app.use(compression());
-
 app.use((req: Request, res: Response, next: NextFunction) => {
     res.setHeader("Access-Control-Allow-Origin", "*");
     res.setHeader("Access-Control-Allow-Credentials", "true");
@@ -24,16 +22,11 @@ app.use((req: Request, res: Response, next: NextFunction) => {
     res.setHeader("Access-Control-Allow-Headers", "Content-Type, Origin, Accept, Authorization");
     next();
 });
-
-app.use(express.static(path.join(__dirname, "../../dist/")));
 app.use("/api", router);
-app.get("*", (req: Request, res: Response) => {
-    res.sendFile(path.join(__dirname, "../../dist/index.html"));
-});
-
-app.use((error: APIError, req: Request, res: Response) => {
-    const status = error.statusCode || 500;
-    res.status(status).json({ message: error.msg });
+app.use((err: APIError, req: Request, res: Response) => {
+    console.error(err);
+    const status = err.statusCode || 500;
+    res.status(status).send({ message: err.message });
 });
 
 export default app;

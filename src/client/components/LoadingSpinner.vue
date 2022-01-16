@@ -1,0 +1,5 @@
+<template>
+    <div class="loader">
+        <div class="loader__inner"></div>
+    </div>
+</template>

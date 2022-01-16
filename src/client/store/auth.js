@@ -1,7 +1,6 @@
 import axios from "axios";
 
 import router from "@/routes";
-import { sleep } from "@/utils";
 
 const state = {
     isAuthenticated: false,
@@ -13,7 +12,6 @@ const actions = {
         try {
             const res = await axios.post("auth/login", { email, password }, { headers: { "Content-Type": "application/json" } });
             if (res.status !== 200 && res.status !== 201) throw new Error("Unable to authenticate user.");
-            await sleep(2000);
             dispatch("SAVE_USER_AUTH_STATUS", true);
             dispatch("ui/SET_LOADING_STATE", { active: false, message: "" }, { root: true });
             router.push("/notnik");
@@ -27,7 +25,6 @@ const actions = {
         try {
             const res = await axios.put("auth/signup", { email, password }, { headers: { "Content-Type": "application/json" } });
             if (res.status !== 200 && res.status !== 201) throw new Error("Unable to authenticate user.");
-            await sleep(2000);
             dispatch("ui/TOGGLE_FORM_VIEW", null, { root: true });
             dispatch("ui/SET_LOADING_STATE", { active: false, message: "" }, { root: true });
         } catch (err) {
@@ -52,7 +49,6 @@ const actions = {
             dispatch("ui/SET_LOADING_STATE", { active: true, message: "Logging out" }, { root: true });
             const res = await axios.post("auth/logout", null, { headers: { "Content-Type": "application/json" } });
             if (res.status !== 200 && res.status !== 201) throw new Error("Unable to logout.");
-            await sleep(1000);
             window.location.replace("/");
         } catch (err) {
             dispatch("ui/SET_LOADING_STATE", { active: false, message: "" }, { root: true });

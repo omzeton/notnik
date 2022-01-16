@@ -25,9 +25,9 @@
         "at-rule-no-vendor-prefix": true,
         "number-no-trailing-zeros": true,
         "function-calc-no-unspaced-operator": true,
-        "scss/operator-no-newline-before": true,
-        "scss/operator-no-newline-after": true,
-        "scss/operator-no-unspaced": true,
+        "no-descending-specificity": true,
+        "no-duplicate-selectors": true,
+        "no-invalid-double-slash-comments": true,
         "at-rule-empty-line-before": [
             "always",
             {
@@ -42,10 +42,8 @@
                 "ignoreAtRules": ["if", "else"]
             }
         ],
-        "scss/at-else-closing-brace-newline-after": "always-last-in-chain",
-        "scss/at-else-closing-brace-space-after": "always-intermediate",
-        "scss/at-else-empty-line-before": "never",
-        "scss/at-if-closing-brace-newline-after": "always-last-in-chain",
-        "scss/at-if-closing-brace-space-after": "always-intermediate"
+        "scss/operator-no-newline-before": true,
+        "scss/operator-no-newline-after": true,
+        "scss/operator-no-unspaced": true
     }
 }

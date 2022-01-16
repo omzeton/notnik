@@ -1,3 +1,5 @@
+@use "@/styles/variables" as *;
+
 /* stylelint-disable */
 
 .full-entry__markdown-wrapper {
@@ -56,7 +58,7 @@
         margin: 1em 0 2em;
         padding: 2em;
         color: $w2;
-        border-radius: 0.8em;
+        border-radius: $border-radius;
         code {
             font-size: 1rem;
             font-family: $code;
@@ -73,7 +75,7 @@
         padding: 0.5em;
         margin: 0 0.2em;
         color: $or;
-        border-radius: 0.3em;
+        border-radius: $border-radius;
     }
     .language-javascript {
         .function {
