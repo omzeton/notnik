@@ -1,3 +1,4 @@
+@use "sass:map";
 @use "@/styles/variables" as *;
 
 .list {
@@ -5,10 +6,13 @@
     background-color: $bla3;
     background-image: url("@assets/christmas-dark.png");
     background-size: 15em;
+    display: grid;
+    grid-template-columns: map.get($submenu, sm) 1fr;
 
     &__grid {
         height: 100%;
         display: grid;
+        grid-column: 2;
         grid-template-rows: repeat(auto-fill, 10em);
         grid-template-columns: repeat(auto-fill, 10em);
     }
@@ -34,7 +38,7 @@
     &__title {
         position: absolute;
         color: $w;
-        font-size: .8rem;
+        font-size: 0.8rem;
         font-family: $primary;
         font-weight: 700;
         width: 80%;
@@ -53,7 +57,7 @@
         box-shadow: 0 0 30px 35px $err;
         z-index: 0;
         opacity: 0;
-        transition: opacity .3s ease-out;
+        transition: opacity 0.3s ease-out;
     }
 
     &:hover {
@@ -77,5 +81,18 @@
     svg {
         width: 60%;
         z-index: 10;
+    }
+}
+
+.submenu {
+    position: absolute;
+    left: map.get($navbar, sm);
+    top: 0;
+    background-color: $bla3;
+    height: 100%;
+    width: map.get($submenu, md);
+
+    @media (min-width: $md) {
+        left: map.get($navbar, md);
     }
 }

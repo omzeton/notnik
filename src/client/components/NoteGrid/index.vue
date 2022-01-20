@@ -1,5 +1,6 @@
 <template>
     <div class="list">
+        <SubMenu />
         <div class="list__grid">
             <Note v-for="note in notes" :key="note._id" :body="note.body" :date="note.date" :uId="note.uId" :id="note._id" />
         </div>
@@ -8,10 +9,12 @@
 
 <script>
 import Note from "./Note";
+import SubMenu from "./SubMenu";
 
 export default {
     components: {
         Note,
+        SubMenu,
     },
     mounted() {
         this.$store.dispatch("notes/SET_ACTIVE_NOTE_ID", { id: "" });
