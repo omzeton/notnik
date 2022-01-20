@@ -1,7 +1,6 @@
 import VueRouter from "vue-router";
 
 import FrontPage from "@/components/FrontPage";
-import FullNote from "@/components/EditView/FullNote";
 import NoteGrid from "@/components/NoteGrid";
 
 const routes = [
@@ -12,10 +11,6 @@ const routes = [
     {
         path: "/notnik",
         component: NoteGrid,
-    },
-    {
-        path: "/notnik/note/:id",
-        component: FullNote,
     },
 ];
 

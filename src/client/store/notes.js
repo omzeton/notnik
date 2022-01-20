@@ -11,13 +11,13 @@ const actions = {
     async FETCH_ALL_NOTES({ dispatch }) {
         const res = await axios.get("journal/entries");
         if (res.status !== 200 && res.status !== 201) throw new Error("Server error");
-        dispatch("UPDATE_NOTES", res.data.entries);
+        dispatch("UPDATE_NOTES", { notes: res.data.entries });
     },
     async CREATE_NEW_NOTE({ dispatch }) {
         const res = await axios.post("journal/new");
         if (res.status !== 200 && res.status !== 201) throw new Error("Couldn't create new entry");
         const { entries } = res.data;
-        dispatch("UPDATE_NOTES", entries);
+        dispatch("UPDATE_NOTES", { notes: entries });
         const newId = entries[entries.length - 1]._id;
         dispatch("SET_ACTIVE_NOTE_ID", { id: newId });
         router.push({ path: `/notnik/note/${newId}`, query: { new: true } });
@@ -40,7 +40,7 @@ const actions = {
     UPDATE_ACTIVE_NOTE({ commit }, { body }) {
         commit("updateActiveNote", { body });
     },
-    UPDATE_NOTES({ commit }, notes) {
+    UPDATE_NOTES({ commit }, { notes }) {
         commit("updateNotes", notes);
     },
 };
@@ -54,11 +54,9 @@ const mutations = {
     updateNotes(state, payload) {
         state.notes = payload;
     },
-    updateActiveNote(state, { body }) {
+    updateActiveNote(state, payload) {
         state.notes = state.notes.map(note => {
-            if (note._id === state.activeNoteId) {
-                note.body = body;
-            }
+            if (note._id === state.activeNoteId) note.body = payload.body;
             return note;
         });
     },
