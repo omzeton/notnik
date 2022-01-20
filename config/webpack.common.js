@@ -7,7 +7,7 @@ require("babel-polyfill");
 require("dotenv").config();
 
 module.exports = {
-    entry: "./src/client/index.js",
+    entry: "./src/client/index.ts",
     output: {
         path: path.resolve(__dirname, "../dist/"),
         filename: "[name].[fullhash].bundle.js",

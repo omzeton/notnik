@@ -9,6 +9,7 @@ export interface APIError extends Error {
     response?: {
         headers: { [key: string]: string };
         body: string;
+        data?: { message: string };
     };
 }
 

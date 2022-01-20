@@ -1,7 +1,7 @@
 import VueRouter from "vue-router";
 
-import FrontPage from "@/components/FrontPage";
-import NoteGrid from "@/components/NoteGrid";
+import FrontPage from "@/components/FrontPage.vue";
+import NoteGrid from "@/components/NoteGrid/index.vue";
 
 const routes = [
     {
