@@ -1,14 +1,17 @@
-const state = {
-    loginForm: true,
-    isLoading: false,
+import { ActionTree, GetterTree, MutationTree } from "vuex";
+
+import { UIModuleState, Store } from "@/types/store";
+
+const state: UIModuleState = {
     loadingMessage: "",
+    isLoading: false,
+    loginForm: true,
     settingsModal: false,
-    deletingMode: false,
     markdownMode: false,
     notificationIsVisible: false,
 };
 
-const actions = {
+const actions: ActionTree<UIModuleState, Store> = {
     TOGGLE_FORM_VIEW({ commit }) {
         commit("toggleFormView");
     },
@@ -18,7 +21,7 @@ const actions = {
     TOGGLE_MARKDOWN_MODE({ commit }) {
         commit("toggleMarkdownMode");
     },
-    SET_LOADING_STATE({ commit }, { active, message }) {
+    SET_LOADING_STATE({ commit }, { active, message }: { active: UIModuleState["isLoading"]; message: UIModuleState["loadingMessage"] }) {
         commit("updateIsLoading", { active, message });
     },
     DISPLAY_NOTIFICATION({ commit }) {
@@ -30,21 +33,20 @@ const actions = {
     },
 };
 
-const getters = {
+const getters: GetterTree<UIModuleState, Store> = {
     GET_FORM_VIEW: state => state.loginForm,
     GET_IS_LOADING: state => state.isLoading,
     GET_LOADING_MESSAGE: state => state.loadingMessage,
     GET_SETTINGS_MODAL_IS_OPEN: state => state.settingsModal,
     GET_IS_MARKDOWN_MODE: state => state.markdownMode,
     GET_NOTIFICATION_IS_VISIBLE: state => state.notificationIsVisible,
-    GET_IS_DELETING_MODE: state => state.deletingMode,
 };
 
-const mutations = {
+const mutations: MutationTree<UIModuleState> = {
     toggleFormView(state) {
         state.loginForm = !state.loginForm;
     },
-    updateIsLoading(state, { active, message }) {
+    updateIsLoading(state, { active, message }: { active: UIModuleState["isLoading"]; message: UIModuleState["loadingMessage"] }) {
         state.isLoading = active;
         state.loadingMessage = message;
     },
@@ -53,9 +55,6 @@ const mutations = {
     },
     toggleMarkdownMode(state) {
         state.markdownMode = !state.markdownMode;
-    },
-    toggleDeletingMode(state) {
-        state.deletingMode = !state.deletingMode;
     },
     updateNotificationVisibility(state, payload) {
         state.notificationIsVisible = payload;

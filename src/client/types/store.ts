@@ -13,7 +13,6 @@ export interface UIModuleState {
     isLoading: boolean;
     loadingMessage: string;
     settingsModal: boolean;
-    deletingMode: boolean;
     markdownMode: boolean;
     notificationIsVisible: boolean;
 }
