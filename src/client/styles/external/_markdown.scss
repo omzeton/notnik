@@ -2,9 +2,12 @@
 
 /* stylelint-disable */
 
-.editor {
+.editor__markdown {
     font-family: $primary;
-    padding-bottom: 20em;
+    flex-basis: 100%;
+    padding: 2em;
+    box-sizing: border-box;
+    overflow-y: scroll;
 
     // HEADERS
     h1,

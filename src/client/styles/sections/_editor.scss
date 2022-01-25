@@ -4,8 +4,18 @@
 .editor {
     background-color: $bla4;
     box-sizing: border-box;
-    padding: 2em;
     color: $w;
     position: relative;
-    overflow-y: scroll;
+    overflow: hidden;
+    border-left: 3px solid $bla0;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+
+    &__nav {
+        background-color: $bla2;
+        height: 3em;
+        display: flex;
+        align-items: center;
+    }
 }

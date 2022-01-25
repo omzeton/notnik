@@ -1,17 +1,27 @@
 <template>
     <div class="editor">
-        <VueMarkdown :source="body" />
+        <EditorBottomNavbar />
+        <div class="editor__markdown">
+            <VueMarkdown :source="body" />
+        </div>
+        <EditorTopNavbar />
     </div>
 </template>
 
 <script>
 import VueMarkdown from "vue-markdown";
 import Prism from "prismjs";
+
+import EditorBottomNavbar from "./EditorBottomNavbar.vue";
+import EditorTopNavbar from "./EditorTopNavbar.vue";
+
 import "prismjs/components/prism-javascript";
 
 export default {
     components: {
         VueMarkdown,
+        EditorBottomNavbar,
+        EditorTopNavbar,
     },
     computed: {
         noteID() {
