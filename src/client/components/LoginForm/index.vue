@@ -7,22 +7,33 @@
             </transition>
         </div>
         <form class="form__container" @submit="submitHandler" novalidate>
-            <Input placeholder="Email" type="email" v-model="form.email" @focus="resetErrors" />
-            <Input v-if="isLoginForm" placeholder="Password" type="password" v-model="form.password" @focus="resetErrors" />
+            <FormInput placeholder="Email" type="email" v-model="form.email" @focus="resetErrors" />
+            <FormInput
+                v-if="isLoginForm"
+                placeholder="Password"
+                type="password"
+                v-model="form.password"
+                @focus="resetErrors"
+            />
             <div v-else class="form__input-container">
-                <Input placeholder="Password" type="password" v-model="form.password" @focus="resetErrors" />
-                <Input placeholder="Repeat password" type="password" v-model="form.repeatPassword" @focus="resetErrors" />
+                <FormInput placeholder="Password" type="password" v-model="form.password" @focus="resetErrors" />
+                <FormInput
+                    placeholder="Repeat password"
+                    type="password"
+                    v-model="form.repeatPassword"
+                    @focus="resetErrors"
+                />
             </div>
             <button class="form__submit" type="submit">{{ isLoginForm ? "Log in" : "Submit" }}</button>
         </form>
         <a @click="toggleFormType()" class="form__link" v-html="isLoginForm ? loginLinkContent : registerLinkContent" />
-        <ValidationError :errors="errors" />
+        <FormPopup :errors="errors" />
     </div>
 </template>
 
 <script>
-import Input from "./Input";
-import ValidationError from "./ValidationErrorTooltip";
+import FormInput from "./FormInput";
+import FormPopup from "./FormPopup";
 import LoadingSpinner from "../LoadingSpinner";
 
 import validation from "@/mixins/validation";
@@ -42,8 +53,8 @@ export default {
         };
     },
     components: {
-        Input,
-        ValidationError,
+        FormInput,
+        FormPopup,
         LoadingSpinner,
     },
     methods: {

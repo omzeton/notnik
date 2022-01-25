@@ -7,8 +7,6 @@
 </template>
 
 <script>
-import validation from "@/mixins/validation";
-
 export default {
     props: {
         errors: Array,

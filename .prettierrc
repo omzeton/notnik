@@ -1,7 +1,7 @@
 {
     "tabWidth": 4,
     "trailingComma": "es5",
-    "printWidth": 200,
+    "printWidth": 120,
     "bracketSpacing": true,
     "endOfLine": "lf"
 }

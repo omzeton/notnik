@@ -1,6 +1,6 @@
 <template>
     <div class="full-entry__codemirror-wrapper">
-        <textarea v-if="!codemirrorActive" ref="codemirror" v-model="body" />
+        <textarea v-if="!codemirrorActive" ref="codemirror" v-model="text" />
     </div>
 </template>
 
@@ -19,6 +19,11 @@ export default {
         return {
             codemirrorActive: false,
         };
+    },
+    computed: {
+        text() {
+            return this.body;
+        },
     },
     mounted() {
         if (!this.codemirrorActive) {

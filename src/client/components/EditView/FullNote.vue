@@ -2,18 +2,18 @@
     <div class="full-entry">
         <div class="full-entry__wrapper">
             <Markdown v-if="markdownMode" :body="noteBody" />
-            <Codemirror v-else :body="noteBody" />
+            <CodeMirror v-else :body="noteBody" />
         </div>
     </div>
 </template>
 
 <script>
-import Codemirror from "./Codemirror";
+import CodeMirror from "./CodeMirror";
 import Markdown from "./Markdown";
 
 export default {
     components: {
-        Codemirror,
+        CodeMirror,
         Markdown,
     },
     computed: {

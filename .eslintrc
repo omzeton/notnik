@@ -2,11 +2,24 @@
     "root": true,
     "env": {
         "browser": true,
-        "node": true,
-        "es2021": true
+        "node": true
+    },
+    "parser": "vue-eslint-parser",
+    "parserOptions": {
+        "parser": {
+            "<template>": "espree",
+            "ts": "@typescript-eslint/parser"
+        }
     },
     "ignorePatterns": ["config/*", "public/*"],
-    "parser": "@typescript-eslint/parser",
-    "plugins": ["@typescript-eslint"],
-    "extends": ["eslint:recommended", "plugin:@typescript-eslint/eslint-recommended", "plugin:@typescript-eslint/recommended", "prettier"]
+    "plugins": ["@typescript-eslint", "@vue"],
+    "extends": ["plugin:vue/essential", "eslint:recommended", "plugin:@typescript-eslint/recommended", "prettier"],
+    "rules": {
+        "vue/multi-word-component-names": [
+            "error",
+            {
+                "ignores": ["index", "default", "Layout"]
+            }
+        ]
+    }
 }
