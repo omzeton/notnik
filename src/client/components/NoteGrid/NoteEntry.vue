@@ -1,5 +1,5 @@
 <template>
-    <li class="submenu__list-item" @click="setActiveID">
+    <li class="submenu__list-item" @click="emitClick">
         <p>{{ shortenedName }}</p>
     </li>
 </template>
@@ -11,10 +11,6 @@ export default {
             type: String,
             required: true,
         },
-        id: {
-            type: String,
-            required: true,
-        },
     },
     computed: {
         shortenedName() {
@@ -22,8 +18,8 @@ export default {
         },
     },
     methods: {
-        setActiveID() {
-            this.$store.dispatch("notes/SET_ACTIVE_NOTE_ID", { id: this.id });
+        emitClick() {
+            this.$emit("click");
         },
     },
 };

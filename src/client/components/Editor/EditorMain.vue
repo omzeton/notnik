@@ -10,16 +10,12 @@
 export default {
     computed: {
         content() {
-            const activeNote = this.$store.getters["notes/GET_CURRENT_ACTIVE_NOTE"];
-            if (activeNote) return activeNote.body;
-            return "Please select note to edit";
+            return this.$store.getters["notes/GET_ACTIVE_NOTE_BODY"];
         },
     },
     methods: {
         onInput(event) {
-            console.log({ event });
-            console.log(event.target.innerText);
-            console.log("input fired");
+            this.$store.dispatch("notes/UPDATE_ACTIVE_NOTE_BODY", event.target.innerText);
         },
     },
 };

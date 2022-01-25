@@ -5,9 +5,13 @@ export interface Note {
     body: string;
     date: number;
 }
+export interface ActiveNote {
+    _id: string;
+    body: string;
+}
 export interface NotesModuleState {
-    activeNoteId: string;
-    notes: Array<Note>;
+    activeNote: ActiveNote;
+    userNotes: Array<Note>;
 }
 
 export interface UIModuleState {

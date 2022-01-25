@@ -17,5 +17,8 @@ export default {
         EditorMain,
         EditorTopNavbar,
     },
+    mounted() {
+        this.$store.dispatch("notes/FETCH_ALL_NOTES_FROM_DB");
+    },
 };
 </script>
