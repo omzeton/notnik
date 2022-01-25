@@ -21,7 +21,10 @@ export default {
             if (this.$route.query.new) return "";
             const allNotes = this.$store.getters["notes/GET_NOTES"];
             const activeNote = allNotes.find(note => note._id === this.$route.params.id);
-            return activeNote.body;
+            if (activeNote) {
+                return activeNote.body;
+            }
+            return "";
         },
         markdownMode() {
             return this.$store.getters["ui/GET_IS_MARKDOWN_MODE"];

@@ -15,6 +15,28 @@
 .frontpage {
     height: 100%;
     background-color: $bla1;
-    background-image: radial-gradient($bla4 .9px, $bla1 .9px);
+    background-image: radial-gradient($bla4 0.9px, $bla1 0.9px);
     background-size: 18px 18px;
+}
+
+.list {
+    height: 100%;
+    background-color: $bla3;
+    background-image: url("@assets/christmas-dark.png");
+    background-size: 15em;
+    display: grid;
+    grid-template-columns: map.get($submenu, sm) 1fr;
+    overflow: hidden;
+
+    &__grid {
+        height: 100%;
+        display: grid;
+        grid-template-rows: repeat(auto-fill, 10em);
+        grid-template-columns: repeat(auto-fill, 10em);
+    }
+
+    .editor {
+        height: 100%;
+        grid-column: 2;
+    }
 }

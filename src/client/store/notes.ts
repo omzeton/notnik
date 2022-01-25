@@ -47,6 +47,7 @@ const actions: ActionTree<NotesModuleState, Store> = {
 const getters: GetterTree<NotesModuleState, Store> = {
     GET_NOTES: state => state.notes,
     GET_NOTES_LENGTH: state => state.notes.length,
+    GET_ACTIVE_ID: state => state.activeNoteId,
 };
 
 const mutations: MutationTree<NotesModuleState> = {

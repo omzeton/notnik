@@ -1,0 +1,11 @@
+@use "sass:map";
+@use "@/styles/variables" as *;
+
+.editor {
+    background-color: $bla4;
+    box-sizing: border-box;
+    padding: 2em;
+    color: $w;
+    position: relative;
+    overflow-y: scroll;
+}

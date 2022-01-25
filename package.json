@@ -7,9 +7,8 @@
     "license": "MIT",
     "scripts": {
         "client": "cross-env NODE_ENV=development webpack serve --config config/webpack.dev.js",
-        "server": "node -r ts-node/register/transpile-only src/server/index.ts",
-        "server:watch": "nodemon --config config/nodemon.config.json",
-        "start": "concurrently --raw \"yarn server:watch\" \"yarn client\"",
+        "server": "nodemon --config config/nodemon.config.json",
+        "start": "concurrently --raw \"yarn server\" \"yarn client\"",
         "build": "cross-env NODE_ENV=production webpack --config config/webpack.prod.js",
         "lint:scripts": "eslint \"src/**/*{ts,js}\"",
         "lint:styles": "stylelint \"src/**/*.{scss,css}\"",

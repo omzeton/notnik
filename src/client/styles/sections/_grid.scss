@@ -1,23 +1,6 @@
 @use "sass:map";
 @use "@/styles/variables" as *;
 
-.list {
-    height: 100%;
-    background-color: $bla3;
-    background-image: url("@assets/christmas-dark.png");
-    background-size: 15em;
-    display: grid;
-    grid-template-columns: map.get($submenu, sm) 1fr;
-
-    &__grid {
-        height: 100%;
-        display: grid;
-        grid-column: 2;
-        grid-template-rows: repeat(auto-fill, 10em);
-        grid-template-columns: repeat(auto-fill, 10em);
-    }
-}
-
 .grid-cell {
     display: flex;
     align-items: center;
