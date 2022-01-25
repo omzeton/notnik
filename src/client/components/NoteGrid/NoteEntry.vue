@@ -5,6 +5,8 @@
 </template>
 
 <script>
+import { htmlToText } from "html-to-text";
+
 export default {
     props: {
         name: {
@@ -14,7 +16,8 @@ export default {
     },
     computed: {
         shortenedName() {
-            return this.name.slice(0, 30);
+            const text = htmlToText(this.name);
+            return text.slice(0, 30);
         },
     },
     methods: {
