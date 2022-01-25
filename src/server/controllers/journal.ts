@@ -49,7 +49,6 @@ const syncEntry = async (req: Request, res: Response, next: NextFunction) => {
         await user.entries.map(entry => {
             if (entry._id && entry._id.toString() === updatedEntry._id) {
                 entry.body = updatedEntry.body;
-                entry.date = updatedEntry.date;
             }
             return entry;
         });
