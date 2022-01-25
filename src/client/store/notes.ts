@@ -77,7 +77,7 @@ const actions: ActionTree<NotesModuleState, Store> = {
 const getters: GetterTree<NotesModuleState, Store> = {
     GET_ALL_USER_NOTES: state => state.userNotes || [],
     GET_ACTIVE_NOTE: state => (state.activeNote._id ? state.activeNote : false),
-    GET_ACTIVE_NOTE_BODY: state => (state.activeNote ? state.activeNote.body : "Error"),
+    GET_ACTIVE_NOTE_BODY: state => state.activeNote.body,
 };
 
 const mutations: MutationTree<NotesModuleState> = {
