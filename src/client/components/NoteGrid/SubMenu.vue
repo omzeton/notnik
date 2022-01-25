@@ -1,15 +1,15 @@
 <template>
     <aside class="submenu">
-        <Entry v-for="note in notes" :name="note.body" :key="note._id" :id="note._id" />
+        <NoteEntry v-for="note in notes" :name="note.body" :key="note._id" :id="note._id" />
     </aside>
 </template>
 
 <script>
-import Entry from "./Entry";
+import NoteEntry from "./NoteEntry";
 
 export default {
     components: {
-        Entry,
+        NoteEntry,
     },
     mounted() {
         if (!this.notes.length) this.$store.dispatch("notes/FETCH_ALL_NOTES");

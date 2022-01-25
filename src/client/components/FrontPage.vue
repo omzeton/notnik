@@ -1,17 +1,17 @@
 <template>
     <section class="frontpage">
         <div class="frontpage__auth-panel">
-            <Form />
+            <LoginForm />
         </div>
     </section>
 </template>
 
 <script>
-import Form from "./LoginForm/Form";
+import LoginForm from "./LoginForm";
 
 export default {
     components: {
-        Form,
+        LoginForm,
     },
 };
 </script>
