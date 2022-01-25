@@ -23,7 +23,7 @@ const addNewEntry = async (req: Request, res: Response, next: NextFunction) => {
         if (!user) throw new Error("Could not connect to the user");
 
         await user.entries.push({
-            body: "New note",
+            body: "<p>New note</p>",
             date: +new Date(),
         });
         user.save(err => {

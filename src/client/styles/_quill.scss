@@ -1,0 +1,19 @@
+/* stylelint-disable declaration-no-important */
+@use "@/styles/variables";
+
+.ql-stroke {
+    stroke: $w2 !important;
+}
+
+.ql-fill {
+    fill: $w2 !important;
+}
+
+.ql-picker {
+    color: $w2 !important;
+}
+
+.ql-picker-options {
+    background-color: $w2 !important;
+    color: $bla1 !important;
+}

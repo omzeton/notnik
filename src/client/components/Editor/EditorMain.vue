@@ -1,21 +1,25 @@
 <template>
     <div class="editor__markdown">
-        <div class="editor__main" contenteditable="true" @input="onInput($event)" ref="editor">
-            {{ content }}
-        </div>
+        <quill-editor class="editor__main" ref="quillEditor" v-model="content" :options="editorOptions" />
     </div>
 </template>
 
 <script>
 export default {
-    computed: {
-        content() {
-            return this.$store.getters["notes/GET_ACTIVE_NOTE_BODY"];
-        },
+    data() {
+        return {
+            quill: null,
+            editorOptions: {},
+        };
     },
-    methods: {
-        onInput(event) {
-            this.$store.dispatch("notes/UPDATE_ACTIVE_NOTE_BODY", { body: event.target.innerText });
+    computed: {
+        content: {
+            get() {
+                return this.$store.getters["notes/GET_ACTIVE_NOTE_BODY"];
+            },
+            set(body) {
+                this.$store.dispatch("notes/UPDATE_ACTIVE_NOTE_BODY", { body });
+            },
         },
     },
 };
