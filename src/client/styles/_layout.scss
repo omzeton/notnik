@@ -22,8 +22,6 @@
 .list {
     height: 100%;
     background-color: $bla3;
-    background-image: url("@assets/christmas-dark.png");
-    background-size: 15em;
     display: grid;
     grid-template-columns: map.get($submenu, sm) 1fr;
     overflow: hidden;

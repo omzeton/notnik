@@ -25,12 +25,20 @@ const actions: ActionTree<NotesModuleState, Store> = {
     async SYNC_CHANGES({ state }) {
         const activeNote = state.notes.find(note => note._id === state.activeNoteId);
         if (!activeNote) throw new Error("No active entry found!");
-        const res = await axios.post("journal/sync", { entry: activeNote }, { headers: { "Content-Type": "application/json" } });
+        const res = await axios.post(
+            "journal/sync",
+            { entry: activeNote },
+            { headers: { "Content-Type": "application/json" } }
+        );
         if (res.status !== 200 && res.status !== 201) throw new Error("Couldn't sync entry changes");
     },
     async DELETE_NOTE({ commit }, { id }: { id: Note["_id"] }) {
         commit("deleteNote", id);
-        const res = await axios.post("journal/remove-entry", { id }, { headers: { "Content-Type": "application/json" } });
+        const res = await axios.post(
+            "journal/remove-entry",
+            { id },
+            { headers: { "Content-Type": "application/json" } }
+        );
         if (res.status !== 200 && res.status !== 201) throw new Error("Couldn't delete entry!");
     },
     SET_ACTIVE_NOTE_ID({ commit }, { id }: { id: Note["_id"] }) {
@@ -46,8 +54,15 @@ const actions: ActionTree<NotesModuleState, Store> = {
 
 const getters: GetterTree<NotesModuleState, Store> = {
     GET_NOTES: state => state.notes,
-    GET_NOTES_LENGTH: state => state.notes.length,
     GET_ACTIVE_ID: state => state.activeNoteId,
+    GET_CURRENT_ACTIVE_NOTE: ({ notes, activeNoteId }): Note | boolean => {
+        const activeNote = notes.find(note => note._id === activeNoteId);
+        if (activeNote) {
+            return activeNote;
+        } else {
+            return false;
+        }
+    },
 };
 
 const mutations: MutationTree<NotesModuleState> = {
