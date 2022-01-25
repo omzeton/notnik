@@ -1,8 +1,8 @@
 <template>
     <div class="editor">
-        <EditorBottomNavbar />
-        <EditorMain />
         <EditorTopNavbar />
+        <EditorMain />
+        <EditorBottomNavbar />
     </div>
 </template>
 
