@@ -45,4 +45,9 @@
             color: $w;
         }
     }
+
+    &__main .ql-container {
+        /* stylelint-disable-next-line declaration-no-important */
+        border: none !important;
+    }
 }

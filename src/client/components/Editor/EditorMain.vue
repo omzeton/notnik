@@ -9,7 +9,12 @@ export default {
     data() {
         return {
             quill: null,
-            editorOptions: {},
+            editorOptions: {
+                theme: "snow",
+                modules: {
+                    toolbar: "#quillToolbar",
+                },
+            },
         };
     },
     computed: {
