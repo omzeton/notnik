@@ -32,14 +32,18 @@ const actions: ActionTree<NotesModuleState, Store> = {
         dispatch("UPDATE_NOTES", { notes: entries });
         dispatch("MAKE_NOTE_ACTIVE", { id: entries[entries.length - 1]._id });
     },
-    async DELETE_NOTE({ commit }, { id }: { id: Note["_id"] }) {
-        commit("deleteNote", id);
+    async DELETE_CURRENT_NOTE({ commit, state }) {
+        const currentActiveNoteID = state.activeNote._id;
         const res = await axios.post(
             "journal/remove-entry",
-            { id },
+            { id: currentActiveNoteID },
             { headers: { "Content-Type": "application/json" } }
         );
-        if (res.status !== 200 && res.status !== 201) throw new Error("Couldn't delete entry!");
+        if (res.status !== 200 && res.status !== 201) {
+            throw new Error("Server error: Can't delete current entry!");
+        }
+        commit("deleteNote", currentActiveNoteID);
+        commit("deactivateNote");
     },
     async SAVE_CURRENT_CHANGES({ state, dispatch }) {
         const userNote = state.userNotes.find(note => note._id === state.activeNote._id);
@@ -65,6 +69,9 @@ const actions: ActionTree<NotesModuleState, Store> = {
     },
     MAKE_NOTE_ACTIVE({ commit }, { id }: { id: Note["_id"] }) {
         commit("makeNoteActive", id);
+    },
+    DEACTIVATE_NOTE({ commit }) {
+        commit("deactivateNote");
     },
     UPDATE_ACTIVE_NOTE({ commit }, { body }: { body: Note["body"] }) {
         commit("updateActiveNote", { body });
@@ -102,6 +109,12 @@ const mutations: MutationTree<NotesModuleState> = {
     },
     deleteNote(state, id: Note["_id"]) {
         state.userNotes = state.userNotes.filter(note => note._id !== id);
+    },
+    deactivateNote(state) {
+        state.activeNote = {
+            _id: "",
+            body: "",
+        };
     },
 };
 

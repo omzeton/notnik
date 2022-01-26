@@ -68,7 +68,7 @@ const syncEntry = async (req: Request, res: Response, next: NextFunction) => {
 
 const deleteEntry = async (req: Request, res: Response, next: NextFunction) => {
     try {
-        if (!req.body.id) throw new Error("No ID was provided for deleted entry");
+        if (!req.body.id) throw new Error("No ID was provided in payload!");
         const uId: string = res.locals.userId;
         const user = await User.findById(uId);
         if (!user) throw new Error("Could not connect to the user");
@@ -85,7 +85,7 @@ const deleteEntry = async (req: Request, res: Response, next: NextFunction) => {
             res.status(200).json({ entries: user.entries });
         });
     } catch (err) {
-        next({ statusCode: 500, msg: "Couldn't delete entry from database" });
+        next({ statusCode: 500, msg: "Couldn't delete entry in database" });
         throw err;
     }
 };

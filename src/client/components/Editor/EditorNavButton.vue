@@ -12,6 +12,7 @@ export default {
     },
     methods: {
         onClick() {
+            if (!this.title) return;
             let actionToDispatch = "";
             switch (this.title) {
                 case "Save":
@@ -21,7 +22,7 @@ export default {
                     actionToDispatch = "notes/DELETE_CURRENT_NOTE";
                     break;
             }
-            if (actionToDispatch) this.$store.dispatch(actionToDispatch);
+            this.$store.dispatch(actionToDispatch);
         },
     },
 };
