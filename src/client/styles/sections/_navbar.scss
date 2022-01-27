@@ -1,0 +1,78 @@
+@use "sass:map";
+@use "@/styles/variables" as *;
+
+$button-variants: (
+    new: (
+        image: "@assets/new.svg",
+        color: $g,
+    ),
+    grid: (
+        image: "@assets/list.svg",
+        color: $or2,
+    ),
+    settings: (
+        image: "@assets/settings.svg",
+        color: $blu,
+    ),
+    delete: (
+        image: "@assets/delete.svg",
+        color: $err,
+    ),
+    logout: (
+        image: "@assets/logout.svg",
+        color: $bla2,
+    ),
+);
+
+.navbar {
+    $root: &;
+    background-color: $bla1;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    gap: 1.8em;
+
+    &__button {
+        height: 2.5em;
+        background: $bla2 no-repeat 40% 50%;
+        background-size: 40%;
+        cursor: pointer;
+        border: none;
+        position: relative;
+
+        @media (min-width: $md) {
+            height: 3.5em;
+        }
+
+        &::after {
+            content: "";
+            position: absolute;
+            width: 0.2em;
+            top: 0;
+            height: 100%;
+            right: 0;
+        }
+
+        @each $key, $value in $button-variants {
+            &--#{$key} {
+                /* stylelint-disable-next-line function-url-quotes */
+                background-image: url(map.get($value, image));
+
+                &::after {
+                    background-color: map.get($value, color);
+                }
+            }
+        }
+    }
+
+    &--inactive {
+        pointer-events: none;
+        opacity: 0.2;
+
+        #{$root}__button--logout {
+            display: none;
+            opacity: 0;
+            visibility: hidden;
+        }
+    }
+}
