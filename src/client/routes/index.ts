@@ -1,7 +1,7 @@
 import VueRouter from "vue-router";
 
-import FrontPage from "@/components/FrontPage.vue";
-import NoteGrid from "@/components/NoteGrid/index.vue";
+import FrontPage from "@components/FrontPage.vue";
+import NotnikMainView from "@components/NotnikMainView.vue";
 
 const routes = [
     {
@@ -10,7 +10,7 @@ const routes = [
     },
     {
         path: "/notnik",
-        component: NoteGrid,
+        component: NotnikMainView,
     },
 ];
 

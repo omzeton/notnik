@@ -17,10 +17,10 @@
 .frontpage {
     @include flex-center;
     background-color: $bla1;
-    background-image: radial-gradient($bla4 .9px, $bla1 .9px);
+    background-image: radial-gradient($bla4 0.9px, $bla1 0.9px);
     background-size: 18px 18px;
 
-    &__auth-panel {
+    &__auth-modal {
         position: relative;
         height: 16em;
         width: 14em;
@@ -74,7 +74,7 @@
         color: $w2;
         font-family: $primary;
         box-sizing: border-box;
-        font-size: .6rem;
+        font-size: 0.6rem;
 
         @media (min-width: $md) {
             height: 3em;
@@ -106,12 +106,12 @@
         position: absolute;
         bottom: $form-padding;
         font-family: $primary;
-        font-size: .6em;
+        font-size: 0.6em;
         font-weight: 400;
         cursor: pointer;
 
         @media (min-width: $md) {
-            font-size: .9em;
+            font-size: 0.9em;
         }
 
         &--accent {
@@ -131,7 +131,7 @@
     box-sizing: border-box;
     padding: 1.7em;
     color: $w;
-    font-size: .9rem;
+    font-size: 0.9rem;
     font-family: $primary;
 
     &__subheader {

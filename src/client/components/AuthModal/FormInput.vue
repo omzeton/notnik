@@ -1,5 +1,13 @@
 <template>
-    <input :class="`form__input form__input--${type}`" :placeholder="placeholder" ref="input" :value="value" :type="type" @input="updateValue" @focus="emitFocus" />
+    <input
+        :class="`form__input form__input--${type}`"
+        :placeholder="placeholder"
+        ref="input"
+        :value="value"
+        :type="type"
+        @input="updateValue"
+        @focus="emitFocus"
+    />
 </template>
 
 <script>

@@ -6,8 +6,8 @@
 </template>
 
 <script>
-import SubMenu from "./SubMenu";
-import Editor from "../Editor";
+import SubMenu from "@components/Submenu";
+import Editor from "@components/Editor";
 
 export default {
     components: {

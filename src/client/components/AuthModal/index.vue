@@ -32,9 +32,9 @@
 </template>
 
 <script>
-import FormInput from "./FormInput";
-import FormPopup from "./FormPopup";
-import LoadingSpinner from "../LoadingSpinner";
+import FormInput from "@components/AuthModal/FormInput";
+import FormPopup from "@components/AuthModal/FormPopup";
+import LoadingSpinner from "@components/LoadingSpinner";
 
 import validation from "@/mixins/validation";
 

@@ -1,17 +1,17 @@
 <template>
     <section class="frontpage">
-        <div class="frontpage__auth-panel">
-            <LoginForm />
+        <div class="frontpage__auth-modal">
+            <AuthModal />
         </div>
     </section>
 </template>
 
 <script>
-import LoginForm from "./LoginForm";
+import AuthModal from "@components/AuthModal";
 
 export default {
     components: {
-        LoginForm,
+        AuthModal,
     },
 };
 </script>
