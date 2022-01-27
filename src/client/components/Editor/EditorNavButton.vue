@@ -1,5 +1,14 @@
 <template>
-    <button :class="`editor__button editor__button--${icon}`" type="button" @click="onClick"></button>
+    <button
+        editor__button
+        class="editor__button"
+        :class="{
+            [`editor__button--${icon}`]: true,
+            'editor__button--active': isActive,
+        }"
+        type="button"
+        @click="onClick"
+    ></button>
 </template>
 
 <script>
@@ -10,16 +19,21 @@ export default {
             required: true,
         },
     },
+    computed: {
+        isActive() {
+            return this.$store.getters["notes/IS_EDITING_A_NOTE"];
+        },
+    },
     methods: {
         onClick() {
-            if (!this.icon) return;
+            if (!this.icon || !this.isActive) return;
             let actionToDispatch = "";
             switch (this.icon) {
                 case "save":
                     actionToDispatch = "notes/SAVE_CURRENT_CHANGES";
                     break;
                 case "delete":
-                    actionToDispatch = "notes/DELETE_CURRENT_NOTE";
+                    actionToDispatch = "ui/TOGGLE_DELETION_MODAL";
                     break;
             }
             this.$store.dispatch(actionToDispatch);

@@ -21,6 +21,7 @@ export interface UIModuleState {
     settingsModal: boolean;
     markdownMode: boolean;
     notificationIsVisible: boolean;
+    deletionModalIsActive: boolean;
 }
 
 export interface AuthModuleState {

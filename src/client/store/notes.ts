@@ -2,6 +2,7 @@ import axios from "axios";
 import { ActionTree, GetterTree, MutationTree } from "vuex";
 
 import { NotesModuleState, Note, Store, ActiveNote } from "@/types/store";
+import { sleep } from "@/utils";
 
 const state: NotesModuleState = {
     activeNote: {
@@ -42,6 +43,7 @@ const actions: ActionTree<NotesModuleState, Store> = {
         if (res.status !== 200 && res.status !== 201) {
             throw new Error("Server error: Can't delete current entry!");
         }
+        await sleep(300);
         commit("deleteNote", currentActiveNoteID);
         commit("deactivateNote");
     },
@@ -64,6 +66,10 @@ const actions: ActionTree<NotesModuleState, Store> = {
         }
         dispatch("UPDATE_NOTES", { notes: res.data.entries });
     },
+    CONFIRM_NOTE_DELETION({ dispatch }) {
+        dispatch("ui/TOGGLE_DELETION_MODAL", null, { root: true });
+        dispatch("DELETE_CURRENT_NOTE");
+    },
     UPDATE_ACTIVE_NOTE_BODY({ commit }, { body }: { body: Note["body"] }) {
         commit("updateActiveNoteBody", body);
     },
@@ -85,6 +91,7 @@ const getters: GetterTree<NotesModuleState, Store> = {
     GET_ALL_USER_NOTES: state => state.userNotes || [],
     GET_ACTIVE_NOTE: state => (state.activeNote._id ? state.activeNote : false),
     GET_ACTIVE_NOTE_BODY: state => state.activeNote.body,
+    IS_EDITING_A_NOTE: state => !!state.activeNote._id,
 };
 
 const mutations: MutationTree<NotesModuleState> = {

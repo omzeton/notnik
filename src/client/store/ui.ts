@@ -9,6 +9,7 @@ const state: UIModuleState = {
     settingsModal: false,
     markdownMode: false,
     notificationIsVisible: false,
+    deletionModalIsActive: false,
 };
 
 const actions: ActionTree<UIModuleState, Store> = {
@@ -21,15 +22,18 @@ const actions: ActionTree<UIModuleState, Store> = {
     TOGGLE_MARKDOWN_MODE({ commit }) {
         commit("toggleMarkdownMode");
     },
-    SET_LOADING_STATE({ commit }, { active, message }: { active: UIModuleState["isLoading"]; message: UIModuleState["loadingMessage"] }) {
+    SET_LOADING_STATE(
+        { commit },
+        { active, message }: { active: UIModuleState["isLoading"]; message: UIModuleState["loadingMessage"] }
+    ) {
         commit("updateIsLoading", { active, message });
     },
     DISPLAY_NOTIFICATION({ commit }) {
         commit("updateNotificationVisibility", true);
         setTimeout(() => commit("updateNotificationVisibility", false), 2000);
     },
-    TOGGLE_DELETING_MODE({ commit }) {
-        commit("toggleDeletingMode");
+    TOGGLE_DELETION_MODAL({ commit }) {
+        commit("toggleDeletionModal");
     },
 };
 
@@ -40,13 +44,17 @@ const getters: GetterTree<UIModuleState, Store> = {
     GET_SETTINGS_MODAL_IS_OPEN: state => state.settingsModal,
     GET_IS_MARKDOWN_MODE: state => state.markdownMode,
     GET_NOTIFICATION_IS_VISIBLE: state => state.notificationIsVisible,
+    GET_DELETION_MODAL_IS_ACTIVE: state => state.deletionModalIsActive,
 };
 
 const mutations: MutationTree<UIModuleState> = {
     toggleFormView(state) {
         state.loginForm = !state.loginForm;
     },
-    updateIsLoading(state, { active, message }: { active: UIModuleState["isLoading"]; message: UIModuleState["loadingMessage"] }) {
+    updateIsLoading(
+        state,
+        { active, message }: { active: UIModuleState["isLoading"]; message: UIModuleState["loadingMessage"] }
+    ) {
         state.isLoading = active;
         state.loadingMessage = message;
     },
@@ -58,6 +66,9 @@ const mutations: MutationTree<UIModuleState> = {
     },
     updateNotificationVisibility(state, payload) {
         state.notificationIsVisible = payload;
+    },
+    toggleDeletionModal(state) {
+        state.deletionModalIsActive = !state.deletionModalIsActive;
     },
 };
 

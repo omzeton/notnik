@@ -3,19 +3,22 @@
         <EditorTopNavbar />
         <EditorMain />
         <EditorBottomNavbar />
+        <DeletionBox />
     </div>
 </template>
 
 <script>
-import EditorBottomNavbar from "./EditorBottomNavbar.vue";
-import EditorMain from "./EditorMain.vue";
-import EditorTopNavbar from "./EditorTopNavbar.vue";
+import EditorBottomNavbar from "@components/Editor/EditorBottomNavbar";
+import EditorMain from "@components/Editor/EditorMain";
+import EditorTopNavbar from "@components/Editor/EditorTopNavbar";
+import DeletionBox from "@components/DeletionBox";
 
 export default {
     components: {
         EditorBottomNavbar,
         EditorMain,
         EditorTopNavbar,
+        DeletionBox,
     },
     mounted() {
         this.$store.dispatch("notes/FETCH_ALL_NOTES_FROM_DB");

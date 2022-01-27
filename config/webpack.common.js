@@ -45,6 +45,7 @@ module.exports = {
         extensions: ["*", ".js", ".ts", ".vue"],
         alias: {
             "@": path.resolve(__dirname, "../src/client"),
+            "@components": path.resolve(__dirname, "../src/client/components"),
             "@assets": path.resolve(__dirname, "../src/client/assets"),
             path: "path-browserify",
             stream: "stream-browserify",
