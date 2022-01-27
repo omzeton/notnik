@@ -47,6 +47,7 @@ module.exports = {
             "@": path.resolve(__dirname, "../src/client"),
             "@components": path.resolve(__dirname, "../src/client/components"),
             "@assets": path.resolve(__dirname, "../src/client/assets"),
+            "@server": path.resolve(__dirname, "../src/server"),
             path: "path-browserify",
             stream: "stream-browserify",
         },

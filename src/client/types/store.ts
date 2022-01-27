@@ -1,4 +1,4 @@
-import { APIError } from "../../server/types";
+import { APIError } from "@server/types";
 
 export interface Note {
     _id: string;
@@ -17,10 +17,6 @@ export interface NotesModuleState {
 export interface UIModuleState {
     loginForm: boolean;
     isLoading: boolean;
-    loadingMessage: string;
-    settingsModal: boolean;
-    markdownMode: boolean;
-    notificationIsVisible: boolean;
     deletionModalIsActive: boolean;
 }
 
