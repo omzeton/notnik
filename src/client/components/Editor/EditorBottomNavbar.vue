@@ -1,7 +1,7 @@
 <template>
     <div class="editor__nav editor__nav--bottom">
-        <EditorNavButton title="Save" />
-        <EditorNavButton title="Delete" />
+        <EditorNavButton icon="save" />
+        <EditorNavButton icon="delete" />
     </div>
 </template>
 

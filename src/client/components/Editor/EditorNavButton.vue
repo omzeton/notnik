@@ -1,24 +1,24 @@
 <template>
-    <button class="editor__button" type="button" @click="onClick">{{ title }}</button>
+    <button :class="`editor__button editor__button--${icon}`" type="button" @click="onClick"></button>
 </template>
 
 <script>
 export default {
     props: {
-        title: {
+        icon: {
             type: String,
             required: true,
         },
     },
     methods: {
         onClick() {
-            if (!this.title) return;
+            if (!this.icon) return;
             let actionToDispatch = "";
-            switch (this.title) {
-                case "Save":
+            switch (this.icon) {
+                case "save":
                     actionToDispatch = "notes/SAVE_CURRENT_CHANGES";
                     break;
-                case "Delete":
+                case "delete":
                     actionToDispatch = "notes/DELETE_CURRENT_NOTE";
                     break;
             }
