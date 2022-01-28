@@ -17,8 +17,6 @@ if (process.env.NODE_ENV !== "production") {
     Vue.config.performance = true;
 }
 
-axios.defaults.baseURL = window.location.origin + "/api";
-
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-ignore
 Vue.use(VueQuillEditor);

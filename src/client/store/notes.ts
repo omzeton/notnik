@@ -1,6 +1,6 @@
-import axios from "axios";
 import { ActionTree, GetterTree, MutationTree } from "vuex";
 
+import api from "@/services/api";
 import { NotesModuleState, Note, Store, ActiveNote } from "@/types";
 import { sleep } from "@/utils";
 
@@ -18,14 +18,14 @@ const actions: ActionTree<NotesModuleState, Store> = {
         if (notesAlreadyFetched) {
             return;
         }
-        const res = await axios.get("journal/entries");
+        const res = await api.get("journal/entries");
         if (res.status !== 200 && res.status !== 201) {
             throw new Error("Server error: couldn't fetch all entries!");
         }
         dispatch("UPDATE_NOTES", { notes: res.data.entries });
     },
     async CREATE_NEW_NOTE({ dispatch }) {
-        const res = await axios.post("journal/new");
+        const res = await api.post("journal/new");
         if (res.status !== 200 && res.status !== 201) {
             throw new Error("Server error: couldn't create new entry!");
         }
@@ -35,11 +35,7 @@ const actions: ActionTree<NotesModuleState, Store> = {
     },
     async DELETE_CURRENT_NOTE({ commit, state }) {
         const currentActiveNoteID = state.activeNote._id;
-        const res = await axios.post(
-            "journal/remove-entry",
-            { id: currentActiveNoteID },
-            { headers: { "Content-Type": "application/json" } }
-        );
+        const res = await api.post("journal/remove-entry", { id: currentActiveNoteID });
         if (res.status !== 200 && res.status !== 201) {
             throw new Error("Server error: Can't delete current entry!");
         }
@@ -56,11 +52,7 @@ const actions: ActionTree<NotesModuleState, Store> = {
         if (noNewChanges) {
             return;
         }
-        const res = await axios.post(
-            "journal/sync",
-            { entry: state.activeNote },
-            { headers: { "Content-Type": "application/json" } }
-        );
+        const res = await api.post("journal/sync", { entry: state.activeNote });
         if (res.status !== 200 && res.status !== 201) {
             throw new Error("Server error: Can't save changes to current note!");
         }
