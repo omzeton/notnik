@@ -2,9 +2,9 @@ import { Request, Response, NextFunction } from "express";
 
 import User from "../models/user";
 
-const getEntries = async (req: Request, res: Response, next: NextFunction) => {
+const getEntries = async (req: Request, res: Response<{}, { accessToken: string }>, next: NextFunction) => {
     try {
-        const uId: string = res.locals.userId;
+        const uId: string = res.locals.accessToken;
         const user = await User.findById(uId);
         if (!user) throw new Error("Could not connect to the user.");
         const entries = user.entries;
@@ -16,9 +16,9 @@ const getEntries = async (req: Request, res: Response, next: NextFunction) => {
     }
 };
 
-const addNewEntry = async (req: Request, res: Response, next: NextFunction) => {
+const addNewEntry = async (req: Request, res: Response<{}, { accessToken: string }>, next: NextFunction) => {
     try {
-        const uId: string = res.locals.userId;
+        const uId: string = res.locals.accessToken;
         const user = await User.findById(uId);
         if (!user) throw new Error("Could not connect to the user");
 
@@ -39,9 +39,9 @@ const addNewEntry = async (req: Request, res: Response, next: NextFunction) => {
     }
 };
 
-const syncEntry = async (req: Request, res: Response, next: NextFunction) => {
+const syncEntry = async (req: Request, res: Response<{}, { accessToken: string }>, next: NextFunction) => {
     try {
-        const uId: string = res.locals.userId;
+        const uId: string = res.locals.accessToken;
         const user = await User.findById(uId);
         if (!user) throw new Error("Could not connect to the user");
 
@@ -66,10 +66,10 @@ const syncEntry = async (req: Request, res: Response, next: NextFunction) => {
     }
 };
 
-const deleteEntry = async (req: Request, res: Response, next: NextFunction) => {
+const deleteEntry = async (req: Request, res: Response<{}, { accessToken: string }>, next: NextFunction) => {
     try {
         if (!req.body.id) throw new Error("No ID was provided in payload!");
-        const uId: string = res.locals.userId;
+        const uId: string = res.locals.accessToken;
         const user = await User.findById(uId);
         if (!user) throw new Error("Could not connect to the user");
         user.entries = user.entries.filter(entry => {

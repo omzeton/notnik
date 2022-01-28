@@ -1,5 +1,6 @@
 import { APIError } from "@server/types";
 
+/* MODELS */
 export interface Note {
     _id: string;
     body: string;
@@ -9,32 +10,38 @@ export interface ActiveNote {
     _id: string;
     body: string;
 }
+export interface User {
+    _id: string;
+    email: string;
+}
+export type ServerError = APIError;
+export interface ErrorValidation {
+    errors: Array<string>;
+    errorTimeout: ReturnType<typeof setTimeout> | null;
+}
+export interface SignupData {
+    email: string;
+    password: string;
+    repeatPassword: string;
+}
+
+/* STORE MODULES */
 export interface NotesModuleState {
     activeNote: ActiveNote;
     userNotes: Array<Note>;
 }
-
 export interface UIModuleState {
     loginForm: boolean;
     isLoading: boolean;
     deletionModalIsActive: boolean;
 }
-
 export interface AuthModuleState {
-    isAuthenticated: boolean;
+    isLoggedIn: boolean;
     serverError: string;
+    user: User;
 }
-
 export interface Store {
     notes: NotesModuleState;
     ui: UIModuleState;
     auth: AuthModuleState;
-}
-
-export type ServerError = APIError;
-
-export interface Validation {
-    email: string;
-    password: string;
-    repeatPassword: string;
 }

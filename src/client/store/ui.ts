@@ -1,6 +1,6 @@
 import { ActionTree, GetterTree, MutationTree } from "vuex";
 
-import { UIModuleState, Store } from "@/types/store";
+import { UIModuleState, Store } from "@/types";
 
 const state: UIModuleState = {
     isLoading: false,

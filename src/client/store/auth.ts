@@ -1,18 +1,26 @@
 import axios from "axios";
 import { ActionTree, GetterTree, MutationTree } from "vuex";
 
-import { AuthModuleState, ServerError, Store } from "@/types/store";
+import { AuthModuleState, ServerError, Store } from "@/types";
 import router from "@/routes";
 
 const state: AuthModuleState = {
-    isAuthenticated: false,
+    isLoggedIn: false,
     serverError: "",
+    user: {
+        _id: "",
+        email: "",
+    },
 };
 
 const actions: ActionTree<AuthModuleState, Store> = {
     async LOGIN({ dispatch }, { email, password }) {
         try {
-            const res = await axios.post("auth/login", { email, password }, { headers: { "Content-Type": "application/json" } });
+            const res = await axios.post(
+                "auth/login",
+                { email, password },
+                { headers: { "Content-Type": "application/json" } }
+            );
             if (res.status !== 200 && res.status !== 201) throw new Error("Unable to authenticate user.");
             dispatch("SAVE_USER_AUTH_STATUS", true);
             dispatch("ui/SET_LOADING_STATE", { active: false, message: "" }, { root: true });
@@ -26,7 +34,11 @@ const actions: ActionTree<AuthModuleState, Store> = {
     },
     async REGISTER({ dispatch }, { email, password }) {
         try {
-            const res = await axios.put("auth/signup", { email, password }, { headers: { "Content-Type": "application/json" } });
+            const res = await axios.put(
+                "auth/signup",
+                { email, password },
+                { headers: { "Content-Type": "application/json" } }
+            );
             if (res.status !== 200 && res.status !== 201) throw new Error("Unable to authenticate user.");
             dispatch("ui/TOGGLE_FORM_VIEW", null, { root: true });
             dispatch("ui/SET_LOADING_STATE", { active: false, message: "" }, { root: true });
@@ -60,7 +72,7 @@ const actions: ActionTree<AuthModuleState, Store> = {
         }
     },
     ROUTE_GUARD({ state }) {
-        if (!state.isAuthenticated) router.push("/");
+        if (!state.isLoggedIn) router.push("/");
     },
     SAVE_USER_AUTH_STATUS({ commit }, payload) {
         commit("updateUserAuthStatus", payload);
@@ -74,12 +86,12 @@ const actions: ActionTree<AuthModuleState, Store> = {
 };
 
 const getters: GetterTree<AuthModuleState, Store> = {
-    GET_IS_AUTHENTICATED: state => state.isAuthenticated,
+    GET_IS_AUTHENTICATED: state => state.isLoggedIn,
 };
 
 const mutations: MutationTree<AuthModuleState> = {
     updateUserAuthStatus(state, payload) {
-        state.isAuthenticated = payload;
+        state.isLoggedIn = payload;
     },
     setServerError(state, payload) {
         state.serverError = payload;

@@ -1,7 +1,7 @@
 import axios from "axios";
 import { ActionTree, GetterTree, MutationTree } from "vuex";
 
-import { NotesModuleState, Note, Store, ActiveNote } from "@/types/store";
+import { NotesModuleState, Note, Store, ActiveNote } from "@/types";
 import { sleep } from "@/utils";
 
 const state: NotesModuleState = {

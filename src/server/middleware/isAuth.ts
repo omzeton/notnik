@@ -4,25 +4,23 @@ import jwt from "jsonwebtoken";
 import { APIError } from "../types";
 dotenv.config();
 
-declare const process: {
-    env: {
-        TOKEN_SECRET: string;
-    };
-};
-
-const isAuth = async (req: Request, res: Response, next: NextFunction) => {
+const isAuth = async (req: Request, res: Response<{}, { accessToken: string }>, next: NextFunction) => {
     try {
-        const userToken = jwt.verify(req.cookies.userAccessToken, process.env.TOKEN_SECRET);
-        if (!userToken) {
-            const error: APIError = new Error("User token invalid or expired.");
+        if (!process.env["TOKEN_SECRET"]) {
+            const error: APIError = new Error("Environment variable undefined.");
             error.statusCode = 401;
-            error.msg = "User token invalid or expired.";
             throw error;
         }
-        if (typeof userToken === 'string') {
-            res.locals.userId = userToken;
+        const accessToken = jwt.verify(req.cookies.userAccessToken, process.env["TOKEN_SECRET"]);
+        if (!accessToken) {
+            const error: APIError = new Error("User token expired or forged.");
+            error.statusCode = 401;
+            throw error;
+        }
+        if (typeof accessToken === "string") {
+            res.locals.accessToken = accessToken;
         } else {
-            res.locals.userId = userToken.userId;
+            res.locals.accessToken = accessToken["userId"];
         }
         next();
     } catch ({ statusCode, msg }) {
