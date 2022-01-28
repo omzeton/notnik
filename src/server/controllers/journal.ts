@@ -1,8 +1,13 @@
 import { Request, Response, NextFunction } from "express";
 
 import User from "../models/user";
+import { Entry } from "@server/types";
 
-const getEntries = async (req: Request, res: Response<{}, { accessToken: string }>, next: NextFunction) => {
+const getEntries = async (
+    req: Request,
+    res: Response<{ entries: Entry[] }, { accessToken: string }>,
+    next: NextFunction
+) => {
     try {
         const uId: string = res.locals.accessToken;
         const user = await User.findById(uId);
@@ -16,7 +21,11 @@ const getEntries = async (req: Request, res: Response<{}, { accessToken: string 
     }
 };
 
-const addNewEntry = async (req: Request, res: Response<{}, { accessToken: string }>, next: NextFunction) => {
+const addNewEntry = async (
+    req: Request,
+    res: Response<{ entries: Entry[] }, { accessToken: string }>,
+    next: NextFunction
+) => {
     try {
         const uId: string = res.locals.accessToken;
         const user = await User.findById(uId);
@@ -39,7 +48,11 @@ const addNewEntry = async (req: Request, res: Response<{}, { accessToken: string
     }
 };
 
-const syncEntry = async (req: Request, res: Response<{}, { accessToken: string }>, next: NextFunction) => {
+const syncEntry = async (
+    req: Request,
+    res: Response<{ entries: Entry[] }, { accessToken: string }>,
+    next: NextFunction
+) => {
     try {
         const uId: string = res.locals.accessToken;
         const user = await User.findById(uId);
@@ -66,7 +79,11 @@ const syncEntry = async (req: Request, res: Response<{}, { accessToken: string }
     }
 };
 
-const deleteEntry = async (req: Request, res: Response<{}, { accessToken: string }>, next: NextFunction) => {
+const deleteEntry = async (
+    req: Request,
+    res: Response<{ entries: Entry[] }, { accessToken: string }>,
+    next: NextFunction
+) => {
     try {
         if (!req.body.id) throw new Error("No ID was provided in payload!");
         const uId: string = res.locals.accessToken;

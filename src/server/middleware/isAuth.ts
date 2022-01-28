@@ -4,7 +4,7 @@ import jwt from "jsonwebtoken";
 import { APIError } from "../types";
 dotenv.config();
 
-const isAuth = async (req: Request, res: Response<{}, { accessToken: string }>, next: NextFunction) => {
+const isAuth = async (req: Request, res: Response<never, { accessToken: string }>, next: NextFunction) => {
     try {
         if (!process.env["TOKEN_SECRET"]) {
             const error: APIError = new Error("Environment variable undefined.");

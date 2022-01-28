@@ -13,7 +13,7 @@ const signup = async (req: tRequest<SignupRequestPayload>, res: Response, next: 
         const newUser = new UserSchema({ email: email, password: hashedPw, entries: [] });
         const result = await newUser.save();
 
-        const token = jwt.sign({ email: result.email, userId: result._id.toString() }, process.env["TOKEN_SECRET"]!, {
+        const token = jwt.sign({ email: result.email, userId: result._id.toString() }, process.env["TOKEN_SECRET"], {
             expiresIn: "1d",
         });
         res.status(201).json({ userId: result._id.toString(), token });
@@ -32,7 +32,7 @@ const login = async (req: Request, res: Response, next: NextFunction) => {
                 email: req.body.email,
                 userId: user._id.toString(),
             },
-            process.env["TOKEN_SECRET"]!,
+            process.env["TOKEN_SECRET"],
             { expiresIn: "12h" }
         );
         if (!token) throw new Error("Retrieving token failed! Check env variables!");
@@ -50,7 +50,7 @@ const authenticate = async (req: Request, res: Response, next: NextFunction) => 
             res.status(200).json({ tokenIsValid: false });
             return;
         }
-        const tokenExists = await jwt.verify(req.cookies.userAccessToken, process.env["TOKEN_SECRET"]!);
+        const tokenExists = await jwt.verify(req.cookies.userAccessToken, process.env["TOKEN_SECRET"]);
         res.status(200).json({ tokenIsValid: !!tokenExists });
     } catch {
         next({ statusCode: 401, msg: "Unable to validate access token" });
