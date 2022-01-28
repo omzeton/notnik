@@ -4,9 +4,9 @@ import { Request, Response, NextFunction } from "express";
 
 import UserSchema from "../models/user.model";
 import { accessCookie } from "../utils/cookie";
-import { SignupRequestPayload, tRequest } from "../types";
+import { RegisterPayload, tRequest } from "../types";
 
-const register = async (req: tRequest<SignupRequestPayload>, res: Response, next: NextFunction) => {
+const register = async (req: tRequest<RegisterPayload>, res: Response, next: NextFunction) => {
     try {
         const { email, password } = req.body;
         const hashedPw = await bcrypt.hash(password, 12);

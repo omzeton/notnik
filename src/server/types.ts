@@ -31,7 +31,7 @@ export interface User {
     entries: Array<Entry>;
 }
 
-export interface SignupRequestPayload {
+export interface RegisterPayload {
     email: string;
     password: string;
 }
