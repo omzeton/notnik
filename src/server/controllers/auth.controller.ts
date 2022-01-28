@@ -2,7 +2,7 @@ import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
 import { Request, Response, NextFunction } from "express";
 
-import UserSchema from "../models/user";
+import UserSchema from "../models/user.model";
 import { accessCookie } from "../utils/cookie";
 import { SignupRequestPayload, tRequest } from "../types";
 

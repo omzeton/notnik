@@ -1,7 +1,7 @@
 import express from "express";
 
-import authRoutes from "./auth";
-import journalRoutes from "./journal";
+import authRoutes from "./auth.route";
+import journalRoutes from "./journal.route";
 
 const router = express.Router();
 

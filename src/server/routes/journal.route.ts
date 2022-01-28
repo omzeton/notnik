@@ -1,6 +1,6 @@
 import express from "express";
 
-import { getEntries, addNewEntry, syncEntry, deleteEntry } from "../controllers/journal";
+import { getEntries, addNewEntry, syncEntry, deleteEntry } from "../controllers/journal.controller";
 import isAuth from "../middleware/isAuth";
 
 const router = express.Router();

@@ -1,7 +1,7 @@
 import { body } from "express-validator";
 import bcrypt from "bcryptjs";
 
-import User from "../models/user";
+import User from "../models/user.model";
 
 const loginValidator = [
     body("email")
