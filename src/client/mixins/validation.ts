@@ -1,7 +1,7 @@
 import mixins from "vue-typed-mixins";
 import Vue from "vue";
 
-import { SignupData, ErrorValidation } from "@/types";
+import { RegistrationPayload, ErrorValidation } from "@/types";
 
 const MIN_LENGTH = 5;
 
@@ -16,8 +16,8 @@ const Base = Vue.extend({
 
 export default mixins(Base).extend({
     methods: {
-        validate(obj: SignupData) {
-            Object.entries(obj).forEach(([key, value]: [key: string, value: [password: SignupData["password"], repeatPassword: SignupData["repeatPassword"]] ]) => {
+        validate(obj: RegistrationPayload) {
+            Object.entries(obj).forEach(([key, value]: [key: string, value: [password: RegistrationPayload["password"], repeatPassword: RegistrationPayload["repeatPassword"]] ]) => {
                 if (typeof value === "object") {
                     this.validateTwoPasswords(...value);
                     return;

@@ -1,11 +1,11 @@
 import express from "express";
 
-import { signup, login, logout, authenticate } from "../controllers/auth.controller";
-import { signupValidator, loginValidator } from "../utils/validators";
+import { register, login, logout, authenticate } from "../controllers/auth.controller";
+import { registerValidator, loginValidator } from "../utils/validators";
 
 const router = express.Router();
 
-router.put("/signup", signupValidator, signup);
+router.put("/register", registerValidator, register);
 router.post("/login", loginValidator, login);
 router.post("/logout", logout);
 router.get("/authenticate", authenticate);

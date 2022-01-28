@@ -6,7 +6,7 @@ import UserSchema from "../models/user.model";
 import { accessCookie } from "../utils/cookie";
 import { SignupRequestPayload, tRequest } from "../types";
 
-const signup = async (req: tRequest<SignupRequestPayload>, res: Response, next: NextFunction) => {
+const register = async (req: tRequest<SignupRequestPayload>, res: Response, next: NextFunction) => {
     try {
         const { email, password } = req.body;
         const hashedPw = await bcrypt.hash(password, 12);
@@ -61,4 +61,4 @@ const logout = async (req: Request, res: Response) => {
     res.status(200).send({ message: "Logged out" });
 };
 
-export { signup, login, logout, authenticate };
+export { register, login, logout, authenticate };

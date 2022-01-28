@@ -35,7 +35,7 @@ const actions: ActionTree<AuthModuleState, Store> = {
     async REGISTER({ dispatch }, { email, password }) {
         try {
             const res = await axios.put(
-                "auth/signup",
+                "auth/register",
                 { email, password },
                 { headers: { "Content-Type": "application/json" } }
             );

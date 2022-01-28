@@ -19,7 +19,7 @@ export interface ErrorValidation {
     errors: Array<string>;
     errorTimeout: ReturnType<typeof setTimeout> | null;
 }
-export interface SignupData {
+export interface RegistrationPayload {
     email: string;
     password: string;
     repeatPassword: string;

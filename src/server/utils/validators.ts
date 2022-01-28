@@ -22,7 +22,7 @@ const loginValidator = [
         }),
 ];
 
-const signupValidator = [
+const registerValidator = [
     body("email")
         .isEmail()
         .withMessage("Invalid email.")
@@ -36,4 +36,4 @@ const signupValidator = [
         .isLength({ min: 5 }),
 ];
 
-export { loginValidator, signupValidator };
+export { loginValidator, registerValidator };
