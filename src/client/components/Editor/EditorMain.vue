@@ -27,5 +27,8 @@ export default {
             },
         },
     },
+    mounted() {
+        document.querySelector(".ql-editor").setAttribute("spellcheck", false);
+    },
 };
 </script>
