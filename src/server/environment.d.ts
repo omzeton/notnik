@@ -1,10 +1,8 @@
-import { Secret } from "jsonwebtoken";
-
 declare global {
     namespace NodeJS {
         interface ProcessEnv {
             PORT: number;
-            TOKEN_SECRET: Secret;
+            TOKEN_SECRET: string;
             MONGO_USER: string;
             MONGO_PASSWORD: string;
             MONGO_DATABASE: string;
