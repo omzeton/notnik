@@ -1,7 +1,7 @@
 import { Request, Response, NextFunction } from "express";
 
+import { Entry } from "../types";
 import User from "../models/user.model";
-import { Entry } from "@server/types";
 
 const getEntries = async (
     req: Request,

@@ -1,7 +1,6 @@
 import Vue from "vue";
 import VueRouter from "vue-router";
 import VueQuillEditor from "vue-quill-editor";
-import axios from "axios";
 import { Plugin } from "vue-fragment";
 
 import store from "@/store";

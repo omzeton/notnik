@@ -3,62 +3,65 @@ import jwt from "jsonwebtoken";
 import { Request, Response, NextFunction } from "express";
 
 import UserSchema from "../models/user.model";
-import { accessCookie } from "../utils/cookie";
-import { RegisterPayload, tRequest } from "../types";
+import TokenSchema from "../models/token.model";
+import { RegisterPayload, tRequest } from "@server/types";
 
 const register = async (req: tRequest<RegisterPayload>, res: Response, next: NextFunction) => {
     try {
         const { email, password } = req.body;
-        const hashedPw = await bcrypt.hash(password, 12);
-        const newUser = new UserSchema({ email: email, password: hashedPw, entries: [] });
-        const result = await newUser.save();
-
-        const token = jwt.sign(
-            { email: result.email, userId: result._id.toString() },
-            process.env["TOKEN_SECRET"] as string,
-            { expiresIn: "1d" }
-        );
-        res.status(201).json({ userId: result._id.toString(), token });
+        const hashedPassword = await bcrypt.hash(password, 12);
+        const newUser = await new UserSchema({ email, password: hashedPassword, entries: [] }).save();
+        res.status(201).json({ userId: newUser._id.toString() });
     } catch ({ statusCode, msg }) {
         next({ statusCode, msg });
     }
 };
 
+const logout = async (req: Request, res: Response) => {
+    res.status(200).send({ message: "Logged out" });
+};
+
 const login = async (req: Request, res: Response, next: NextFunction) => {
     try {
-        const user = await UserSchema.findOne({ email: req.body.email });
-        if (!user) throw new Error(`Couldn't find user ${req.body.email}`);
-
-        const token = jwt.sign(
-            { email: req.body.email, userId: user._id.toString() },
-            process.env["TOKEN_SECRET"] as string,
-            { expiresIn: "12h" }
-        );
-        if (!token) throw new Error("Retrieving token failed! Check env variables!");
-
-        res.cookie("userAccessToken", token, accessCookie);
-        res.status(200).json({ userId: user._id.toString() });
+        const { email } = req.body;
+        const user = await UserSchema.findOne({ email });
+        const accessToken = jwt.sign({ email }, process.env["TOKEN_SECRET"] as string, {
+            expiresIn: "12h",
+        });
+        const refreshToken = jwt.sign({ email }, process.env["TOKEN_SECRET"] as string, {
+            expiresIn: "20d",
+        });
+        await new TokenSchema({ tokenID: refreshToken, userID: user?._id.toString() }).save();
+        res.status(200).json({ accessToken, refreshToken });
     } catch {
         next({ statusCode: 401, msg: "Invalid email or password" });
     }
 };
 
-const authenticate = async (req: Request, res: Response, next: NextFunction) => {
+const token = async (req: Request, res: Response, next: NextFunction) => {
     try {
-        if (!req.cookies.userAccessToken) {
-            res.status(200).json({ tokenIsValid: false });
-            return;
+        const refreshToken = req.header("x-auth-token");
+
+        if (!refreshToken) {
+            throw new Error("Refresh token not found");
         }
-        const tokenExists = await jwt.verify(req.cookies.userAccessToken, process.env["TOKEN_SECRET"] as string);
-        res.status(200).json({ tokenIsValid: !!tokenExists });
+
+        const dbRefreshToken = await TokenSchema.findOne({ tokenID: refreshToken });
+
+        if (!dbRefreshToken) {
+            throw new Error("Token not found in database");
+        }
+
+        const accessToken = jwt.sign(
+            { userId: dbRefreshToken.userID.toString() },
+            process.env["TOKEN_SECRET"] as string,
+            { expiresIn: "13500" }
+        );
+
+        res.status(200).json({ accessToken });
     } catch {
-        next({ statusCode: 401, msg: "Unable to validate access token" });
+        next({ statusCode: 401, msg: "Can't renew refresh token" });
     }
 };
 
-const logout = async (req: Request, res: Response) => {
-    res.clearCookie("userAccessToken");
-    res.status(200).send({ message: "Logged out" });
-};
-
-export { register, login, logout, authenticate };
+export { register, login, logout, token };

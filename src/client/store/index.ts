@@ -1,9 +1,9 @@
 import Vue from "vue";
 import Vuex from "vuex";
 
-import ui from "./ui";
-import auth from "./auth";
-import notes from "./notes";
+import ui from "./UIModule";
+import auth from "./authModule";
+import notes from "./notesModule";
 
 Vue.use(Vuex);
 

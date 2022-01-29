@@ -35,3 +35,8 @@ export interface RegisterPayload {
     email: string;
     password: string;
 }
+
+export interface RefreshToken {
+    tokenID: string;
+    userID: string;
+}

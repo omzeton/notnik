@@ -3,23 +3,23 @@
 
 $button-variants: (
     new: (
-        image: "@assets/new.svg",
+        image: "@/assets/new.svg",
         color: $g,
     ),
     grid: (
-        image: "@assets/list.svg",
+        image: "@/assets/list.svg",
         color: $or2,
     ),
     settings: (
-        image: "@assets/settings.svg",
+        image: "@/assets/settings.svg",
         color: $blu,
     ),
     delete: (
-        image: "@assets/delete.svg",
+        image: "@/assets/delete.svg",
         color: $err,
     ),
     logout: (
-        image: "@assets/logout.svg",
+        image: "@/assets/logout.svg",
         color: $bla2,
     ),
 );

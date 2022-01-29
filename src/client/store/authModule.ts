@@ -41,17 +41,6 @@ const actions: ActionTree<AuthModuleState, Store> = {
             throw err;
         }
     },
-    async CHECK_AUTH_STATUS({ dispatch }) {
-        try {
-            const res = await api.get("auth/authenticate");
-            if (res.status !== 200 && res.status !== 201) throw new Error();
-            dispatch("SAVE_USER_AUTH_STATUS", res.data.tokenIsValid);
-            // if (res.data.tokenIsValid && router.history.current.path !== "/notnik") router.push("/notnik");
-        } catch (err) {
-            console.log("%cSession token expired or not found. Login to authenticate.", "color: #ec4e20;");
-            throw err;
-        }
-    },
     async LOG_OUT({ dispatch }) {
         try {
             dispatch("ui/SET_LOADING_STATE", { active: true, message: "Logging out" }, { root: true });
@@ -62,9 +51,6 @@ const actions: ActionTree<AuthModuleState, Store> = {
             dispatch("ui/SET_LOADING_STATE", { active: false, message: "" }, { root: true });
             throw err;
         }
-    },
-    ROUTE_GUARD({ state }) {
-        if (!state.isLoggedIn) router.push("/");
     },
     SAVE_USER_AUTH_STATUS({ commit }, payload) {
         commit("updateUserAuthStatus", payload);

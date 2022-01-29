@@ -1,7 +1,7 @@
 import express from "express";
 
-import { getEntries, addNewEntry, syncEntry, deleteEntry } from "../controllers/journal.controller";
 import isAuth from "../middleware/isAuth";
+import { getEntries, addNewEntry, syncEntry, deleteEntry } from "../controllers/journal.controller";
 
 const router = express.Router();
 

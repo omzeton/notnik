@@ -1,11 +1,11 @@
-import express, { Request, Response, NextFunction } from "express";
 import cors from "cors";
 import helmet from "helmet";
 import compression from "compression";
 import cookieParser from "cookie-parser";
+import express, { Request, Response, NextFunction } from "express";
 
-import { APIError } from "./types";
 import router from "./routes";
+import { APIError } from "./types";
 
 const app = express();
 

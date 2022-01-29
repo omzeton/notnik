@@ -1,7 +1,8 @@
-import { Response, NextFunction, Request } from "express";
 import * as dotenv from "dotenv";
 import jwt from "jsonwebtoken";
-import { APIError } from "../types";
+import { Response, NextFunction, Request } from "express";
+
+import { APIError } from "@server/types";
 dotenv.config();
 
 const isAuth = async (req: Request, res: Response<never, { accessToken: string }>, next: NextFunction) => {
