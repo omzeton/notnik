@@ -68,11 +68,11 @@ export default {
                 this.validate({ email, password: [password, repeatPassword] });
             }
             if (!this.errors.length) {
-                if (this.isLoginForm) {
-                    this.$store.dispatch("auth/LOGIN", { email, password });
-                } else {
-                    this.$store.dispatch("auth/REGISTER", { email, password });
-                }
+                this.$store.dispatch("auth/AUTHENTICATE_USER", {
+                    email,
+                    password,
+                    type: this.isLoginForm ? "login" : "register",
+                });
                 return;
             } else {
                 this.isLoading = false;

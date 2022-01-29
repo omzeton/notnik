@@ -16,8 +16,6 @@ mongoose
     )
     .then(() => {
         const port = process.env["PORT"] || 2828;
-        app.listen(port, () => console.log("\x1b[33m", `Listening on port ${port}`));
+        app.listen(port, () => console.log(`Listening on port ${port}`));
     })
-    .catch(err => {
-        console.log(err);
-    });
+    .catch(err => console.log(err));

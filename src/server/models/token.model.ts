@@ -2,7 +2,7 @@ import { Schema, model } from "mongoose";
 import { RefreshToken } from "@server/types";
 
 const refreshTokenSchema = new Schema<RefreshToken>({
-    tokenID: {
+    refreshToken: {
         type: String,
         required: true,
     },

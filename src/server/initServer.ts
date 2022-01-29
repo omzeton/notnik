@@ -2,10 +2,10 @@ import cors from "cors";
 import helmet from "helmet";
 import compression from "compression";
 import cookieParser from "cookie-parser";
-import express, { Request, Response, NextFunction } from "express";
+import express, { Response, NextFunction } from "express";
 
 import router from "./routes";
-import { APIError } from "./types";
+import errorHandlerMiddleware from "./middleware/errorHandler";
 
 const app = express();
 
@@ -15,7 +15,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
 app.use(compression());
-app.use((req: Request, res: Response, next: NextFunction) => {
+app.use((req, res: Response, next: NextFunction) => {
     res.setHeader("Access-Control-Allow-Origin", "*");
     res.setHeader("Access-Control-Allow-Credentials", "true");
     res.setHeader("Access-Control-Allow-Methods", "OPTIONS, GET, POST, PUT, PATCH, DELETE");
@@ -23,10 +23,6 @@ app.use((req: Request, res: Response, next: NextFunction) => {
     next();
 });
 app.use("/api", router);
-app.use((err: APIError, req: Request, res: Response) => {
-    console.error(err);
-    const status = err.statusCode || 500;
-    res.status(status).send({ message: err.message });
-});
+app.use(errorHandlerMiddleware);
 
 export default app;

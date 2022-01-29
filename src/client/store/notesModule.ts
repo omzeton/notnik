@@ -1,6 +1,6 @@
 import { ActionTree, GetterTree, MutationTree } from "vuex";
 
-import api from "@/services/api";
+import api from "@/services/apiService";
 import { NotesModuleState, Note, Store, ActiveNote } from "@/types";
 import { sleep } from "@/utils";
 

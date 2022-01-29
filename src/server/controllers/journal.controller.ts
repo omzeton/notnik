@@ -37,7 +37,7 @@ const addNewEntry = async (
         });
         user.save(err => {
             if (err) {
-                console.log(err);
+                console.log(JSON.stringify(err));
                 return;
             }
             res.status(200).json({ entries: user.entries });
@@ -68,7 +68,7 @@ const syncEntry = async (
 
         user.save(err => {
             if (err) {
-                console.log(err);
+                console.log(JSON.stringify(err));
                 return;
             }
             res.status(200).json({ entries: user.entries });
@@ -96,7 +96,7 @@ const deleteEntry = async (
         });
         user.save(err => {
             if (err) {
-                console.log(err);
+                console.log(JSON.stringify(err));
                 return;
             }
             res.status(200).json({ entries: user.entries });

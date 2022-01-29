@@ -1,44 +1,29 @@
 import { ActionTree, GetterTree, MutationTree } from "vuex";
 
-import api from "@/services/api";
-import { AuthModuleState, ServerError, Store } from "@/types";
-import router from "@/routes";
+import api from "@/services/apiService";
+import { saveRefreshToken, saveAccessToken } from "@/services/tokenService";
+import { AuthModuleState, Store } from "@/types";
 
 const state: AuthModuleState = {
-    isLoggedIn: false,
     serverError: "",
-    user: {
-        _id: "",
-        email: "",
-    },
 };
 
 const actions: ActionTree<AuthModuleState, Store> = {
-    async LOGIN({ dispatch }, { email, password }) {
+    async AUTHENTICATE_USER({ dispatch }, { email, password, type }) {
         try {
-            const res = await api.post("auth/login", { email, password });
+            const res = await api.post(`auth/${type}`, { email, password });
+
             dispatch("ui/SET_LOADING_STATE", { active: false, message: "" }, { root: true });
-            if (res.status !== 200 && res.status !== 201) throw new Error("Unable to authenticate user!");
-            dispatch("SAVE_USER_AUTH_STATUS", true);
-            router.push("/notnik");
-        } catch (err) {
-            const errorMessage = (err as ServerError).response?.data?.message;
-            dispatch("ui/SET_LOADING_STATE", { active: false, message: "" }, { root: true });
-            dispatch("SET_SERVER_ERROR", errorMessage);
-            throw err;
-        }
-    },
-    async REGISTER({ dispatch }, { email, password }) {
-        try {
-            const res = await api.put("auth/register", { email, password });
-            dispatch("ui/SET_LOADING_STATE", { active: false, message: "" }, { root: true });
-            if (res.status !== 200 && res.status !== 201) throw new Error("Unable to authenticate user!");
-            dispatch("ui/TOGGLE_FORM_VIEW", null, { root: true });
-        } catch (err) {
-            const errorMessage = (err as ServerError).response?.data?.message;
-            dispatch("ui/SET_LOADING_STATE", { active: false, message: "" }, { root: true });
-            dispatch("SET_SERVER_ERROR", errorMessage);
-            throw err;
+
+            if (res.status !== 200 && res.status !== 201) {
+                throw new Error("Unable to authenticate user!");
+            }
+
+            if (type === "register") {
+                dispatch("ui/TOGGLE_FORM_VIEW", null, { root: true });
+            }
+        } catch (e) {
+            dispatch("SET_SERVER_ERROR", (<Error>e).message);
         }
     },
     async LOG_OUT({ dispatch }) {
@@ -52,9 +37,6 @@ const actions: ActionTree<AuthModuleState, Store> = {
             throw err;
         }
     },
-    SAVE_USER_AUTH_STATUS({ commit }, payload) {
-        commit("updateUserAuthStatus", payload);
-    },
     SET_SERVER_ERROR({ commit }, payload) {
         commit("setServerError", payload);
     },
@@ -63,14 +45,9 @@ const actions: ActionTree<AuthModuleState, Store> = {
     },
 };
 
-const getters: GetterTree<AuthModuleState, Store> = {
-    GET_IS_AUTHENTICATED: state => state.isLoggedIn,
-};
+const getters: GetterTree<AuthModuleState, Store> = {};
 
 const mutations: MutationTree<AuthModuleState> = {
-    updateUserAuthStatus(state, payload) {
-        state.isLoggedIn = payload;
-    },
     setServerError(state, payload) {
         state.serverError = payload;
     },

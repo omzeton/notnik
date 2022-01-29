@@ -1,5 +1,3 @@
-import { APIError } from "@server/types";
-
 /* MODELS */
 export interface Note {
     _id: string;
@@ -14,7 +12,6 @@ export interface User {
     _id: string;
     email: string;
 }
-export type ServerError = APIError;
 export interface ErrorValidation {
     errors: Array<string>;
     errorTimeout: ReturnType<typeof setTimeout> | null;
@@ -36,9 +33,7 @@ export interface UIModuleState {
     deletionModalIsActive: boolean;
 }
 export interface AuthModuleState {
-    isLoggedIn: boolean;
     serverError: string;
-    user: User;
 }
 export interface Store {
     notes: NotesModuleState;
