@@ -49,7 +49,6 @@ export default {
             },
             loginLinkContent: `Don't have an account? <span class="form__link--accent">Register</span> a new one.`,
             registerLinkContent: `Already have an account? <span class="form__link--accent">Log in</span>.`,
-            isLoading: false,
         };
     },
     components: {
@@ -91,6 +90,14 @@ export default {
     computed: {
         isLoginForm() {
             return this.$store.getters["ui/GET_FORM_VIEW"];
+        },
+        isLoading: {
+            get() {
+                return this.$store.getters["ui/GET_IS_LOADING"];
+            },
+            set(value) {
+                this.$store.dispatch("ui/SET_LOADING_STATE", { active: value });
+            },
         },
     },
 };

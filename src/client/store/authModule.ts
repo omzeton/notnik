@@ -17,9 +17,9 @@ const actions: ActionTree<AuthModuleState, Store> = {
     async LOGIN({ dispatch }, { email, password }) {
         try {
             const res = await api.post("auth/login", { email, password });
+            dispatch("ui/SET_LOADING_STATE", { active: false, message: "" }, { root: true });
             if (res.status !== 200 && res.status !== 201) throw new Error("Unable to authenticate user!");
             dispatch("SAVE_USER_AUTH_STATUS", true);
-            dispatch("ui/SET_LOADING_STATE", { active: false, message: "" }, { root: true });
             router.push("/notnik");
         } catch (err) {
             const errorMessage = (err as ServerError).response?.data?.message;
@@ -31,9 +31,9 @@ const actions: ActionTree<AuthModuleState, Store> = {
     async REGISTER({ dispatch }, { email, password }) {
         try {
             const res = await api.put("auth/register", { email, password });
+            dispatch("ui/SET_LOADING_STATE", { active: false, message: "" }, { root: true });
             if (res.status !== 200 && res.status !== 201) throw new Error("Unable to authenticate user!");
             dispatch("ui/TOGGLE_FORM_VIEW", null, { root: true });
-            dispatch("ui/SET_LOADING_STATE", { active: false, message: "" }, { root: true });
         } catch (err) {
             const errorMessage = (err as ServerError).response?.data?.message;
             dispatch("ui/SET_LOADING_STATE", { active: false, message: "" }, { root: true });
