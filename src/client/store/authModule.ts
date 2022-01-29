@@ -17,7 +17,7 @@ const actions: ActionTree<AuthModuleState, Store> = {
     async LOGIN({ dispatch }, { email, password }) {
         try {
             const res = await api.post("auth/login", { email, password });
-            if (res.status !== 200 && res.status !== 201) throw new Error("Unable to authenticate user!");
+            if (res.status !== 200 && res.status !== 201) throw new Error("Unable to authenticate user.");
             dispatch("SAVE_USER_AUTH_STATUS", true);
             dispatch("ui/SET_LOADING_STATE", { active: false, message: "" }, { root: true });
             router.push("/notnik");
