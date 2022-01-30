@@ -54,14 +54,9 @@ const login = async (req: Request, res: Response, next: NextFunction) => {
     res.status(200).json({ accessToken, refreshToken });
 };
 
-const token = async (req: Request, res: Response) => {
-    const newToken = "";
-
-    res.status(200).json({ newToken });
-};
-
 const logout = async (req: Request, res: Response) => {
-    res.status(200).send({ message: "User logged out" });
+    res.locals["accessToken"] = "";
+    res.status(200).send({ message: "User logged out successfully" });
 };
 
-export { register, login, logout, token };
+export { register, login, logout };

@@ -1,7 +1,7 @@
 import express from "express";
 import { body } from "express-validator";
 
-import { register, login, logout, token } from "../controllers/auth.controller";
+import { register, login, logout } from "../controllers/auth.controller";
 
 const router = express.Router();
 
@@ -25,7 +25,6 @@ const registerValidator = [
 
 router.post("/register", registerValidator, register);
 router.post("/login", loginValidator, login);
-router.post("/refresh-token", token);
 router.post("/logout", logout);
 
 export default router;

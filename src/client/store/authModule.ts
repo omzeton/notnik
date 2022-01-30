@@ -3,7 +3,7 @@ import { ActionTree, GetterTree, MutationTree } from "vuex";
 import api from "@/services/apiService";
 import router from "@/routes";
 import { AuthModuleState, Store } from "@/types";
-import { saveRefreshToken, saveAccessToken } from "@/services/tokenService";
+import { saveRefreshToken, saveAccessToken, deleteAccessToken, deleteRefreshToken } from "@/services/tokenService";
 
 const state: AuthModuleState = {
     serverError: "",
@@ -34,13 +34,18 @@ const actions: ActionTree<AuthModuleState, Store> = {
     },
     async LOG_OUT({ dispatch }) {
         try {
-            dispatch("ui/SET_LOADING_STATE", { active: true, message: "Logging out" }, { root: true });
             const res = await api.post("auth/logout");
-            if (res.status !== 200 && res.status !== 201) throw new Error("Unable to logout.");
+
+            if (res.status !== 200 && res.status !== 201) {
+                throw new Error("Unable to logout.");
+            }
+
+            deleteAccessToken();
+            deleteRefreshToken();
+
             window.location.replace("/");
-        } catch (err) {
-            dispatch("ui/SET_LOADING_STATE", { active: false, message: "" }, { root: true });
-            throw err;
+        } catch (e) {
+            dispatch("SET_SERVER_ERROR", (<Error>e).message);
         }
     },
     SET_IS_LOGGED_IN({ commit }, payload: boolean) {
