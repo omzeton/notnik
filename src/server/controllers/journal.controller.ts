@@ -1,24 +1,20 @@
+import createHttpError from "http-errors";
 import { Request, Response, NextFunction } from "express";
 
 import { Entry } from "../types";
 import User from "../models/user.model";
 
-const getEntries = async (
-    req: Request,
-    res: Response<{ entries: Entry[] }, { accessToken: string }>,
-    next: NextFunction
-) => {
-    try {
-        const uId: string = res.locals.accessToken;
-        const user = await User.findById(uId);
-        if (!user) throw new Error("Could not connect to the user.");
-        const entries = user.entries;
-        if (!entries) throw new Error("Error when fetching entries.");
-        res.status(200).json({ entries });
-    } catch (err) {
-        next({ statusCode: 500, msg: "Error when fetching entries." });
-        throw err;
+const getEntries = async (req: Request, res: Response, next: NextFunction) => {
+    const userID = res.locals["accessToken"].userID as string;
+
+    const user = await User.findById(userID);
+    if (!user) {
+        const error = createHttpError(404, "Cannot find user by this id");
+        next(error);
+        return;
     }
+
+    res.status(200).json({ entries: user.entries });
 };
 
 const addNewEntry = async (

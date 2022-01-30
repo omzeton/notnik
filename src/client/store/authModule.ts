@@ -1,11 +1,13 @@
 import { ActionTree, GetterTree, MutationTree } from "vuex";
 
 import api from "@/services/apiService";
-import { saveRefreshToken, saveAccessToken } from "@/services/tokenService";
+import router from "@/routes";
 import { AuthModuleState, Store } from "@/types";
+import { saveRefreshToken, saveAccessToken } from "@/services/tokenService";
 
 const state: AuthModuleState = {
     serverError: "",
+    isLoggedIn: false,
 };
 
 const actions: ActionTree<AuthModuleState, Store> = {
@@ -21,6 +23,10 @@ const actions: ActionTree<AuthModuleState, Store> = {
 
             if (type === "register") {
                 dispatch("ui/TOGGLE_FORM_VIEW", null, { root: true });
+            } else {
+                saveAccessToken(res.data.accessToken);
+                saveRefreshToken(res.data.refreshToken);
+                router.push("/notnik");
             }
         } catch (e) {
             dispatch("SET_SERVER_ERROR", (<Error>e).message);
@@ -37,6 +43,9 @@ const actions: ActionTree<AuthModuleState, Store> = {
             throw err;
         }
     },
+    SET_IS_LOGGED_IN({ commit }, payload: boolean) {
+        commit("setIsLoggedIn", payload);
+    },
     SET_SERVER_ERROR({ commit }, payload) {
         commit("setServerError", payload);
     },
@@ -45,7 +54,9 @@ const actions: ActionTree<AuthModuleState, Store> = {
     },
 };
 
-const getters: GetterTree<AuthModuleState, Store> = {};
+const getters: GetterTree<AuthModuleState, Store> = {
+    GET_IS_LOGGED_IN: state => state.isLoggedIn,
+};
 
 const mutations: MutationTree<AuthModuleState> = {
     setServerError(state, payload) {
@@ -53,6 +64,9 @@ const mutations: MutationTree<AuthModuleState> = {
     },
     resetServerError(state) {
         state.serverError = "";
+    },
+    setIsLoggedIn(state, payload: boolean) {
+        state.isLoggedIn = payload;
     },
 };
 

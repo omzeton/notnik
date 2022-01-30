@@ -1,5 +1,5 @@
 <template>
-    <nav class="navbar" :class="{ 'navbar--inactive': !isAuthenticated }">
+    <nav class="navbar" :class="{ 'navbar--inactive': !isLoggedIn }">
         <button class="navbar__button navbar__button--new" @click="createNewNote" aria-label="Create new note" />
         <button class="navbar__button navbar__button--grid" aria-label="Go to all notes" />
         <button class="navbar__button navbar__button--settings" aria-label="Settigs" />
@@ -10,8 +10,8 @@
 <script>
 export default {
     computed: {
-        isAuthenticated() {
-            return this.$store.getters["auth/GET_IS_AUTHENTICATED"];
+        isLoggedIn() {
+            return this.$store.getters["auth/GET_IS_LOGGED_IN"];
         },
     },
     methods: {

@@ -2,18 +2,20 @@
 const saveRefreshToken = (token: unknown) => {
     sessionStorage.setItem("refresh-token", JSON.stringify(token));
 };
-const getRefreshToken = () => {
+const getRefreshToken = (): string => {
     const token = <string>sessionStorage.getItem("refresh-token");
-    return JSON.parse(token);
+    const parsedToken = JSON.parse(token);
+    return parsedToken;
 };
 
 /* ACCESS TOKEN */
 const saveAccessToken = (token: unknown) => {
     sessionStorage.setItem("access-token", JSON.stringify(token));
 };
-const getAccessToken = () => {
+const getAccessToken = (): string => {
     const token = <string>sessionStorage.getItem("access-token");
-    return JSON.parse(token);
+    const parsedToken = JSON.parse(token);
+    return parsedToken;
 };
 
 export { saveRefreshToken, getRefreshToken, saveAccessToken, getAccessToken };

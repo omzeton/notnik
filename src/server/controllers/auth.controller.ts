@@ -54,34 +54,14 @@ const login = async (req: Request, res: Response, next: NextFunction) => {
     res.status(200).json({ accessToken, refreshToken });
 };
 
-const logout = async (req: Request, res: Response) => {
-    res.status(200).send({ message: "User logged out" });
+const token = async (req: Request, res: Response) => {
+    const newToken = "";
+
+    res.status(200).json({ newToken });
 };
 
-const token = async (req: Request, res: Response, next: NextFunction) => {
-    try {
-        const refreshToken = req.header("x-auth-token");
-
-        if (!refreshToken) {
-            throw new Error("Refresh token not found");
-        }
-
-        const dbRefreshToken = await TokenSchema.findOne({ tokenID: refreshToken });
-
-        if (!dbRefreshToken) {
-            throw new Error("Token not found in database");
-        }
-
-        const accessToken = jwt.sign(
-            { userId: dbRefreshToken.userID.toString() },
-            process.env["TOKEN_SECRET"] as string,
-            { expiresIn: "13500" }
-        );
-
-        res.status(200).json({ accessToken });
-    } catch {
-        next({ statusCode: 401, msg: "Can't renew refresh token" });
-    }
+const logout = async (req: Request, res: Response) => {
+    res.status(200).send({ message: "User logged out" });
 };
 
 export { register, login, logout, token };

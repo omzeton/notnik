@@ -34,6 +34,7 @@ export interface UIModuleState {
 }
 export interface AuthModuleState {
     serverError: string;
+    isLoggedIn: boolean;
 }
 export interface Store {
     notes: NotesModuleState;
