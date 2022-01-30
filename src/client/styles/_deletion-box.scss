@@ -1,0 +1,86 @@
+@use "@/styles/variables";
+@use "@/styles/placeholders/button" as button;
+
+.deletion-box {
+    position: absolute;
+    z-index: 999;
+    width: 100%;
+    height: 100%;
+
+    &__backdrop {
+        width: 100%;
+        height: 100%;
+        background-color: #000;
+        opacity: 0.6;
+    }
+
+    &__modal {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        background-color: $bla1;
+        width: 15em;
+        height: 10em;
+        border-radius: $border-radius;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-direction: column;
+        padding: 1em;
+        box-sizing: border-box;
+    }
+
+    &__text {
+        flex-basis: 80%;
+        display: flex;
+        padding-left: 1em;
+        align-items: center;
+        justify-content: center;
+        box-sizing: border-box;
+        font-family: $primary;
+    }
+
+    &__buttons {
+        flex-basis: 20%;
+        display: flex;
+        justify-content: space-evenly;
+        align-items: center;
+        width: 100%;
+    }
+
+    &__button {
+        @extend %button;
+        min-width: 5em;
+        height: 80%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        &--accept {
+            border: 1px solid $g;
+            background-color: $g;
+
+            &:hover,
+            &:focus,
+            &.is-active {
+                background-color: $g;
+                color: $w;
+                opacity: 0.6;
+            }
+        }
+
+        &--cancel {
+            border: 1px solid $err;
+            background-color: $err;
+
+            &:hover,
+            &:focus,
+            &.is-active {
+                background-color: $err;
+                color: $w;
+                opacity: 0.6;
+            }
+        }
+    }
+}

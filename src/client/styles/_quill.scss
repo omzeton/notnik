@@ -1,0 +1,52 @@
+/* stylelint-disable declaration-no-important */
+@use "@/styles/variables";
+
+.ql-editor {
+    font-family: $primary;
+}
+
+.ql-stroke {
+    stroke: $w2 !important;
+}
+
+.ql-fill {
+    fill: $w2 !important;
+}
+
+.ql-picker {
+    color: $w2 !important;
+}
+
+.ql-picker-options {
+    background-color: $w2 !important;
+    color: $bla1 !important;
+}
+
+.ql-picker-label.ql-active {
+    color: $or2 !important;
+}
+
+.ql-toolbar {
+    border: none !important;
+}
+
+.ql-picker-item {
+    .ql-stroke {
+        stroke: $bla1 !important;
+    }
+}
+
+.ql-tooltip {
+    background-color: $bla1 !important;
+    color: $w2 !important;
+    box-shadow: 0 0 5px $bla1 !important;
+    border: 1px solid $bla1 !important;
+
+    input {
+        background-color: $w2 !important;
+    }
+}
+
+.ql-action {
+    color: $or !important;
+}

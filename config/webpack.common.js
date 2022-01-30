@@ -7,7 +7,7 @@ require("babel-polyfill");
 require("dotenv").config();
 
 module.exports = {
-    entry: "./src/client/index.js",
+    entry: "./src/client/index.ts",
     output: {
         path: path.resolve(__dirname, "../dist/"),
         filename: "[name].[fullhash].bundle.js",
@@ -45,7 +45,9 @@ module.exports = {
         extensions: ["*", ".js", ".ts", ".vue"],
         alias: {
             "@": path.resolve(__dirname, "../src/client"),
+            "@components": path.resolve(__dirname, "../src/client/components"),
             "@assets": path.resolve(__dirname, "../src/client/assets"),
+            "@server": path.resolve(__dirname, "../src/server"),
             path: "path-browserify",
             stream: "stream-browserify",
         },
@@ -70,4 +72,7 @@ module.exports = {
             process: "process/browser",
         }),
     ],
+    devServer: {
+        stats: "minimal",
+    },
 };

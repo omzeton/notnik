@@ -11,7 +11,3 @@ export const getClock = (): string[] => {
             .format("LTS"),
     ];
 };
-export const getNoteTitle = (text: string) => {
-    const noteText = text.trim().match(/[^#]{1,45}/);
-    return noteText ? noteText[0].trim().split(/\r?\n/)[0] : "*empty_note*";
-};

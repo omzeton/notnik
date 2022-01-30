@@ -1,33 +1,31 @@
-import { Response, NextFunction, Request } from "express";
-import * as dotenv from "dotenv";
+import dotenv from "dotenv";
 import jwt from "jsonwebtoken";
-import { APIError } from "../types";
+import createHttpError from "http-errors";
+import { Response, NextFunction, Request } from "express";
+
 dotenv.config();
 
-declare const process: {
-    env: {
-        TOKEN_SECRET: string;
-    };
-};
-
 const isAuth = async (req: Request, res: Response, next: NextFunction) => {
-    try {
-        const userToken = jwt.verify(req.cookies.userAccessToken, process.env.TOKEN_SECRET);
-        if (!userToken) {
-            const error: APIError = new Error("User token invalid or expired.");
-            error.statusCode = 401;
-            error.msg = "User token invalid or expired.";
-            throw error;
-        }
-        if (typeof userToken === 'string') {
-            res.locals.userId = userToken;
-        } else {
-            res.locals.userId = userToken.userId;
-        }
-        next();
-    } catch ({ statusCode, msg }) {
-        next({ statusCode, msg });
+    const authHeader = req.headers.authorization;
+
+    if (!authHeader?.startsWith("Bearer ")) {
+        const error = createHttpError(401, "Incorrect authorization header");
+        next(error);
+        return;
     }
+
+    const accessToken = authHeader.split(" ")[1];
+    const tokenIsVerified = jwt.verify(accessToken, <string>process.env["TOKEN_SECRET"]);
+
+    if (!tokenIsVerified) {
+        const error = createHttpError(401, "Access token is incorrect or expired");
+        next(error);
+        return;
+    }
+
+    res.locals["accessToken"] = tokenIsVerified;
+
+    next();
 };
 
 export default isAuth;

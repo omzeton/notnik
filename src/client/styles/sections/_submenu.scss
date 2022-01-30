@@ -1,0 +1,41 @@
+@use "sass:map";
+@use "@/styles/variables" as *;
+
+.submenu {
+    position: absolute;
+    left: map.get($navbar, sm);
+    top: 0;
+    background-color: $bla3;
+    height: 100%;
+    width: map.get($submenu, md);
+    box-shadow: 0 0 10px -8px $bla1;
+
+    @media (min-width: $md) {
+        left: map.get($navbar, md);
+    }
+
+    &__list-item {
+        list-style: none;
+        color: $w2;
+        height: 2.5em;
+        display: flex;
+        align-items: center;
+        padding-left: 1em;
+        box-sizing: border-box;
+        border-top: 1px solid $bla4;
+        border-bottom: 1px solid $bla4;
+        font-size: 0.8rem;
+        font-family: $code;
+        cursor: pointer;
+        position: relative;
+
+        &:hover {
+            background: $bla2;
+        }
+
+        &:focus,
+        &:active {
+            background: $bla3;
+        }
+    }
+}

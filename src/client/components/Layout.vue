@@ -1,16 +1,16 @@
 <template>
     <main class="layout">
-        <Navbar />
+        <LayoutNavbar />
         <router-view />
     </main>
 </template>
 
 <script>
-import Navbar from "./Navbar";
+import LayoutNavbar from "./LayoutNavbar";
 
 export default {
     components: {
-        Navbar,
+        LayoutNavbar,
     },
 };
 </script>

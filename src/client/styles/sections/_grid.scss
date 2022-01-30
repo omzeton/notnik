@@ -1,19 +1,5 @@
 @use "@/styles/variables" as *;
 
-.list {
-    height: 100%;
-    background-color: $bla3;
-    background-image: url("@assets/christmas-dark.png");
-    background-size: 15em;
-
-    &__grid {
-        height: 100%;
-        display: grid;
-        grid-template-rows: repeat(auto-fill, 10em);
-        grid-template-columns: repeat(auto-fill, 10em);
-    }
-}
-
 .grid-cell {
     display: flex;
     align-items: center;
@@ -34,7 +20,7 @@
     &__title {
         position: absolute;
         color: $w;
-        font-size: .8rem;
+        font-size: 0.8rem;
         font-family: $primary;
         font-weight: 700;
         width: 80%;
@@ -53,7 +39,7 @@
         box-shadow: 0 0 30px 35px $err;
         z-index: 0;
         opacity: 0;
-        transition: opacity .3s ease-out;
+        transition: opacity 0.3s ease-out;
     }
 
     &:hover {
