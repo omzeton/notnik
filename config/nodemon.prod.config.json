@@ -1,6 +1,0 @@
-{
-    "ignore": [".git", "node_modules/**", "src/client/**", "public/**", "webpack.*.js"],
-    "watch": ["src/server/"],
-    "ext": "ts",
-    "exec": "cross-env NODE_ENV=production node -r ts-node/register ./src/server/index.ts"
-}

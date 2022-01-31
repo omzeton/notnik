@@ -5,11 +5,14 @@
     "author": "Adam Rolczyk",
     "private": false,
     "license": "MIT",
+    "main": "./src/server/index.ts",
+    "engines": {
+        "node": "16.x"
+    },
     "scripts": {
         "client": "cross-env NODE_ENV=development webpack serve --config config/webpack.dev.js",
         "server": "nodemon --config config/nodemon.dev.config.json",
-        "server:prod": "nodemon --config config/nodemon.prod.config.js",
-        "start": "concurrently --raw \"yarn server\" \"yarn client\"",
+        "start": "ts-node ./src/server/index.ts",
         "build": "cross-env NODE_ENV=production webpack --config config/webpack.prod.js",
         "lint:scripts": "eslint \"src/**/*{ts,js,vue}\"",
         "lint:styles": "stylelint \"src/**/*.{scss,css}\"",
