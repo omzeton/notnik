@@ -1,7 +1,7 @@
 import createHttpError from "http-errors";
 import { Request, Response, NextFunction } from "express";
 
-import { Entry } from "../types";
+import { AccessToken, Entry } from "../types";
 import User from "../models/user.model";
 
 const getEntries = async (req: Request, res: Response, next: NextFunction) => {
@@ -19,11 +19,11 @@ const getEntries = async (req: Request, res: Response, next: NextFunction) => {
 
 const addNewEntry = async (
     req: Request,
-    res: Response<{ entries: Entry[] }, { accessToken: string }>,
+    res: Response<{ entries: Entry[] }, { accessToken: AccessToken }>,
     next: NextFunction
 ) => {
     try {
-        const uId: string = res.locals.accessToken;
+        const uId = res.locals.accessToken.userID;
         const user = await User.findById(uId);
         if (!user) throw new Error("Could not connect to the user");
 
@@ -46,11 +46,11 @@ const addNewEntry = async (
 
 const syncEntry = async (
     req: Request,
-    res: Response<{ entries: Entry[] }, { accessToken: string }>,
+    res: Response<{ entries: Entry[] }, { accessToken: AccessToken }>,
     next: NextFunction
 ) => {
     try {
-        const uId: string = res.locals.accessToken;
+        const uId = res.locals.accessToken.userID;
         const user = await User.findById(uId);
         if (!user) throw new Error("Could not connect to the user");
 
@@ -77,12 +77,12 @@ const syncEntry = async (
 
 const deleteEntry = async (
     req: Request,
-    res: Response<{ entries: Entry[] }, { accessToken: string }>,
+    res: Response<{ entries: Entry[] }, { accessToken: AccessToken }>,
     next: NextFunction
 ) => {
     try {
         if (!req.body.id) throw new Error("No ID was provided in payload!");
-        const uId: string = res.locals.accessToken;
+        const uId = res.locals.accessToken.userID;
         const user = await User.findById(uId);
         if (!user) throw new Error("Could not connect to the user");
         user.entries = user.entries.filter(entry => {

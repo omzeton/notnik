@@ -3,7 +3,7 @@ import { ActionTree, GetterTree, MutationTree } from "vuex";
 import api from "@/services/apiService";
 import router from "@/routes";
 import { AuthModuleState, Store } from "@/types";
-import { saveRefreshToken, saveAccessToken, deleteAccessToken, deleteRefreshToken } from "@/services/tokenService";
+import { saveAccessToken, deleteAccessToken } from "@/services/tokenService";
 
 const state: AuthModuleState = {
     serverError: "",
@@ -25,7 +25,6 @@ const actions: ActionTree<AuthModuleState, Store> = {
                 dispatch("ui/TOGGLE_FORM_VIEW", null, { root: true });
             } else {
                 saveAccessToken(res.data.accessToken);
-                saveRefreshToken(res.data.refreshToken);
                 router.push("/notnik");
             }
         } catch (e) {
@@ -41,7 +40,6 @@ const actions: ActionTree<AuthModuleState, Store> = {
             }
 
             deleteAccessToken();
-            deleteRefreshToken();
 
             window.location.replace("/");
         } catch (e) {

@@ -1,6 +1,5 @@
 const webpack = require("webpack");
 const { merge } = require("webpack-merge");
-const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const CssMinimizerPlugin = require("css-minimizer-webpack-plugin");
 
@@ -11,15 +10,9 @@ module.exports = merge(commonConfig, {
     target: "browserslist",
     devtool: false,
     plugins: [
-        new MiniCssExtractPlugin({
-            filename: "styles/[name].[contenthash].css",
-            chunkFilename: "styles/[name].[id].[contenthash].css",
-            ignoreOrder: false,
-        }),
         new HtmlWebpackPlugin({
-            template: "./public/template.html",
+            template: "./public/index.html",
             favicon: "./public/favicon.ico",
-            hash: true,
         }),
         new webpack.SourceMapDevToolPlugin({
             exclude: ["/node_modules/"],
@@ -38,5 +31,8 @@ module.exports = merge(commonConfig, {
                 },
             },
         },
+    },
+    devServer: {
+        historyApiFallback: true,
     },
 });

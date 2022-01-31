@@ -1,8 +1,7 @@
 const path = require("path");
 const webpack = require("webpack");
-const { CleanWebpackPlugin } = require("clean-webpack-plugin");
-const CopyWebpackPlugin = require("copy-webpack-plugin");
 const VueLoaderPlugin = require("vue-loader/lib/plugin");
+const { CleanWebpackPlugin } = require("clean-webpack-plugin");
 require("babel-polyfill");
 require("dotenv").config();
 
@@ -10,7 +9,7 @@ module.exports = {
     entry: "./src/client/index.ts",
     output: {
         path: path.resolve(__dirname, "../dist/"),
-        filename: "[name].[fullhash].bundle.js",
+        filename: "[name].bundle.js",
         publicPath: "/",
     },
     module: {
@@ -44,29 +43,16 @@ module.exports = {
     resolve: {
         extensions: ["*", ".js", ".ts", ".vue"],
         alias: {
+            path: "path-browserify",
+            stream: "stream-browserify",
             "@": path.resolve(__dirname, "../src/client"),
             "@components": path.resolve(__dirname, "../src/client/components"),
             "@assets": path.resolve(__dirname, "../src/client/assets"),
             "@server": path.resolve(__dirname, "../src/server"),
-            path: "path-browserify",
-            stream: "stream-browserify",
         },
     },
     plugins: [
-        new webpack.DefinePlugin({
-            "process.env.MONGO_USER": JSON.stringify(process.env.MONGO_USER),
-        }),
         new CleanWebpackPlugin(),
-        new CopyWebpackPlugin({
-            patterns: [
-                {
-                    from: path.resolve(__dirname, "../public"),
-                    globOptions: {
-                        ignore: ["favicon.ico", "template.html"],
-                    },
-                },
-            ],
-        }),
         new VueLoaderPlugin(),
         new webpack.ProvidePlugin({
             process: "process/browser",

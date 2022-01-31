@@ -7,7 +7,8 @@
     "license": "MIT",
     "scripts": {
         "client": "cross-env NODE_ENV=development webpack serve --config config/webpack.dev.js",
-        "server": "nodemon --config config/nodemon.config.json",
+        "server": "nodemon --config config/nodemon.dev.config.json",
+        "server:prod": "nodemon --config config/nodemon.prod.config.js",
         "start": "concurrently --raw \"yarn server\" \"yarn client\"",
         "build": "cross-env NODE_ENV=production webpack --config config/webpack.prod.js",
         "lint:scripts": "eslint \"src/**/*{ts,js,vue}\"",
@@ -96,7 +97,7 @@
         "vue-template-compiler": "^2.6.14",
         "webpack": "^5.38.1",
         "webpack-cli": "^4.7.2",
-        "webpack-dev-server": "^3.11.2",
+        "webpack-dev-server": "^4.7.3",
         "webpack-merge": "^5.8.0"
     }
 }

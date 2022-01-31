@@ -1,6 +1,5 @@
 const { merge } = require("webpack-merge");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
-const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const commonConfig = require("./webpack.common");
 
 module.exports = merge(commonConfig, {
@@ -19,9 +18,8 @@ module.exports = merge(commonConfig, {
         runtimeChunk: "single",
     },
     plugins: [
-        new MiniCssExtractPlugin(),
         new HtmlWebpackPlugin({
-            template: "./public/template.html",
+            template: "./public/index.html",
             favicon: "./public/favicon.ico",
         }),
     ],
