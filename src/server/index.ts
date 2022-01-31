@@ -8,11 +8,7 @@ dotenv.config();
 mongoose
     .connect(
         `mongodb+srv://${process.env["MONGO_USER"]}:${process.env["MONGO_PASSWORD"]}@cluster0-p7rod.mongodb.net/${process.env["MONGO_DATABASE"]}?retryWrites=true`,
-        {
-            useNewUrlParser: true,
-            useFindAndModify: false,
-            useUnifiedTopology: true,
-        }
+        { useNewUrlParser: true, useFindAndModify: false, useUnifiedTopology: true}
     )
     .then(() => {
         const port = process.env["PORT"] || 2828;

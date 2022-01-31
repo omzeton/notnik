@@ -40,3 +40,9 @@ export interface RefreshToken {
     tokenID: string;
     userID: string;
 }
+
+export interface AccessToken {
+    userID: string;
+    iat: number;
+    exp: number;
+}
