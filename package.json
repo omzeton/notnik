@@ -7,7 +7,7 @@
     "license": "MIT",
     "main": "./src/server/index.ts",
     "engines": {
-        "node": "16.x"
+        "node": "14.x"
     },
     "scripts": {
         "client": "cross-env NODE_ENV=development webpack serve --config config/webpack.dev.js",
