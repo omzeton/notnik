@@ -11,6 +11,6 @@ jobs:
               with:
                   node-version: "16.6.0"
             - name: Install
-              run: yarn install --frozen-lockfile
+              run: npm i --legacy-peer-deps
             - name: Lint
-              run: yarn lint
+              run: npm run lint
