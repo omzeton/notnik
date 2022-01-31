@@ -13,7 +13,7 @@
     "scripts": {
         "client": "cross-env NODE_ENV=development webpack serve --config config/webpack.dev.js",
         "server": "nodemon --config config/nodemon.dev.config.json",
-        "start": "ts-node ./src/server/index.ts",
+        "start": "node -r ts-node/register/transpile-only ./src/server/index.ts",
         "build": "cross-env NODE_ENV=production webpack --config config/webpack.prod.js",
         "lint:scripts": "eslint \"src/**/*{ts,js,vue}\"",
         "lint:styles": "stylelint \"src/**/*.{scss,css}\"",
