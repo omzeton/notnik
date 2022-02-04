@@ -31,6 +31,7 @@ export interface UIModuleState {
     loginForm: boolean;
     isLoading: boolean;
     deletionModalIsActive: boolean;
+    isSubmenuActive: boolean;
 }
 export interface AuthModuleState {
     serverError: string;

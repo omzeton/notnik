@@ -6,6 +6,7 @@ const state: UIModuleState = {
     isLoading: false,
     loginForm: true,
     deletionModalIsActive: false,
+    isSubmenuActive: false,
 };
 
 const actions: ActionTree<UIModuleState, Store> = {
@@ -18,12 +19,16 @@ const actions: ActionTree<UIModuleState, Store> = {
     TOGGLE_DELETION_MODAL({ commit }) {
         commit("toggleDeletionModal");
     },
+    TOGGLE_SUBMENU({ commit }) {
+        commit("toggleSubmenu");
+    },
 };
 
 const getters: GetterTree<UIModuleState, Store> = {
-    GET_FORM_VIEW: state => state.loginForm,
-    GET_IS_LOADING: state => state.isLoading,
-    GET_DELETION_MODAL_IS_ACTIVE: state => state.deletionModalIsActive,
+    GET_FORM_VIEW: (state) => state.loginForm,
+    GET_IS_LOADING: (state) => state.isLoading,
+    GET_DELETION_MODAL_IS_ACTIVE: (state) => state.deletionModalIsActive,
+    GET_IS_SUBMENU_ACTIVE: (state) => state.isSubmenuActive,
 };
 
 const mutations: MutationTree<UIModuleState> = {
@@ -35,6 +40,9 @@ const mutations: MutationTree<UIModuleState> = {
     },
     toggleDeletionModal(state) {
         state.deletionModalIsActive = !state.deletionModalIsActive;
+    },
+    toggleSubmenu(state) {
+        state.isSubmenuActive = !state.isSubmenuActive;
     },
 };
 

@@ -1,8 +1,13 @@
+@use "sass:map";
 @use "@/styles/variables";
 
 .loader {
     position: relative;
-    height: 60px;
+    height: 30px;
+
+    @media (min-width: $md) {
+        height: 60px;
+    }
 
     &__inner {
         font-size: 2px;
@@ -14,7 +19,11 @@
         position: relative;
         animation: loading-animation 1.4s infinite linear;
         transform: translateZ(0);
-        top: -28px;
+        top: -38px;
+
+        @media (min-width: $md) {
+            top: -28px;
+        }
 
         &::before {
             width: 50%;

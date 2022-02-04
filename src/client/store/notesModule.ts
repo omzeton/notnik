@@ -44,7 +44,7 @@ const actions: ActionTree<NotesModuleState, Store> = {
         commit("deactivateNote");
     },
     async SAVE_CURRENT_CHANGES({ state, dispatch }) {
-        const userNote = state.userNotes.find(note => note._id === state.activeNote._id);
+        const userNote = state.userNotes.find((note) => note._id === state.activeNote._id);
         if (!userNote) {
             throw new Error("Couldn't find note with the same id as active note!");
         }
@@ -65,8 +65,11 @@ const actions: ActionTree<NotesModuleState, Store> = {
     UPDATE_ACTIVE_NOTE_BODY({ commit }, { body }: { body: Note["body"] }) {
         commit("updateActiveNoteBody", body);
     },
-    MAKE_NOTE_ACTIVE({ commit }, { id }: { id: Note["_id"] }) {
+    MAKE_NOTE_ACTIVE({ commit, dispatch }, { id }: { id: Note["_id"] }) {
         commit("makeNoteActive", id);
+        if (window.innerWidth < 768) {
+            dispatch("ui/TOGGLE_SUBMENU", null, { root: true });
+        }
     },
     DEACTIVATE_NOTE({ commit }) {
         commit("deactivateNote");
@@ -80,10 +83,11 @@ const actions: ActionTree<NotesModuleState, Store> = {
 };
 
 const getters: GetterTree<NotesModuleState, Store> = {
-    GET_ALL_USER_NOTES: state => state.userNotes || [],
-    GET_ACTIVE_NOTE: state => (state.activeNote._id ? state.activeNote : false),
-    GET_ACTIVE_NOTE_BODY: state => state.activeNote.body,
-    IS_EDITING_A_NOTE: state => !!state.activeNote._id,
+    GET_ALL_USER_NOTES: (state) => state.userNotes || [],
+    GET_ACTIVE_NOTE: (state) => (state.activeNote._id ? state.activeNote : false),
+    GET_ACTIVE_NOTE_BODY: (state) => state.activeNote.body,
+    GET_ACTIVE_NOTE_ID: (state) => state.activeNote._id,
+    IS_EDITING_A_NOTE: (state) => !!state.activeNote._id,
 };
 
 const mutations: MutationTree<NotesModuleState> = {
@@ -91,14 +95,14 @@ const mutations: MutationTree<NotesModuleState> = {
         state.userNotes = payload;
     },
     makeNoteActive(state, payload: ActiveNote["_id"]) {
-        const chosenUserNote = state.userNotes.find(note => note._id === payload);
+        const chosenUserNote = state.userNotes.find((note) => note._id === payload);
         if (chosenUserNote) {
             state.activeNote._id = chosenUserNote._id;
             state.activeNote.body = chosenUserNote.body;
         }
     },
     updateActiveNote(state, payload: Note) {
-        state.userNotes = state.userNotes.map(note => {
+        state.userNotes = state.userNotes.map((note) => {
             if (note._id === state.activeNote._id) note.body = payload.body;
             return note;
         });
@@ -107,7 +111,7 @@ const mutations: MutationTree<NotesModuleState> = {
         state.activeNote.body = payload;
     },
     deleteNote(state, id: Note["_id"]) {
-        state.userNotes = state.userNotes.filter(note => note._id !== id);
+        state.userNotes = state.userNotes.filter((note) => note._id !== id);
     },
     deactivateNote(state) {
         state.activeNote = {

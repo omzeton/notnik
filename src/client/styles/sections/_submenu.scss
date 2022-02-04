@@ -2,16 +2,14 @@
 @use "@/styles/variables" as *;
 
 .submenu {
-    position: absolute;
-    left: map.get($navbar, sm);
-    top: 0;
     background-color: $bla3;
     height: 100%;
-    width: map.get($submenu, md);
+    width: map.get($submenu, sm);
     box-shadow: 0 0 10px -8px $bla1;
 
     @media (min-width: $md) {
         left: map.get($navbar, md);
+        width: map.get($submenu, md);
     }
 
     &__list-item {
@@ -36,6 +34,11 @@
         &:focus,
         &:active {
             background: $bla3;
+        }
+
+        &.is-active {
+            background-color: $rd;
+            color: $w;
         }
     }
 }
