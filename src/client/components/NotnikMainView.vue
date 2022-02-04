@@ -1,5 +1,5 @@
 <template>
-    <div class="list">
+    <div class="list" :class="{ 'is-active': isSubMenuActive }">
         <SubMenu />
         <Editor />
     </div>
@@ -13,6 +13,11 @@ export default {
     components: {
         SubMenu,
         Editor,
+    },
+    computed: {
+        isSubMenuActive() {
+            return this.$store.getters["ui/GET_IS_SUBMENU_ACTIVE"];
+        },
     },
 };
 </script>
