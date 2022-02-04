@@ -22,8 +22,8 @@
 
     &__auth-modal {
         position: relative;
-        height: 16em;
-        width: 14em;
+        height: 20em;
+        width: 80%;
         background-color: $bla3;
         box-shadow: 0 0 50px 0 $bla1;
         border-radius: $border-radius;
@@ -52,7 +52,7 @@
     }
 
     &__title {
-        font-size: 1.2em;
+        font-size: 1.7em;
         font-family: $secondary;
 
         @media (min-width: $md) {
@@ -74,7 +74,7 @@
         color: $w2;
         font-family: $primary;
         box-sizing: border-box;
-        font-size: 0.6rem;
+        font-size: 0.7rem;
 
         @media (min-width: $md) {
             height: 3em;
