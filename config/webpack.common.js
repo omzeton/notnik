@@ -58,7 +58,5 @@ module.exports = {
             process: "process/browser",
         }),
     ],
-    devServer: {
-        stats: "minimal",
-    },
+    stats: "minimal",
 };
