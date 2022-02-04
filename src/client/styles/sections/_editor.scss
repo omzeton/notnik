@@ -19,6 +19,14 @@
         align-items: center;
         flex-wrap: wrap;
         box-shadow: 0 6px 40px 1px $bla3;
+
+        &--top {
+            min-height: 9em;
+
+            @media (min-width: $md) {
+                min-height: 3em;
+            }
+        }
     }
 
     &__markdown {
