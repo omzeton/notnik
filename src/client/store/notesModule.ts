@@ -67,7 +67,9 @@ const actions: ActionTree<NotesModuleState, Store> = {
     },
     MAKE_NOTE_ACTIVE({ commit, dispatch }, { id }: { id: Note["_id"] }) {
         commit("makeNoteActive", id);
-        dispatch("ui/TOGGLE_SUBMENU", null, { root: true });
+        if (window.innerWidth < 768) {
+            dispatch("ui/TOGGLE_SUBMENU", null, { root: true });
+        }
     },
     DEACTIVATE_NOTE({ commit }) {
         commit("deactivateNote");
@@ -84,6 +86,7 @@ const getters: GetterTree<NotesModuleState, Store> = {
     GET_ALL_USER_NOTES: (state) => state.userNotes || [],
     GET_ACTIVE_NOTE: (state) => (state.activeNote._id ? state.activeNote : false),
     GET_ACTIVE_NOTE_BODY: (state) => state.activeNote.body,
+    GET_ACTIVE_NOTE_ID: (state) => state.activeNote._id,
     IS_EDITING_A_NOTE: (state) => !!state.activeNote._id,
 };
 

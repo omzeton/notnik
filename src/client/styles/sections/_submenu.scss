@@ -35,5 +35,10 @@
         &:active {
             background: $bla3;
         }
+
+        &.is-active {
+            background-color: $rd;
+            color: $w;
+        }
     }
 }
